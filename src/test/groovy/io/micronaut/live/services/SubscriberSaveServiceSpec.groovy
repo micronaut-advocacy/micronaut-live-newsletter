@@ -51,8 +51,9 @@ class SubscriberSaveServiceSpec extends Specification {
     static class SubscriberSaveServiceReplacement implements SubscriberSaveService {
 
         @Override
-        void save(@NonNull @NotNull @Valid Subscriber subscriber) {
-
+        @NonNull
+        Optional<String> save(@NonNull @NotNull @Valid Subscriber subscriber) {
+            Optional.empty()
         }
     }
 }

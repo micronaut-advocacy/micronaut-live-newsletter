@@ -5,7 +5,9 @@ import io.micronaut.live.Subscriber;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 
 public interface SubscriberSaveService {
-    void save(@NonNull @NotNull @Valid Subscriber subscriber);
+    @NonNull
+    Optional<String> save(@NonNull @NotNull @Valid Subscriber subscriber);
 }
