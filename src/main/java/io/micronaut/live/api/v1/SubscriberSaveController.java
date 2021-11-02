@@ -13,7 +13,10 @@ import io.micronaut.scheduling.annotation.ExecuteOn;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-@Controller("/api/v1")
+import static io.micronaut.live.api.v1.Api.SUBSCRIBER_PATH;
+import static io.micronaut.live.api.v1.Api.V1_PATH;
+
+@Controller(V1_PATH)
 class SubscriberSaveController {
 
     private final SubscriberSaveService subscriberSaveService;
@@ -23,7 +26,7 @@ class SubscriberSaveController {
     }
 
     @ExecuteOn(TaskExecutors.IO)
-    @Post("/subscriber")
+    @Post(SUBSCRIBER_PATH)
     @Status(HttpStatus.CREATED)
     void save(@NonNull @NotNull @Valid Subscriber subscriber) {
         subscriberSaveService.save(subscriber);
