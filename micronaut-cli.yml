@@ -3,4 +3,4 @@ defaultPackage: io.micronaut.live
 testFramework: spock
 sourceLanguage: java
 buildTool: gradle
-features: [annotation-api, app-name, data, data-jdbc, h2, jdbc-hikari, gradle, http-client, java, java-application, logback, netty-server, management, problem-json, openapi, readme, shade, spock, yaml]
+features: [annotation-api, app-name, data, data-jdbc, h2, jdbc-hikari, gradle, http-client, java, java-application, logback, netty-server, management, problem-json, openapi, readme, shade, spock, views-thymeleaf, yaml]
