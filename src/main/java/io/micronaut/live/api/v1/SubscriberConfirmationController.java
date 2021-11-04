@@ -23,7 +23,7 @@ public class SubscriberConfirmationController {
     @ExecuteOn(TaskExecutors.IO)
     @Get(SUBSCRIBER_PATH)
     HttpStatus confirm(@QueryValue String token) {
-        return confirmationCodeVerifier.verify(token) ? HttpStatus.OK : HttpStatus.UNPROCESSABLE_ENTITY;
+        return confirmationCodeVerifier.verify(token).isPresent() ? HttpStatus.OK : HttpStatus.UNPROCESSABLE_ENTITY;
     }
 
 
