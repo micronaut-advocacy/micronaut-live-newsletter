@@ -1,7 +1,5 @@
 package io.micronaut.live.api.v1
 
-import io.micronaut.core.annotation.NonNull
-import io.micronaut.core.annotation.Nullable
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.MediaType
 import io.micronaut.http.client.BlockingHttpClient
@@ -45,6 +43,20 @@ class SubscriberCountControllerSpec extends Specification {
         subscriberDataRepository.save(new SubscriberEntity(id,
                 "tcook@apple.com",
                 "Tim Cook",
+                true,
+                false))
+        result = client.retrieve(request, Integer)
+
+        then:
+        noExceptionThrown()
+        1 == result
+
+        when:
+        String federighiId = idGenerator.generate().get()
+        subscriberDataRepository.save(new SubscriberEntity(federighiId,
+                "cfederighi@apple.com",
+                "Craig Federighi",
+                true,
                 true))
         result = client.retrieve(request, Integer)
 
@@ -54,6 +66,6 @@ class SubscriberCountControllerSpec extends Specification {
 
         cleanup:
         subscriberDataRepository.deleteById(id)
-
+        subscriberDataRepository.deleteById(federighiId)
     }
 }

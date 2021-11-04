@@ -14,7 +14,7 @@ public class SubscriberCountServiceImpl implements SubscriberCountService {
 
     @Override
     @NonNull
-    public Integer countConfirmedSubscribers() {
-        return subscriberDataRepository.countByConfirmed(true);
+    public Integer countSubscribers() {
+        return subscriberDataRepository.countByConfirmedAndUnsubscribed(true, false);
     }
 }

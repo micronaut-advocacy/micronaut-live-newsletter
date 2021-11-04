@@ -24,7 +24,7 @@ class SubscriberCountController {
     @Get(SUBSCRIBER_PATH + "/count")
     @Produces(MediaType.TEXT_PLAIN)
     Integer count() {
-        return subscriberCountService.countConfirmedSubscribers();
+        return subscriberCountService.countSubscribers();
     }
 
 

@@ -5,5 +5,5 @@ import io.micronaut.core.annotation.NonNull;
 public interface SubscriberCountService {
 
     @NonNull
-    Integer countConfirmedSubscribers();
+    Integer countSubscribers();
 }

@@ -23,20 +23,24 @@ public class SubscriberEntity {
 
     private final boolean confirmed;
 
+    private final boolean unsubscribed;
+
     public SubscriberEntity(@NonNull String id,
                             @NonNull String email,
                             @Nullable String name) {
-        this(id, email, name, false);
+        this(id, email, name, false, false);
     }
 
     public SubscriberEntity(@NonNull String id,
                             @NonNull String email,
                             @Nullable String name,
-                            boolean confirmed) {
+                            boolean confirmed,
+                            boolean unsubscribed) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.confirmed = confirmed;
+        this.unsubscribed = unsubscribed;
     }
 
     @NonNull
@@ -56,5 +60,9 @@ public class SubscriberEntity {
 
     public boolean isConfirmed() {
         return confirmed;
+    }
+
+    public boolean isUnsubscribed() {
+        return unsubscribed;
     }
 }
