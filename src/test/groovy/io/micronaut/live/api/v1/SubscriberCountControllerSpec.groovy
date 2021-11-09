@@ -7,6 +7,7 @@ import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.live.data.SubscriberDataRepository
 import io.micronaut.live.data.SubscriberEntity
+import io.micronaut.live.model.SubscriptionStatus
 import io.micronaut.live.services.IdGenerator
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
@@ -43,8 +44,7 @@ class SubscriberCountControllerSpec extends Specification {
         subscriberDataRepository.save(new SubscriberEntity(id,
                 "tcook@apple.com",
                 "Tim Cook",
-                true,
-                false))
+                SubscriptionStatus.ACTIVE))
         result = client.retrieve(request, Integer)
 
         then:
@@ -56,8 +56,7 @@ class SubscriberCountControllerSpec extends Specification {
         subscriberDataRepository.save(new SubscriberEntity(federighiId,
                 "cfederighi@apple.com",
                 "Craig Federighi",
-                true,
-                true))
+                SubscriptionStatus.CANCELED))
         result = client.retrieve(request, Integer)
 
         then:

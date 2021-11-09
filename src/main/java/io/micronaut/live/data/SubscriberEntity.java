@@ -4,7 +4,10 @@ import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.data.annotation.Id;
 import io.micronaut.data.annotation.MappedEntity;
+import io.micronaut.live.model.SubscriptionStatus;
+
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @MappedEntity("subscriber")
 public class SubscriberEntity {
@@ -21,26 +24,24 @@ public class SubscriberEntity {
     @Nullable
     private final String name;
 
-    private final boolean confirmed;
-
-    private final boolean unsubscribed;
+    @NonNull
+    @NotNull
+    private final SubscriptionStatus status;
 
     public SubscriberEntity(@NonNull String id,
                             @NonNull String email,
                             @Nullable String name) {
-        this(id, email, name, false, false);
+        this(id, email, name, SubscriptionStatus.PENDING);
     }
 
     public SubscriberEntity(@NonNull String id,
                             @NonNull String email,
                             @Nullable String name,
-                            boolean confirmed,
-                            boolean unsubscribed) {
+                            SubscriptionStatus status) {
         this.id = id;
         this.email = email;
         this.name = name;
-        this.confirmed = confirmed;
-        this.unsubscribed = unsubscribed;
+        this.status = status;
     }
 
     @NonNull
@@ -58,11 +59,8 @@ public class SubscriberEntity {
         return name;
     }
 
-    public boolean isConfirmed() {
-        return confirmed;
-    }
-
-    public boolean isUnsubscribed() {
-        return unsubscribed;
+    @NonNull
+    public SubscriptionStatus getStatus() {
+        return status;
     }
 }
