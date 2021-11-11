@@ -85,6 +85,7 @@ class SubscriberSaveControllerSpec extends Specification {
         int invocations
 
         @Override
+        @NonNull
         Optional<String> save(@NonNull @NotNull @Valid Subscriber subscriber) {
             invocations++
             Optional.empty()
