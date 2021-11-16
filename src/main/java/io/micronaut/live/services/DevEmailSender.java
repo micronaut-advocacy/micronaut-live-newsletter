@@ -1,6 +1,7 @@
 package io.micronaut.live.services;
 
 import io.micronaut.context.annotation.Requires;
+import io.micronaut.context.annotation.Secondary;
 import io.micronaut.context.env.Environment;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.live.model.Email;
@@ -12,6 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Requires(env = Environment.DEVELOPMENT)
+@Secondary
 @Singleton
 public class DevEmailSender implements EmailSender {
     private static final Logger LOG = LoggerFactory.getLogger(DevEmailSender.class);
