@@ -9,6 +9,7 @@ import io.micronaut.http.HttpRequest
 import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
+import io.micronaut.live.conf.EmailConfiguration
 import io.micronaut.live.data.SubscriberCountService
 import io.micronaut.live.data.SubscriberDataRepository
 import io.micronaut.live.model.Email
@@ -17,10 +18,12 @@ import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import spock.lang.Specification
+import spock.util.concurrent.PollingConditions
 
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
+@Property(name = "email.from", value = "tcook@apple.com")
 @Property(name = "spec.name", value = "SubscriptionConfirmationSpec")
 @MicronautTest
 class SubscriptionConfirmationSpec extends Specification {
@@ -41,13 +44,19 @@ class SubscriptionConfirmationSpec extends Specification {
         given:
         BlockingHttpClient client = httpClient.toBlocking()
 
+        expect:
+        beanContext.containsBean(EmailConfiguration)
+
         when:
         client.exchange(HttpRequest.POST('/api/v1/subscriber', [email: 'tcook@apple.com']))
 
         then:
         noExceptionThrown()
         subscriberDataRepository.count() == old(subscriberDataRepository.count()) + 1
-        emailsSent() == 1
+
+        new PollingConditions().eventually {
+            assert emailsSent() == 1
+        }
         subscriberCountService.countSubscribers() == 0
 
         when:
