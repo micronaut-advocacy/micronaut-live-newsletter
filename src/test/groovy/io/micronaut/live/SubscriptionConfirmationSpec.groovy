@@ -10,7 +10,7 @@ import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.live.conf.EmailConfiguration
-import io.micronaut.live.data.SubscriberCountService
+import io.micronaut.live.data.SubscriberService
 import io.micronaut.live.data.SubscriberDataRepository
 import io.micronaut.live.model.Email
 import io.micronaut.live.services.EmailSender
@@ -35,7 +35,7 @@ class SubscriptionConfirmationSpec extends Specification {
     SubscriberDataRepository subscriberDataRepository
 
     @Inject
-    SubscriberCountService subscriberCountService
+    SubscriberService subscriberCountService
 
     @Inject
     BeanContext beanContext

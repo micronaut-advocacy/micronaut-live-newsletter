@@ -17,6 +17,9 @@ public class Subscriber {
     @Nullable
     private final String name;
 
+    public Subscriber(@NonNull String email) {
+        this(email, null);
+    }
     public Subscriber(@NonNull String email,
                       @Nullable String name) {
         this.email = email;

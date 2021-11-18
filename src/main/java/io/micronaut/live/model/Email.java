@@ -148,13 +148,13 @@ public class Email {
         }
 
         @NonNull
-        public Builder html(@NonNull String html) {
+        public Builder html(@Nullable String html) {
             this.html = html;
             return this;
         }
 
         @NonNull
-        public Builder text(@NonNull String text) {
+        public Builder text(@Nullable String text) {
             this.text = text;
             return this;
         }
