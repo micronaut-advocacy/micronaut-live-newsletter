@@ -19,8 +19,6 @@ import static io.micronaut.live.api.v1.Api.V1_PATH;
 
 @Controller(V1_PATH)
 class EmailController {
-    private static final Logger LOG = LoggerFactory.getLogger(EmailController.class);
-
     private final EmailRequestService emailRequestService;
 
     EmailController(EmailRequestService emailRequestService) {
