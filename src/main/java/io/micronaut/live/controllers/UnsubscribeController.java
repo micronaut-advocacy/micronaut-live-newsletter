@@ -10,6 +10,8 @@ import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.annotation.QueryValue;
 import io.micronaut.live.services.ConfirmationCodeVerifier;
 import io.micronaut.live.services.UnsubscribeService;
+import io.micronaut.scheduling.TaskExecutors;
+import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.views.View;
 
 import java.net.URI;
@@ -30,6 +32,7 @@ class UnsubscribeController {
         this.unsubscribeService = unsubscribeService;
     }
 
+    @ExecuteOn(TaskExecutors.IO)
     @Produces(MediaType.TEXT_HTML)
     @View("unsubscribed")
     @Get

@@ -13,6 +13,8 @@ import io.micronaut.live.model.Alert;
 import io.micronaut.live.services.ConfirmationCodeVerifier;
 import io.micronaut.live.services.ConfirmationService;
 import io.micronaut.live.services.UnsubscribeService;
+import io.micronaut.scheduling.TaskExecutors;
+import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.views.View;
 
 import java.net.URI;
@@ -39,6 +41,7 @@ class SubscriptionConfirmationController {
     }
 
     @Produces(MediaType.TEXT_HTML)
+    @ExecuteOn(TaskExecutors.IO)
     @View("alert")
     @Get
     Map<String, Object> confirm(@Nullable @QueryValue String token) {

@@ -10,6 +10,8 @@ import io.micronaut.http.annotation.Produces;
 import io.micronaut.live.Subscriber;
 import io.micronaut.live.model.Alert;
 import io.micronaut.live.services.SubscriberSaveService;
+import io.micronaut.scheduling.TaskExecutors;
+import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.views.ModelAndView;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -25,6 +27,7 @@ class SubscriptionSaveController {
         this.subscriberSaveService = subscriberSaveService;
     }
 
+    @ExecuteOn(TaskExecutors.IO)
     @Produces(MediaType.TEXT_HTML)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Post("/save")
