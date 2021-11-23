@@ -31,17 +31,20 @@ dependencies {
     implementation("io.micronaut.views:micronaut-views-thymeleaf")
     implementation("io.micronaut.data:micronaut-data-jdbc")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
-
     implementation 'com.sendgrid:sendgrid-java:4.8.0'
-
-    runtimeOnly("com.h2database:h2")
-
     implementation("io.micronaut.problem:micronaut-problem-json")
     implementation("io.micronaut:micronaut-runtime")
     implementation("javax.annotation:javax.annotation-api")
-    runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
     implementation 'com.amirkhawaja:ksuid:1.0.0'
+    implementation("io.micronaut.flyway:micronaut-flyway")
+
+    runtimeOnly("ch.qos.logback:logback-classic")
+    runtimeOnly("org.postgresql:postgresql")
+
+    testImplementation("org.testcontainers:postgresql")
+    testImplementation("org.testcontainers:spock")
+    testImplementation("org.testcontainers:testcontainers")
 }
 
 
