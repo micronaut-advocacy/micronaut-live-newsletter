@@ -33,7 +33,7 @@ class UnsubscribeControllerSpec extends Specification {
         _client
     }
 
-    void "GET /unsubscribe token query value parameter is required"() {
+    void "GET /subscriber/cancel token query value parameter is required"() {
         when: 'not token is supplied'
         String html = client.retrieve(createRequest(), String)
 
@@ -42,7 +42,7 @@ class UnsubscribeControllerSpec extends Specification {
         html.contains('<h1>Not Found</h1>')
     }
 
-    void "GET /unsubscribe if invalid token redirect the user to 404"() {
+    void "GET /subscriber/cancel if invalid token redirect the user to 404"() {
         when: 'not token is supplied'
         String html = client.retrieve(createRequest("foo"), String)
 
@@ -51,7 +51,7 @@ class UnsubscribeControllerSpec extends Specification {
         html.contains('<h1>Not Found</h1>')
     }
 
-    void "GET /unsubscribe if valid token renders a HTML Page telling the user unsubscription was successful"() {
+    void "GET /subscriber/cancel if valid token renders a HTML Page telling the user unsubscription was successful"() {
         when: 'not token is supplied'
         Optional<String> tokenOptional = confirmationCodeGenerator.generate("tcook@apple.com")
 
@@ -67,7 +67,7 @@ class UnsubscribeControllerSpec extends Specification {
     }
 
     private static HttpRequest<?> createRequest(@Nullable String token = null) {
-        UriBuilder builder = UriBuilder.of('/unsubscribe')
+        UriBuilder builder = UriBuilder.of('/subscriber/cancel')
         if (token) {
             builder = builder.queryParam("token", token)
         }
