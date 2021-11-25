@@ -39,7 +39,10 @@ class UnsubscribeControllerSpec extends Specification {
 
         then: 'app redirects to the 404 page'
         noExceptionThrown()
-        html.contains('<h1>Not Found</h1>')
+        html.contains('''\
+    <div class="alert alert-danger" role="alert">
+        <span>Not Found</span>
+    </div>''')
     }
 
     void "GET /subscriber/cancel if invalid token redirect the user to 404"() {
@@ -48,7 +51,10 @@ class UnsubscribeControllerSpec extends Specification {
 
         then: 'app redirects to the 404 page'
         noExceptionThrown()
-        html.contains('<h1>Not Found</h1>')
+        html.contains('''\
+    <div class="alert alert-danger" role="alert">
+        <span>Not Found</span>
+    </div>''')
     }
 
     void "GET /subscriber/cancel if valid token renders a HTML Page telling the user unsubscription was successful"() {

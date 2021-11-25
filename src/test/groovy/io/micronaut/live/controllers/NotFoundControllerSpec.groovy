@@ -29,7 +29,9 @@ class NotFoundControllerSpec extends Specification {
         noExceptionThrown()
         HttpStatus.OK == response.status()
         response.getBody().isPresent()
-        response.getBody().get().contains('<h1>Not Found</h1>')
+        response.getBody().get().contains('''\
+    <div class="alert alert-danger" role="alert">
+        <span>Not Found</span>
+    </div>''')
     }
-
 }
