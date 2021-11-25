@@ -27,7 +27,7 @@ import javax.validation.constraints.NotNull
 @Property(name = "spec.name", value = "EmailControllerSpec")
 @Property(name = "email.from", value = "tcook@apple.com")
 @MicronautTest
-class EmailControllerSpec extends Specification {
+class EmailSendControllerSpec extends Specification {
     @Inject
     @Client("/")
     HttpClient httpClient
