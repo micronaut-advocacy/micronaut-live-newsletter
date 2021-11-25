@@ -1,5 +1,6 @@
 plugins {
-    id("groovy") 
+    id("groovy")
+    id("jacoco")
     id("com.github.johnrengelman.shadow") version "7.1.0"
     id("io.micronaut.application") version "3.0.0"
 }
@@ -56,5 +57,32 @@ java {
     targetCompatibility = JavaVersion.toVersion("11")
 }
 
-
+check {
+    dependsOn jacocoTestCoverageVerification
+}
+jacocoTestReport {
+    dependsOn test
+}
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+    }
+}
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.0
+            }
+        }
+        rule {
+            element = 'CLASS'
+            excludes = ["io.micronaut.live.Application"]
+            limit {
+                minimum = 0.0
+            }
+        }
+    }
+}
 
