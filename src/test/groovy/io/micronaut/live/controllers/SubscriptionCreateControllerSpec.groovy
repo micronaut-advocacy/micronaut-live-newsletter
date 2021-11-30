@@ -23,7 +23,7 @@ class SubscriptionCreateControllerSpec extends Specification {
         BlockingHttpClient client = httpClient.toBlocking()
 
         when:
-        HttpRequest<?> request = HttpRequest.GET("/subscription/create")
+        HttpRequest<?> request = HttpRequest.GET("/subscriber/create")
                 .accept(MediaType.TEXT_HTML)
         HttpResponse<?> response = client.exchange(request)
 

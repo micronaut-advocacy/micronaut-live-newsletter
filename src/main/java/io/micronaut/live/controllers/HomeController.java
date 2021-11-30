@@ -17,6 +17,6 @@ class HomeController {
     @ApiResponse(responseCode = "303", description = "redirection to /subscriber/create")
     @Get
     HttpResponse<?> home() {
-        return HttpResponse.seeOther(UriBuilder.of("/subscription").path("create").build());
+        return HttpResponse.seeOther(UriBuilder.of("/subscriber").path("create").build());
     }
 }

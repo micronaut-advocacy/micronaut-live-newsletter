@@ -19,7 +19,7 @@ class HomeControllerSpec extends Specification {
     @Client("/")
     HttpClient httpClient
 
-    void "GET / redirects to /subscription/create"() {
+    void "GET / redirects to /subscriber/create"() {
         given:
         BlockingHttpClient client = httpClient.toBlocking()
         when:

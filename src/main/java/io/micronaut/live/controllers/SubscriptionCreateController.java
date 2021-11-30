@@ -9,7 +9,7 @@ import io.micronaut.views.View;
 import java.util.Collections;
 import java.util.Map;
 
-@Controller("/subscription")
+@Controller("/subscriber")
 class SubscriptionCreateController {
 
     @Produces(MediaType.TEXT_HTML)

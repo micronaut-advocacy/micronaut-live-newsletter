@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller("/subscription")
+@Controller("/subscriber")
 class SubscriptionSaveController {
 
     private final SubscriberSaveService subscriberSaveService;
