@@ -90,5 +90,10 @@ class SubscriberSaveControllerSpec extends Specification {
             invocations++
             Optional.empty()
         }
+
+        @Override
+        void saveActiveSubscribers(@NonNull @NotNull Collection<Subscriber> subscribers) {
+
+        }
     }
 }

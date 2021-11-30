@@ -55,5 +55,10 @@ class SubscriberSaveServiceSpec extends Specification {
         Optional<String> save(@NonNull @NotNull @Valid Subscriber subscriber) {
             Optional.empty()
         }
+
+        @Override
+        void saveActiveSubscribers(@NonNull @NotNull Collection<Subscriber> subscribers) {
+
+        }
     }
 }
