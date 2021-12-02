@@ -11,6 +11,8 @@ import io.micronaut.live.model.AlertPage;
 import io.micronaut.live.services.SubscriberParserService;
 import io.micronaut.live.services.SubscriberSaveService;
 import io.micronaut.scheduling.annotation.Async;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.views.View;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -45,6 +47,7 @@ public class SubscriberImportSaveController {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @View("alert")
     @Post("/import")
+    @Secured(SecurityRule.IS_AUTHENTICATED)
     AlertPage save(CompletedFileUpload file) {
         importFile(file);
         String message = "Thanks, we are importing your subscribers";

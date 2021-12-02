@@ -14,13 +14,18 @@ flyway:
     default:
       enabled: true
 ---
-micronaut:
-  security:
-    filter:
-      enabled: false
 ---
 micronaut:
   security:
+    redirect:
+      forbidden:
+        url: '/forbidden'
+      unauthorized:
+        url: '/oauth/login/cognito'
+    authentication: idtoken
+    endpoints:
+      logout:
+        get-allowed: true
     token:
       jwt:
         signatures:

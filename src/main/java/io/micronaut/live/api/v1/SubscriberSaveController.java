@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.annotation.security.PermitAll;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -42,6 +43,7 @@ class SubscriberSaveController {
     @ExecuteOn(TaskExecutors.IO)
     @Post(SUBSCRIBER_PATH)
     @Status(HttpStatus.CREATED)
+    @PermitAll
     void save(@Body @NonNull @NotNull @Valid Subscriber subscriber) {
         subscriberSaveService.save(subscriber);
     }

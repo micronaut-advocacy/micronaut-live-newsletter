@@ -6,10 +6,12 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.uri.UriBuilder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.annotation.security.PermitAll;
 
 @Controller
 class HomeController {
 
+    @PermitAll
     @Operation(operationId = "home",
             summary = "Apex path which redirects to /subscriber/create",
             description = "Apex path which redirects to /subscriber/create"

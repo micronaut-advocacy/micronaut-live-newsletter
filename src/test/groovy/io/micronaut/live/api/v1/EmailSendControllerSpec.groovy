@@ -5,6 +5,7 @@ import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Replaces
 import io.micronaut.context.annotation.Requires
 import io.micronaut.core.annotation.NonNull
+import io.micronaut.core.util.StringUtils
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.client.BlockingHttpClient
@@ -24,6 +25,7 @@ import spock.util.concurrent.PollingConditions
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
+@Property(name = "micronaut.security.filter.enabled", value = StringUtils.FALSE)
 @Property(name = "spec.name", value = "EmailControllerSpec")
 @Property(name = "email.from", value = "tcook@apple.com")
 @MicronautTest

@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.annotation.security.PermitAll;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -43,6 +44,7 @@ public class SubscriberConfirmationController {
             mediaType = "application/json"))
     @ExecuteOn(TaskExecutors.IO)
     @Patch(SUBSCRIBER_PATH + "/confirm")
+    @PermitAll
     HttpStatus confirm(@Body @NonNull @NotNull @Valid SubscriberConfirmationRequest subscriberConfirmationRequest) {
         return confirmationCodeVerifier.verify(subscriberConfirmationRequest.getToken()).isPresent() ? HttpStatus.OK : HttpStatus.UNPROCESSABLE_ENTITY;
     }

@@ -9,6 +9,7 @@ import io.micronaut.live.model.AlertPage;
 import io.micronaut.views.ModelAndView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.annotation.security.PermitAll;
 
 @Controller("/404")
 class NotFoundController {
@@ -20,6 +21,7 @@ class NotFoundController {
     @ApiResponse(responseCode = "200", description = "renders an HTML with alert about a page not found")
     @Produces(MediaType.TEXT_HTML)
     @Get
+    @PermitAll
     ModelAndView<AlertPage> notFound() {
         return new ModelAndView<>("alert", createAlertPage()); //TODO do this via i18n
     }

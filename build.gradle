@@ -28,7 +28,6 @@ dependencies {
     implementation("io.swagger.core.v3:swagger-annotations")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-management")
-    implementation("io.micronaut.security:micronaut-security-jwt")
     implementation("io.micronaut.views:micronaut-views-thymeleaf")
     implementation("io.micronaut.data:micronaut-data-jdbc")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
@@ -39,6 +38,10 @@ dependencies {
     implementation("io.micronaut:micronaut-validation")
     implementation 'com.amirkhawaja:ksuid:1.0.0'
     implementation("io.micronaut.flyway:micronaut-flyway")
+
+    annotationProcessor("io.micronaut.security:micronaut-security-annotations")
+    implementation("io.micronaut.security:micronaut-security-oauth2")
+    implementation("io.micronaut.security:micronaut-security-jwt")
 
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("org.postgresql:postgresql")
