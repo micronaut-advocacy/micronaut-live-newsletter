@@ -1,6 +1,5 @@
 package io.micronaut.live.services
 
-import io.micronaut.http.server.util.HttpHostResolver
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification

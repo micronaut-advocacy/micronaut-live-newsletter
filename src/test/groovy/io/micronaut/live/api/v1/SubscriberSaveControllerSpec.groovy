@@ -19,6 +19,8 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 import javax.validation.Valid
+import javax.validation.constraints.Email
+import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
 @Property(name = "spec.name", value = "SubscriberSaveControllerSpec")
@@ -83,6 +85,11 @@ class SubscriberSaveControllerSpec extends Specification {
     static class SubscriberSaveServiceReplacement implements SubscriberSaveService {
 
         int invocations
+
+        @Override
+        boolean exists(@NonNull @NotBlank @Email String email) {
+            false
+        }
 
         @Override
         @NonNull

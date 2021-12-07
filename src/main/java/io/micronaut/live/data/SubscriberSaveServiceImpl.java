@@ -11,6 +11,8 @@ import jakarta.inject.Singleton;
 
 import javax.swing.text.html.Option;
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,14 +34,23 @@ public class SubscriberSaveServiceImpl implements SubscriberSaveService {
     }
 
     @Override
+    public boolean exists(@NonNull @NotBlank @Email String email) {
+        return subscriberDataRepository.countByEmail(email) > 0;
+    }
+
+    @Override
     @NonNull
     public Optional<String> save(@NonNull @NotNull @Valid Subscriber subscriber) {
         return idGenerator.generate().map(id -> {
             SubscriberEntity entity = new SubscriberEntity(id, subscriber.getEmail(), subscriber.getName());
             subscriberDataRepository.save(entity);
-            eventPublisher.publishEvent(new SubscriptionPendingEvent(subscriber.getEmail()));
+            publishSubscriptionPendingEvent(subscriber);
             return id;
         });
+    }
+
+    private void publishSubscriptionPendingEvent(@NonNull Subscriber subscriber) {
+        eventPublisher.publishEvent(new SubscriptionPendingEvent(subscriber.getEmail()));
     }
 
     @Override

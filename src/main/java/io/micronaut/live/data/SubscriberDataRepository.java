@@ -8,6 +8,7 @@ import io.micronaut.data.repository.CrudRepository;
 import io.micronaut.live.Subscriber;
 import io.micronaut.live.model.SubscriptionStatus;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface SubscriberDataRepository extends CrudRepository<SubscriberEntit
 
     @NonNull
     List<Subscriber> findByStatus(@NonNull @NotNull SubscriptionStatus subscriptionStatus);
+
+    long countByEmail(@NonNull @NotNull @Email String email);
 }
