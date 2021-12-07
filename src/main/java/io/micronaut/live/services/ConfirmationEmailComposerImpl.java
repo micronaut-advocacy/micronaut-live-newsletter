@@ -36,6 +36,7 @@ public class ConfirmationEmailComposerImpl implements ConfirmationEmailComposer 
         return UriBuilder.of(ServerRequestContext.currentRequest()
                         .map(httpHostResolver::resolve)
                         .orElse(""))
+                .path("subscriber")
                 .path("confirm")
                 .queryParam("token", confirmationCodeGenerator.generate(email).orElse(""))
                 .build()
