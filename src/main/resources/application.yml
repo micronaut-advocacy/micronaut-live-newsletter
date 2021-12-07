@@ -2,6 +2,11 @@ micronaut:
   application:
     name: newsletter
 ---
+micronaut:
+  server:
+    cors:
+      enabled: true
+---
 datasources:
   default:
     url: jdbc:postgresql://localhost:5432/postgres
@@ -13,7 +18,6 @@ flyway:
   datasources:
     default:
       enabled: true
----
 ---
 micronaut:
   security:
