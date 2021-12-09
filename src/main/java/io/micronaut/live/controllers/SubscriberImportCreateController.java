@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller("/subscriber")
@@ -31,6 +32,6 @@ class SubscriberImportCreateController {
     @Get("/import")
     @View("subscriberimport")
     Map<String, Object> create() {
-        return Collections.emptyMap();
+        return new HashMap<>();
     }
 }
