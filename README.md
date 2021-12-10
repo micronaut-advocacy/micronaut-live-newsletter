@@ -2,9 +2,9 @@
 
 The application needs a PostgreSQL database. The easiest way is to run aa PostgreSQL database via Docker with: 
 
-````bash
+```bash
 $ docker run -it --rm -p 5432:5432 -e POSTGRES_USER=dbuser -e POSTGRES_PASSWORD=theSecretPassword -e POSTGRES_DB=postgres postgres:11.5-alpine
-````bash
+```
 
 and export as environment variable the credentails to access the database:
 
