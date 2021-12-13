@@ -20,7 +20,6 @@ import io.swagger.v3.oas.annotations.info.License;
         )
 )
 public class Application {
-
     static final String DEFAULT_ENV = Environment.DEVELOPMENT;
 
     @ContextConfigurer
@@ -31,11 +30,7 @@ public class Application {
         }
     }
 
-
     public static void main(String[] args) {
-        Micronaut.build(args)
-                .mainClass(Application.class)
-                .defaultEnvironments(DEFAULT_ENV)
-                .start();
+        Micronaut.run(Application.class);
     }
 }
