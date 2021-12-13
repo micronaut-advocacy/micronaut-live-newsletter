@@ -21,9 +21,9 @@ micronaut {
         annotations("io.micronaut.live.*")
     }
     aot {
-        version = "1.0.0-M2"
-        //configFile = file("aot.properties")
-        sealEnvironment =  true
+        version = "1.0.0-M3"
+//        configFile = file("aot.properties")
+        sealEnvironment = true
         optimizeServiceLoading = true
         optimizeClassLoading = true
         convertYamlToJava = true
@@ -99,3 +99,14 @@ jacocoTestCoverageVerification {
     }
 }
 
+graalvmNative {
+    binaries {
+        optimized {
+            // Workaround for https://github.com/graalvm/native-build-tools/pull/182
+            configurationFileDirectories.from(
+                    tasks.named("generateResourcesConfigFile")
+                            .map(t -> t.outputFile.map(f -> f.asFile.parentFile))
+            )
+        }
+    }
+}
