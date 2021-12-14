@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 @ConfigurationProperties("newsletter")
 public class SubscriberConfigurationProperties implements SubscriberConfiguration {
-    private static final Integer DEFAULT_SUBSCRIBER_LIST_PAGE_SIZE = 20;
+    private static final Integer DEFAULT_SUBSCRIBER_LIST_PAGE_SIZE = 12;
 
     @NonNull
     @NotNull
