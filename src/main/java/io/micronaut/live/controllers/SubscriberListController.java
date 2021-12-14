@@ -38,6 +38,6 @@ public class SubscriberListController {
     @Get("/list")
     @View("subscriberlist")
     SubscriberListPage index(@Nullable @QueryValue Integer page) {
-        return new SubscriberListPage(subscriberListService.findAll(page != null ? page : 0));
+        return subscriberListService.findAll(page != null ? page : 1);
     }
 }
