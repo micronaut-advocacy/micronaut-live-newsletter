@@ -15,6 +15,24 @@ $ export DATASOURCES_DEFAULT_PASSWORD=theSecretPassword
 
 - [Testcontainers JDBC Support](https://www.testcontainers.org/modules/databases/jdbc/)
 
+## Native Image tests
+
+In one terminal, generate and run the native image:
+
+```
+./gradlew :app:nativeCompile
+app/build/native/nativeCompile/app
+```
+
+In another terminal, export the environment variable `APP_URL` to the native image url and run the `test-native` tests:
+
+
+```
+export APP_URL=http://localhost:8080
+./gradlew test-native:test
+```
+
+
 ## Micronaut 3.1.1 Documentation
 
 - [User Guide](https://docs.micronaut.io/3.1.1/guide/index.html)

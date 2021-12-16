@@ -2,6 +2,7 @@ package io.micronaut.live.views;
 
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.annotation.ReflectiveAccess;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@ReflectiveAccess
 @Introspected
 public class Pagination {
 
