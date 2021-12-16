@@ -12,6 +12,8 @@ import io.micronaut.live.views.SubscriberListPage;
 import io.micronaut.live.views.SubscriberRow;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.views.View;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -19,7 +21,6 @@ import jakarta.annotation.security.PermitAll;
 
 import java.util.Arrays;
 
-@PermitAll // TODO don't do this
 @Controller("/subscriber")
 public class SubscriberListController {
     private final SubscriberListService subscriberListService;
@@ -34,6 +35,7 @@ public class SubscriberListController {
     )
     @ApiResponse(responseCode = "200", description = "renders an HTML with list of subscribers")
     @ExecuteOn(TaskExecutors.IO)
+    @Secured(SecurityRule.IS_AUTHENTICATED)
     @Produces(MediaType.TEXT_HTML)
     @Get("/list")
     @View("subscriberlist")
