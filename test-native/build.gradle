@@ -1,0 +1,17 @@
+plugins {
+    id 'groovy'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
+    testImplementation("io.micronaut:micronaut-http-client")
+    testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

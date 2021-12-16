@@ -1,2 +1,4 @@
-
 rootProject.name="newsletter"
+
+include 'app'
+include 'test-native'
