@@ -3,11 +3,9 @@ package io.micronaut.live.views;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.uri.UriBuilder;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Optional;
 
 @Introspected
 public class Page implements Comparable<Page> {
