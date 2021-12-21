@@ -15,23 +15,36 @@ $ export DATASOURCES_DEFAULT_PASSWORD=theSecretPassword
 
 - [Testcontainers JDBC Support](https://www.testcontainers.org/modules/databases/jdbc/)
 
-## Native Image tests
 
-In one terminal, generate and run the native image:
 
-```
-./gradlew :app:nativeCompile
-app/build/native/nativeCompile/app
-```
+## Artifacts
+
+### FAT JAR 
+
+`./gradlew :app:build`. You can find the fat jar under `app/build/libs/app-0.1-all.jar`
+
+### Optimized FAT JAR
+
+`./gradlew :app:optimizedJitJarAll`. You can find the fat jar under `app/build/libs/app-0.1-all-optimized.jar`
+
+### Native Image
+
+`./gradlew :app:nativeCompile`. You can find the native image under `app/build/native/nativeCompile/app`
+
+### Optimized Native Image
+
+`./gradlew :app:nativeOptimizedCompile`. You can find the native image under `./app/build/native/nativeOptimizedCompile/app`     `
+
+## Artifact tests
+
+In one terminal, generate and run the native image or fat jar (see previous sections).
 
 In another terminal, export the environment variable `APP_URL` to the native image url and run the `test-native` tests:
-
 
 ```
 export APP_URL=http://localhost:8080
 ./gradlew test-native:test
 ```
-
 
 ## Micronaut 3.1.1 Documentation
 
