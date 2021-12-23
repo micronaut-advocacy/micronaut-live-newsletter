@@ -39,7 +39,8 @@ public class SubscriberListServiceImpl implements SubscriberListService {
         int max = subscriberConfiguration.getSubscriberListPageSize();
         Pageable pageable = Pageable.from((page - 1), max);
         Pagination pagination = Pagination.of(subscriberDataRepository.count(), max, pagePath, page);
-        return new SubscriberListPage(subscriberDataRepository.find(pageable), pagination);
+        return new SubscriberListPage("subscribers", //TODO do i18n
+                subscriberDataRepository.find(pageable), pagination);
     }
 
 }

@@ -29,3 +29,8 @@ micronaut:
           secret:
             generator:
               secret: pleaseChangeThisSecretForANewOne #TODO Set this via environment variable
+---
+micronaut:
+  security:
+    views-model-decorator:
+      security-key: authentication

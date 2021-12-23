@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Introspected
-public class SubscriberListPage {
+public class SubscriberListPage extends HtmlPage {
     @NonNull
     @NotNull
     private final Pagination pagination;
@@ -16,8 +16,10 @@ public class SubscriberListPage {
     @NotNull
     private final List<SubscriberRow> rows;
 
-    public SubscriberListPage(@NonNull List<SubscriberRow> rows,
+    public SubscriberListPage(@NonNull String title,
+                              @NonNull List<SubscriberRow> rows,
                               @NonNull Pagination pagination) {
+        super(title);
         this.rows = rows;
         this.pagination = pagination;
     }
