@@ -10,6 +10,7 @@ import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.live.conf.EmailConfiguration
+import io.micronaut.live.data.PostgresTestPropertyProvider
 import io.micronaut.live.data.SubscriberService
 import io.micronaut.live.data.SubscriberDataRepository
 import io.micronaut.live.model.Email
@@ -26,7 +27,7 @@ import javax.validation.constraints.NotNull
 @Property(name = "email.from", value = "tcook@apple.com")
 @Property(name = "spec.name", value = "SubscriptionConfirmationSpec")
 @MicronautTest
-class SubscriptionConfirmationSpec extends Specification {
+class SubscriptionConfirmationSpec extends Specification implements PostgresTestPropertyProvider {
     @Inject
     @Client("/")
     HttpClient httpClient

@@ -6,16 +6,18 @@ The application needs a PostgreSQL database. The easiest way is to run aa Postgr
 $ docker run -it --rm -p 5432:5432 -e POSTGRES_USER=dbuser -e POSTGRES_PASSWORD=theSecretPassword -e POSTGRES_DB=postgres postgres:11.5-alpine
 ```
 
-and export as environment variable the credentails to access the database:
+Create a file under `src/main/resources/application-dev.yml` with following content: 
 
-````bash
-$ export DATASOURCES_DEFAULT_USERNAME=dbuser
-$ export DATASOURCES_DEFAULT_PASSWORD=theSecretPassword
-````
-
-- [Testcontainers JDBC Support](https://www.testcontainers.org/modules/databases/jdbc/)
-
-
+```
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/postgres
+    driverClassName: org.postgresql.Driver
+    schema-generate: NONE
+    dialect: POSTGRES
+    username: dbuser
+    password: theSecretPassword
+```
 
 ## Artifacts
 

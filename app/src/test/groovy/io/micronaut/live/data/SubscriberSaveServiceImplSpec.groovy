@@ -6,7 +6,7 @@ import jakarta.inject.Inject
 import spock.lang.Specification
 
 @MicronautTest(startApplication = false)
-class SubscriberSaveServiceImplSpec extends Specification {
+class SubscriberSaveServiceImplSpec extends Specification implements PostgresTestPropertyProvider {
     @Inject
     SubscriberSaveServiceImpl subscriberSaveService
 

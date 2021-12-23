@@ -5,6 +5,7 @@ import io.micronaut.http.MediaType
 import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
+import io.micronaut.live.data.PostgresTestPropertyProvider
 import io.micronaut.live.data.SubscriberDataRepository
 import io.micronaut.live.data.SubscriberEntity
 import io.micronaut.live.model.SubscriptionStatus
@@ -14,7 +15,7 @@ import jakarta.inject.Inject
 import spock.lang.Specification
 
 @MicronautTest(transactional = false)
-class SubscriberCountControllerSpec extends Specification {
+class SubscriberCountControllerSpec extends Specification implements PostgresTestPropertyProvider {
 
     @Inject
     @Client("/")

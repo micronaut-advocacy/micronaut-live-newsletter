@@ -7,13 +7,6 @@ micronaut:
     cors:
       enabled: true
 ---
-datasources:
-  default:
-    url: jdbc:postgresql://localhost:5432/postgres
-    driverClassName: org.postgresql.Driver
-    schema-generate: NONE
-    dialect: POSTGRES
----
 flyway:
   datasources:
     default:

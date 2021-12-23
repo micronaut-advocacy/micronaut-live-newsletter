@@ -7,6 +7,7 @@ import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.http.uri.UriBuilder
+import io.micronaut.live.data.PostgresTestPropertyProvider
 import io.micronaut.live.services.ConfirmationCodeGenerator
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
@@ -14,7 +15,7 @@ import spock.lang.Shared
 import spock.lang.Specification
 
 @MicronautTest
-class UnsubscribeControllerSpec extends Specification {
+class UnsubscribeControllerSpec extends Specification implements PostgresTestPropertyProvider  {
 
     @Inject
     @Client("/")

@@ -1,3 +1,12 @@
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/postgres
+    driverClassName: org.postgresql.Driver
+    schema-generate: NONE
+    dialect: POSTGRES
+    username: dbuser
+    password: theSecretPassword
+---
 micronaut:
   security:
     oauth2:

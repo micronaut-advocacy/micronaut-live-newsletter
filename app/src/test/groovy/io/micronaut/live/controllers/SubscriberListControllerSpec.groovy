@@ -8,13 +8,14 @@ import io.micronaut.http.MediaType
 import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
+import io.micronaut.live.data.PostgresTestPropertyProvider
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
 
 @Property(name = "micronaut.security.filter.enabled", value = StringUtils.FALSE)
 @MicronautTest
-class SubscriberListControllerSpec extends Specification {
+class SubscriberListControllerSpec extends Specification implements PostgresTestPropertyProvider {
 
     @Inject
     @Client("/")
