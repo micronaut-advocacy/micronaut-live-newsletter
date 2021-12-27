@@ -6,7 +6,7 @@ The application needs a PostgreSQL database. The easiest way is to run aa Postgr
 $ docker run -it --rm -p 5432:5432 -e POSTGRES_USER=dbuser -e POSTGRES_PASSWORD=theSecretPassword -e POSTGRES_DB=postgres postgres:11.5-alpine
 ```
 
-Create a file under `src/main/resources/application-dev.yml` with following content: 
+Create a file under `app/src/main/resources/application-dev.yml` with following content: 
 
 ```
 datasources:
@@ -18,6 +18,10 @@ datasources:
     username: dbuser
     password: theSecretPassword
 ```
+
+Run the application
+
+`./gradlew :app:run`
 
 ## Artifacts
 
