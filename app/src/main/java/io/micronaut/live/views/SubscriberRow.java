@@ -24,6 +24,11 @@ public class SubscriberRow {
     private final String name;
 
     public SubscriberRow(@NonNull String email,
+                         @NonNull SubscriptionStatus status) {
+        this(email, status, null);
+    }
+
+    public SubscriberRow(@NonNull String email,
                          @NonNull SubscriptionStatus status,
                          @Nullable String name) {
         this.email = email;
@@ -39,6 +44,11 @@ public class SubscriberRow {
     @NonNull
     public SubscriptionStatus getStatus() {
         return status;
+    }
+
+    @NonNull
+    public String statusAlertClass() {
+        return SubscriptionStatusUtils.alertClass(status);
     }
 
     @Nullable

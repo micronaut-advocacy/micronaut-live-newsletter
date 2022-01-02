@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<li class="nav-item" th:fragment="nav-item(href, title, active)">
+    <a class="nav-link"
+       th:href="${href}"
+       th:text="${title}"
+       th:classappend="${active}?active"
+       th:attrappend="aria-current=${active}?page"
+    ></a>
+</li>
+<div th:fragment="alert(text, class)"
+     class="alert"
+     th:classappend="${class}"
+     role="alert">
+    <span th:text="${text}"></span>
+</div>
+<li th:fragment="page-item(page)"
+     class="page-item"
+     th:classappend="${page.isActive()}?active">
+    <a class="page-link" th:href="${page.href}" th:text="${page.number}"></a>
+</li>
+</html>
