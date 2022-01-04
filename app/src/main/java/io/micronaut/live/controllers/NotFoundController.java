@@ -26,7 +26,7 @@ class NotFoundController {
         return new ModelAndView<>("alert", createAlertPage()); //TODO do this via i18n
     }
 
-    private AlertPage createAlertPage() {
+    private static AlertPage createAlertPage() {
         return new AlertPage("Not Found", //TODO do this via i18n
                 Alert.builder().danger("Not Found").build());
     }
