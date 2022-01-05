@@ -8,6 +8,8 @@ import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.exceptions.HttpStatusException;
 import io.micronaut.live.Subscriber;
+import io.micronaut.live.model.Alert;
+import io.micronaut.live.model.AlertPage;
 import io.micronaut.live.services.SubscriberShowService;
 import io.micronaut.live.views.HtmlPage;
 import io.micronaut.live.views.SubscriberDetailPage;
@@ -22,26 +24,25 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.Optional;
 
 @Controller("/subscriber")
-class SubscriberShowController {
-
+class SubscriberEditController {
     private final SubscriberShowService subscriberShowService;
 
-    SubscriberShowController(SubscriberShowService subscriberShowService) {
+    SubscriberEditController(SubscriberShowService subscriberShowService) {
         this.subscriberShowService = subscriberShowService;
     }
 
-    @Operation(operationId = "subscriber-show",
-            summary = "renders an HTML with a subscriber detail",
-            description = "renders an HTML with a subscriber detail"
+    @Operation(operationId = "subscriber-edit",
+            summary = "renders an HTML FORM to edit subscriber details",
+            description = "renders an HTML FORM to edit subscriber details"
     )
-    @ApiResponse(responseCode = "200", description = "renders an HTML with a subscriber detail")
+    @ApiResponse(responseCode = "200", description = "renders an HTML FORM to edit subscriber details")
     @ExecuteOn(TaskExecutors.IO)
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @Produces(MediaType.TEXT_HTML)
-    @Get("/{id}")
-    @View("subscriberdetail")
-    HtmlPage show(@PathVariable String id) {
-        String title = "Detail"; //TODO i18n
+    @Get("/{id}/edit")
+    @View("subscriberedit")
+    HtmlPage edit(@PathVariable String id) {
+        String title = "Edit Subscriber"; //TODO i18n
         Optional<Subscriber> subscriberOptional = subscriberShowService.findById(id);
         if (!subscriberOptional.isPresent()) {
             throw new HttpStatusException(HttpStatus.NOT_FOUND, "subscriber not found by id" + id);
