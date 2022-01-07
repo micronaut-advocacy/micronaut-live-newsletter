@@ -58,6 +58,13 @@ public class SubscriberSaveServiceImpl implements SubscriberSaveService {
         subscriberDataRepository.saveAll(createActiveSubscriberEntities(subscribers));
     }
 
+    @Override
+    @NonNull
+    public Optional<String> saveActiveSubscriber(@NonNull @NotNull @Valid Subscriber subscriber) {
+        return createActiveSubscriberEntity(subscriber)
+                .map(subscriberEntity -> subscriberDataRepository.save(subscriberEntity).getId());
+    }
+
     private List<SubscriberEntity> createActiveSubscriberEntities(@NonNull Collection<Subscriber> subscribers) {
         List<SubscriberEntity> entityList = new ArrayList<>();
         for (Subscriber subscriber : subscribers) {

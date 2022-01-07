@@ -18,7 +18,7 @@ class SubscriberRowSpec extends Specification {
     @Unroll
     void "Bootstrap alert css class for a SubscriptionStatus"(SubscriptionStatus status, String cssClass) {
         expect:
-        cssClass == new SubscriberRow("tcook@apple.com", status).statusAlertClass()
+        cssClass == new SubscriberRow("123", "tcook@apple.com", status).statusAlertClass()
 
         where:
         status                      || cssClass

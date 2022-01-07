@@ -1,4 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
+<li class="breadcrumb-item" th:fragment="breadcrumb-item(title, href)">
+    <a th:if="${href}"
+       th:href="${href}"
+       th:text="${title}"></a>
+    <a th:unless="${href}"
+       class="active"
+       aria-current="page"
+       th:text="${title}"></a>
+</li>
 <li class="nav-item" th:fragment="nav-item(href, title, active)">
     <a class="nav-link"
        th:href="${href}"

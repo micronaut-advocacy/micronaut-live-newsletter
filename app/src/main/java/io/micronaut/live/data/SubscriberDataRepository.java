@@ -13,6 +13,7 @@ import io.micronaut.live.views.SubscriberRow;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
 
 @JdbcRepository(dialect = Dialect.POSTGRES)
 public interface SubscriberDataRepository extends CrudRepository<SubscriberEntity, String> {
@@ -31,4 +32,7 @@ public interface SubscriberDataRepository extends CrudRepository<SubscriberEntit
 
     @NonNull
     List<SubscriberRow> find(Pageable pageable);
+
+    @NonNull
+    Optional<Subscriber> find(String id);
 }

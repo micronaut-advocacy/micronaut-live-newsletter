@@ -18,4 +18,7 @@ public interface SubscriberSaveService {
     Optional<String> save(@NonNull @NotNull @Valid Subscriber subscriber);
 
     void saveActiveSubscribers(@NonNull @NotNull Collection<Subscriber> subscribers);
+
+    @NonNull
+    Optional<String> saveActiveSubscriber(@NonNull @NotNull @Valid Subscriber subscriber);
 }

@@ -15,7 +15,7 @@
         </thead>
         <tbody>
         <tr th:each="row : ${rows}">
-            <td th:text="${row.email}"></td>
+            <td><a th:href="@{|/subscriber/${row.id}|}"><span th:text="${row.email}"></span></a></td>
             <td th:text="${row.name}"></td>
             <td th:insert="fragments/bootstrap :: alert(${row.status}, ${row.statusAlertClass()})"></td>
         </tr>

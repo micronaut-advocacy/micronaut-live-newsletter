@@ -13,6 +13,10 @@ public class SubscriberRow {
 
     @NonNull
     @NotBlank
+    private final String id;
+
+    @NonNull
+    @NotBlank
     @Email
     private final String email;
 
@@ -23,17 +27,25 @@ public class SubscriberRow {
     @Nullable
     private final String name;
 
-    public SubscriberRow(@NonNull String email,
+    public SubscriberRow(@NonNull String id,
+                         @NonNull String email,
                          @NonNull SubscriptionStatus status) {
-        this(email, status, null);
+        this(id, email, status, null);
     }
 
-    public SubscriberRow(@NonNull String email,
+    public SubscriberRow(@NonNull String id,
+                         @NonNull String email,
                          @NonNull SubscriptionStatus status,
                          @Nullable String name) {
+        this.id = id;
         this.email = email;
         this.status = status;
         this.name = name;
+    }
+
+    @NonNull
+    public String getId() {
+        return id;
     }
 
     @NonNull
