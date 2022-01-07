@@ -11,6 +11,7 @@ group = "io.micronaut.live"
 
 repositories {
     mavenCentral()
+    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 micronaut {
@@ -32,6 +33,7 @@ micronaut {
 }
 
 dependencies {
+    annotationProcessor("io.micronaut.serde:micronaut-serde-processor:1.0.0-SNAPSHOT")
     annotationProcessor("io.micronaut:micronaut-http-validation")
     annotationProcessor("io.micronaut.openapi:micronaut-openapi")
     annotationProcessor("io.micronaut.data:micronaut-data-processor")
@@ -96,6 +98,13 @@ jacocoTestCoverageVerification {
                 minimum = 0.0
             }
         }
+    }
+}
+
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        substitute(module("io.micronaut:micronaut-jackson-databind"))
+                .using(module("io.micronaut.serde:micronaut-serde-jackson:1.0.0-SNAPSHOT"))
     }
 }
 
