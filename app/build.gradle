@@ -52,6 +52,7 @@ dependencies {
     annotationProcessor("io.micronaut.security:micronaut-security-annotations")
     implementation("io.micronaut.security:micronaut-security-oauth2")
     implementation("io.micronaut.security:micronaut-security-jwt")
+    implementation("org.springframework.security:spring-security-crypto:5.6.1")
 
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("org.postgresql:postgresql")
@@ -60,7 +61,6 @@ dependencies {
     testImplementation("org.testcontainers:spock")
     testImplementation("org.testcontainers:testcontainers")
 }
-
 
 application {
     mainClass.set("io.micronaut.live.Application")
