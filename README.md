@@ -1,6 +1,6 @@
 ## Local Development
 
-The application needs a PostgreSQL database. The easiest way is to run aa PostgreSQL database via Docker with: 
+The application needs a PostgreSQL database. The easiest way is to run a PostgreSQL database via Docker with: 
 
 ```bash
 $ docker run -it --rm -p 5432:5432 -e POSTGRES_USER=dbuser -e POSTGRES_PASSWORD=theSecretPassword -e POSTGRES_DB=postgres postgres:11.5-alpine

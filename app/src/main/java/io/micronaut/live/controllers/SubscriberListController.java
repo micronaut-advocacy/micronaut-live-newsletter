@@ -7,18 +7,21 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.annotation.QueryValue;
 import io.micronaut.live.model.SubscriptionStatus;
+import io.micronaut.live.security.NewsletterUser;
 import io.micronaut.live.services.SubscriberListService;
 import io.micronaut.live.views.SubscriberListPage;
 import io.micronaut.live.views.SubscriberRow;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.authentication.Authentication;
 import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.views.View;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.annotation.security.PermitAll;
 
+import java.security.Principal;
 import java.util.Arrays;
 
 @Controller("/subscriber")
@@ -39,7 +42,8 @@ public class SubscriberListController {
     @Produces(MediaType.TEXT_HTML)
     @Get("/list")
     @View("subscriberlist")
-    SubscriberListPage index(@Nullable @QueryValue Integer page) {
+    SubscriberListPage index(@Nullable NewsletterUser newsletterUser,
+                             @Nullable @QueryValue Integer page) {
         return subscriberListService.findAll(page != null ? page : 1);
     }
 }
