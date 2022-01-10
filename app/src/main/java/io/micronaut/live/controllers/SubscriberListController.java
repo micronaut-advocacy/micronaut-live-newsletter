@@ -38,7 +38,6 @@ public class SubscriberListController {
     )
     @ApiResponse(responseCode = "200", description = "renders an HTML with list of subscribers")
     @ExecuteOn(TaskExecutors.IO)
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @Produces(MediaType.TEXT_HTML)
     @Get("/list")
     @View("subscriberlist")

@@ -27,7 +27,6 @@ class SubscriberImportCreateController {
             content = @Content(schema = @Schema(implementation = String.class),
                     mediaType = "text/html")
     )
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @Produces(MediaType.TEXT_HTML)
     @Get("/import")
     @View("subscriberimport")

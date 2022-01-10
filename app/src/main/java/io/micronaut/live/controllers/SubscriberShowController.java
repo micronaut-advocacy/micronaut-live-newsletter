@@ -36,7 +36,6 @@ class SubscriberShowController {
     )
     @ApiResponse(responseCode = "200", description = "renders an HTML with a subscriber detail")
     @ExecuteOn(TaskExecutors.IO)
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @Produces(MediaType.TEXT_HTML)
     @Get("/{id}")
     @View("subscriberdetail")

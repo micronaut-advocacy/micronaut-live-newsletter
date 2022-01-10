@@ -59,7 +59,6 @@ class SubscriberCancelController {
     @Produces(MediaType.TEXT_HTML)
     @View("unsubscribed")
     @Get("/cancel")
-    @PermitAll
     HttpResponse<?> unsubscribe(@Nullable @QueryValue String token) {
         if (StringUtils.isEmpty(token)) {
             return notFound();

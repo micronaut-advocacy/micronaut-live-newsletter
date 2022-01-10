@@ -34,3 +34,82 @@ micronaut:
   security:
     views-model-decorator:
       security-key: authentication
+---
+micronaut:
+  security:
+    intercept-url-map:
+      -
+        pattern: /api/v1/subscriber/confirm
+        http-method: PATCH
+        access:
+          - isAnonymous()
+      -
+        pattern: /api/v1/subscriber/count
+        http-method: GET
+        access:
+          - isAnonymous()
+      -
+        pattern: /api/v1/subscriber
+        http-method: POST
+        access:
+          - isAnonymous()
+      -
+        pattern: /
+        http-method: GET
+        access:
+          - isAnonymous()
+      -
+        pattern: /404
+        http-method: GET
+        access:
+          - isAnonymous()
+      -
+        pattern: /subscriber/cancel
+        http-method: GET
+        access:
+          - isAnonymous()
+      -
+        pattern: /subscriber/confirm
+        http-method: GET
+        access:
+          - isAnonymous()
+      -
+        pattern: /subscriber/create
+        http-method: GET
+        access:
+          - isAnonymous()
+      -
+        pattern: /subscriber/save
+        http-method: POST
+        access:
+          - isAnonymous()
+      -
+        pattern: /unauthorized
+        http-method: GET
+        access:
+          - isAnonymous()
+      -
+        pattern: /subscriber/*/edit
+        http-method: GET
+        access:
+          - isAuthenticated()
+      -
+        pattern: /subscriber/import
+        http-method: GET
+        access:
+          - isAuthenticated()
+      -
+        pattern: /subscriber/list
+        http-method: GET
+        access:
+          - isAuthenticated()
+      -
+        pattern: /subscriber/import
+        http-method: POST
+        access:
+          - isAuthenticated()
+      -
+        pattern: /subscriber/*
+        http-method: GET
+        access:
+          - isAuthenticated()

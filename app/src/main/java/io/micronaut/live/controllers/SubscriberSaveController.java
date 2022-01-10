@@ -33,7 +33,6 @@ class SubscriberSaveController {
     @Produces(MediaType.TEXT_HTML)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Post("/save")
-    @PermitAll
     ModelAndView<Map<String, Object>> save(@Body @NonNull @NotNull @Valid SubscriptionForm form) {
         subscriberSaveService.save(new Subscriber(form.getEmail(), null));
         //TODO move this to i18n properties file

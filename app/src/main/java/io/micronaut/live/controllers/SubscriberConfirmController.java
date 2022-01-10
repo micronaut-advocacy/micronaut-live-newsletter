@@ -68,7 +68,6 @@ class SubscriberConfirmController {
     @ExecuteOn(TaskExecutors.IO)
     @View("alert")
     @Get("/confirm")
-    @PermitAll
     AlertPage confirm(@Nullable @QueryValue String token) {
         if (StringUtils.isEmpty(token)) {
             return new AlertPage(CONFIRMATION_FAILED,

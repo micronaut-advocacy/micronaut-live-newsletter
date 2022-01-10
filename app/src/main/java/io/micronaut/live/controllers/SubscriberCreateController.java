@@ -14,7 +14,6 @@ import java.util.Map;
 @Controller("/subscriber")
 class SubscriberCreateController {
 
-    @PermitAll
     @Produces(MediaType.TEXT_HTML)
     @View("subscriptioncreate")
     @Get("/create")

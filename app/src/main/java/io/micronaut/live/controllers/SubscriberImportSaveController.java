@@ -47,7 +47,6 @@ public class SubscriberImportSaveController {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @View("alert")
     @Post("/import")
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     AlertPage save(CompletedFileUpload file) {
         importFile(file);
         String message = "Thanks, we are importing your subscribers";

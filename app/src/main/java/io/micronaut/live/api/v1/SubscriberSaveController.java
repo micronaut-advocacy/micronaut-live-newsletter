@@ -44,7 +44,6 @@ class SubscriberSaveController {
             mediaType = "application/json"))
     @ExecuteOn(TaskExecutors.IO)
     @Post(SUBSCRIBER_PATH)
-    @PermitAll
     HttpStatus save(@Body @NonNull @NotNull @Valid Subscriber subscriber) {
         if (subscriberSaveService.exists(subscriber.getEmail())) {
             return HttpStatus.UNPROCESSABLE_ENTITY;

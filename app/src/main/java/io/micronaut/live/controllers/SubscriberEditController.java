@@ -37,7 +37,6 @@ class SubscriberEditController {
     )
     @ApiResponse(responseCode = "200", description = "renders an HTML FORM to edit subscriber details")
     @ExecuteOn(TaskExecutors.IO)
-    @Secured(SecurityRule.IS_AUTHENTICATED)
     @Produces(MediaType.TEXT_HTML)
     @Get("/{id}/edit")
     @View("subscriberedit")

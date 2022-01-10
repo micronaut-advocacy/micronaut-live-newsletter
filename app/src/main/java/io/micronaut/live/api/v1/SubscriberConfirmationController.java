@@ -44,7 +44,6 @@ public class SubscriberConfirmationController {
             mediaType = "application/json"))
     @ExecuteOn(TaskExecutors.IO)
     @Patch(SUBSCRIBER_PATH + "/confirm")
-    @PermitAll
     HttpStatus confirm(@Body @NonNull @NotNull @Valid SubscriberConfirmationRequest subscriberConfirmationRequest) {
         return confirmationCodeVerifier.verify(subscriberConfirmationRequest.getToken()).isPresent() ? HttpStatus.OK : HttpStatus.UNPROCESSABLE_ENTITY;
     }
