@@ -21,7 +21,7 @@ micronaut:
         url: '/auth'
       logout: '/byebye'
       login-failure: '/login/failed'
-    authentication: session
+    authentication: bearer
     endpoints:
       logout:
         get-allowed: true
