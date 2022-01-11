@@ -138,3 +138,11 @@ ldapusers:
   users:
     - 'newton'
     - 'galieleo'
+---
+micronaut:
+  security:
+    token:
+      jwt:
+        generator:
+          access-token:
+            expiration: 60
