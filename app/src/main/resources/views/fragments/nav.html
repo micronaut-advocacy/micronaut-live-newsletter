@@ -12,6 +12,7 @@
                 <li th:replace="fragments/bootstrap :: nav-item('/subscriber/create', 'Create', ${currentMenu == 'create' ? true : false})"></li>
                 <li th:replace="fragments/bootstrap :: nav-item('/subscriber/list', 'List', ${currentMenu == 'list' ? true : false})"></li>
                 <li th:replace="fragments/bootstrap :: nav-item('/subscriber/import', 'Import', ${currentMenu == 'import' ? true : false})"></li>
+                <li><span class="nav-link" th:text="${authentication.name}"></span></li>
                 <li th:replace="fragments/bootstrap :: nav-item('/logout', 'Logout', false)"></li>
             </ul>
         </div>
