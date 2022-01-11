@@ -18,8 +18,9 @@ micronaut:
       forbidden:
         url: '/forbidden'
       unauthorized:
-        url: '/unauthorized'
-    authentication: idtoken
+        url: '/auth'
+      logout: '/byebye'
+    authentication: session
     endpoints:
       logout:
         get-allowed: true

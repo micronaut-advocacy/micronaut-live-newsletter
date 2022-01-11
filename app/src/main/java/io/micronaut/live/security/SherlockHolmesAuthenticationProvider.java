@@ -13,7 +13,9 @@ public class SherlockHolmesAuthenticationProvider implements AuthenticationProvi
     @Override
     public Publisher<AuthenticationResponse> authenticate(HttpRequest<?> httpRequest, AuthenticationRequest<?, ?> authenticationRequest) {
         return Mono.<AuthenticationResponse>create(emitter -> {
-            if (authenticationRequest.getIdentity().equals("sherlock") && authenticationRequest.getSecret().equals("elementary")) {
+            if (authenticationRequest.getIdentity().equals("sherlock@bakerstreet.com") && authenticationRequest.getSecret().equals("elementary")) {
+                emitter.success(AuthenticationResponse.success("sherlock"));
+            } else if (authenticationRequest.getIdentity().equals("sherlock") && authenticationRequest.getSecret().equals("elementary")) {
                 emitter.success(AuthenticationResponse.success("sherlock"));
             } else {
                 emitter.error(AuthenticationResponse.exception());

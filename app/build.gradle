@@ -50,8 +50,9 @@ dependencies {
     implementation("io.micronaut.flyway:micronaut-flyway")
 
     annotationProcessor("io.micronaut.security:micronaut-security-annotations")
-    implementation("io.micronaut.security:micronaut-security-oauth2")
+    //implementation("io.micronaut.security:micronaut-security-oauth2")
     implementation("io.micronaut.security:micronaut-security-jwt")
+    implementation("io.micronaut.security:micronaut-security-session")
 
     implementation("io.micronaut.reactor:micronaut-reactor")
 
