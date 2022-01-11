@@ -19,7 +19,7 @@ micronaut:
         url: '/forbidden'
       unauthorized:
         url: '/auth'
-    authentication: cookie
+    authentication: session
     endpoints:
       logout:
         get-allowed: true

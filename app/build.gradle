@@ -53,6 +53,7 @@ dependencies {
     annotationProcessor("io.micronaut.security:micronaut-security-annotations")
     implementation("io.micronaut.security:micronaut-security-oauth2")
     implementation("io.micronaut.security:micronaut-security-jwt")
+    implementation("io.micronaut.security:micronaut-security-session")
     implementation("org.springframework.security:spring-security-crypto:5.6.1")
 
     runtimeOnly("ch.qos.logback:logback-classic")
