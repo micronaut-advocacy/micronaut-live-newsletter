@@ -9,7 +9,7 @@ import jakarta.inject.Singleton;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
-@Singleton
+//@Singleton
 public class AllowedUsersAuthenticationProvider implements AuthenticationProvider  {
     private final AllowedLdapUsersConfiguration allowedLdapUsersConfiguration;
 
