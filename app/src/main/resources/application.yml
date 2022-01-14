@@ -34,3 +34,9 @@ micronaut:
   security:
     views-model-decorator:
       security-key: authentication
+---
+micronaut:
+  http:
+    services:
+      micronautlaunch:
+        url: 'https://launch.micronaut.io'
