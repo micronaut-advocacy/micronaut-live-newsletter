@@ -12,7 +12,7 @@
         </ol>
     </nav>
     <form method="post" action="/subscriber/update">
-        <input type="hidden" name="id"/>
+        <input type="hidden" name="id" th:value="${subscriber.id}"/>
         <div th:replace="fragments/bootstrap :: form-input('text','subscriber-name','name', 'Name', ${subscriber.name})"></div>
         <div th:replace="fragments/bootstrap :: form-input('email','subscriber-email','email', 'Email', ${subscriber.email})"></div>
         <button th:replace="fragments/bootstrap :: submit('Update', 'btn-primary')"></button>
