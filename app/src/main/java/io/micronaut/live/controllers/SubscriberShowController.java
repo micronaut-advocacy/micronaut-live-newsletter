@@ -10,6 +10,7 @@ import io.micronaut.http.exceptions.HttpStatusException;
 import io.micronaut.live.Subscriber;
 import io.micronaut.live.services.SubscriberShowService;
 import io.micronaut.live.views.HtmlPage;
+import io.micronaut.live.views.SubscriberDetail;
 import io.micronaut.live.views.SubscriberDetailPage;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
@@ -42,11 +43,11 @@ class SubscriberShowController {
     @View("subscriberdetail")
     HtmlPage show(@PathVariable String id) {
         String title = "Detail"; //TODO i18n
-        Optional<Subscriber> subscriberOptional = subscriberShowService.findById(id);
+        Optional<SubscriberDetail> subscriberOptional = subscriberShowService.findById(id);
         if (!subscriberOptional.isPresent()) {
             throw new HttpStatusException(HttpStatus.NOT_FOUND, "subscriber not found by id" + id);
         }
-        Subscriber subscriber = subscriberOptional.get();
+        SubscriberDetail subscriber = subscriberOptional.get();
         return new SubscriberDetailPage(title, subscriber);
     }
 }

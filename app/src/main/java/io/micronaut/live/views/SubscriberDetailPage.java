@@ -7,16 +7,16 @@ import io.micronaut.live.Subscriber;
 @Introspected
 public class SubscriberDetailPage extends HtmlPage {
     @NonNull
-    private final Subscriber subscriber;
+    private final SubscriberDetail subscriber;
 
     public SubscriberDetailPage(@NonNull String title,
-                                @NonNull Subscriber subscriber) {
+                                @NonNull SubscriberDetail subscriber) {
         super(title);
         this.subscriber = subscriber;
     }
 
     @NonNull
-    public Subscriber getSubscriber() {
+    public SubscriberDetail getSubscriber() {
         return subscriber;
     }
 }

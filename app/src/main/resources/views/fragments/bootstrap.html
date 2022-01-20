@@ -1,12 +1,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<li class="breadcrumb-item" th:fragment="breadcrumb-item(title, href)">
+<div th:fragment="form-input(type,inputId,inputName,label,value)"
+     class="mb-3">
+    <label th:for="${inputId}" class="form-label">[[${label}]]</label>
+    <input th:type="${type}" th:name="${inputName}" class="form-control" th:id="${inputId}" th:value="${value}"/>
+</div>
+<button th:fragment="submit(title,style)"
+        type="submit"
+        class="btn"
+        th:classappend="${style}">
+    [[${title}]]
+</button>
+<button th:fragment="button(title,style)"
+        type="button"
+        class="btn"
+        th:classappend="${style}">
+    [[${title}]]
+</button>
+<li th:fragment="breadcrumb-item(title, href)"
+    class="breadcrumb-item"
+    th:classappend="${!href}?active"
+    th:attrappend="aria-current=${!href}?page">
     <a th:if="${href}"
        th:href="${href}"
        th:text="${title}"></a>
-    <a th:unless="${href}"
-       class="active"
-       aria-current="page"
-       th:text="${title}"></a>
+    <span th:unless="${href}"
+       th:text="${title}"></span>
 </li>
 <li class="nav-item" th:fragment="nav-item(href, title, active)">
     <a class="nav-link"
