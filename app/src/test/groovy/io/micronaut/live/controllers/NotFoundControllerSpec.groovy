@@ -30,8 +30,9 @@ class NotFoundControllerSpec extends Specification {
         HttpStatus.OK == response.status()
         response.getBody().isPresent()
         response.getBody().get().contains('''\
-    <div class="alert alert-danger" role="alert">
-        <span>Not Found</span>
-    </div>''')
+<div class="alert alert-danger"
+     role="alert">
+    <span>Not Found</span>
+</div>''')
     }
 }

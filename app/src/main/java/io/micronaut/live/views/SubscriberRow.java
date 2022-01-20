@@ -29,6 +29,12 @@ public class SubscriberRow {
 
     public SubscriberRow(@NonNull String id,
                          @NonNull String email,
+                         @NonNull SubscriptionStatus status) {
+        this(id, email, status, null);
+    }
+
+    public SubscriberRow(@NonNull String id,
+                         @NonNull String email,
                          @NonNull SubscriptionStatus status,
                          @Nullable String name) {
         this.id = id;
@@ -50,6 +56,11 @@ public class SubscriberRow {
     @NonNull
     public SubscriptionStatus getStatus() {
         return status;
+    }
+
+    @NonNull
+    public String statusAlertClass() {
+        return SubscriptionStatusUtils.alertClass(status);
     }
 
     @Nullable
