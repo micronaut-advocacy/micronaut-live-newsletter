@@ -18,8 +18,8 @@ micronaut:
       forbidden:
         url: '/forbidden'
       unauthorized:
-        url: '/oauth/login/cognito'
-    authentication: idtoken
+        url: '/auth'
+    authentication: session
     endpoints:
       logout:
         get-allowed: true

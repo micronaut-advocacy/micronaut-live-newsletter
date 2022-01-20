@@ -41,9 +41,10 @@ class UnsubscribeControllerSpec extends Specification implements PostgresTestPro
         then: 'app redirects to the 404 page'
         noExceptionThrown()
         html.contains('''\
-    <div class="alert alert-danger" role="alert">
-        <span>Not Found</span>
-    </div>''')
+<div class="alert alert-danger"
+     role="alert">
+    <span>Not Found</span>
+</div>''')
     }
 
     void "GET /subscriber/cancel if invalid token redirect the user to 404"() {
@@ -53,9 +54,10 @@ class UnsubscribeControllerSpec extends Specification implements PostgresTestPro
         then: 'app redirects to the 404 page'
         noExceptionThrown()
         html.contains('''\
-    <div class="alert alert-danger" role="alert">
-        <span>Not Found</span>
-    </div>''')
+<div class="alert alert-danger"
+     role="alert">
+    <span>Not Found</span>
+</div>''')
     }
 
     void "GET /subscriber/cancel if valid token renders a HTML Page telling the user unsubscription was successful"() {
