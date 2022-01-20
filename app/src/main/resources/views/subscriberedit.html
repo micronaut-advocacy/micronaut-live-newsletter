@@ -7,21 +7,15 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li th:replace="fragments/bootstrap :: breadcrumb-item('List', '/subscriber/list')"></li>
-            <li th:replace="fragments/bootstrap :: breadcrumb-item('List', '@{|/subscriber/${subscriber.id}|}')"></li>
+            <li class="breadcrumb-item"><a th:href="@{|/subscriber/${subscriber.id}|}">Subscriber Detail</a></li>
             <li th:replace="fragments/bootstrap :: breadcrumb-item('Edit Subscriber', null)"></li>
         </ol>
     </nav>
     <form method="post" action="/subscriber/update">
         <input type="hidden" name="id"/>
-        <div class="mb-3">
-            <label for="subscriber-name" class="form-label">Email address</label>
-            <input type="text" name="name" class="form-control" id="subscriber-name">
-        </div>
-        <div class="mb-3">
-            <label for="subscriber-email" class="form-label">Email address</label>
-            <input type="email" name="email" class="form-control" id="subscriber-email">
-        </div>
-        <button type="submit" class="btn btn-primary">Update</button>
+        <div th:replace="fragments/bootstrap :: form-input('text','subscriber-name','name', 'Name', ${subscriber.name})"></div>
+        <div th:replace="fragments/bootstrap :: form-input('email','subscriber-email','email', 'Email', ${subscriber.email})"></div>
+        <button th:replace="fragments/bootstrap :: submit('Update', 'btn-primary')"></button>
     </form>
 </div>
 <footer th:replace="fragments/footer :: footer"></footer>

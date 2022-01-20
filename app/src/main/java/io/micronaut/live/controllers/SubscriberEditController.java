@@ -12,6 +12,7 @@ import io.micronaut.live.model.Alert;
 import io.micronaut.live.model.AlertPage;
 import io.micronaut.live.services.SubscriberShowService;
 import io.micronaut.live.views.HtmlPage;
+import io.micronaut.live.views.SubscriberDetail;
 import io.micronaut.live.views.SubscriberDetailPage;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
@@ -43,11 +44,11 @@ class SubscriberEditController {
     @View("subscriberedit")
     HtmlPage edit(@PathVariable String id) {
         String title = "Edit Subscriber"; //TODO i18n
-        Optional<Subscriber> subscriberOptional = subscriberShowService.findById(id);
+        Optional<SubscriberDetail> subscriberOptional = subscriberShowService.findById(id);
         if (!subscriberOptional.isPresent()) {
             throw new HttpStatusException(HttpStatus.NOT_FOUND, "subscriber not found by id" + id);
         }
-        Subscriber subscriber = subscriberOptional.get();
+        SubscriberDetail subscriber = subscriberOptional.get();
         return new SubscriberDetailPage(title, subscriber);
     }
 }

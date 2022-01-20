@@ -10,6 +10,9 @@
             <li th:replace="fragments/bootstrap :: breadcrumb-item('Subscriber Detail', null)"></li>
         </ol>
     </nav>
+    <a th:href="@{|/subscriber/${subscriber.id}/edit|}">
+        <button th:replace="fragments/bootstrap :: button('Edit', 'btn-primary')"></button>
+    </a>
     <ul>
         <li>Email: <span th:text="${subscriber.email}"></span></li>
         <li th:if="${subscriber.name}">Name: <span th:text="${subscriber.name}"></span></li>

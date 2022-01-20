@@ -8,6 +8,7 @@ import io.micronaut.data.model.query.builder.sql.Dialect;
 import io.micronaut.data.repository.CrudRepository;
 import io.micronaut.live.Subscriber;
 import io.micronaut.live.model.SubscriptionStatus;
+import io.micronaut.live.views.SubscriberDetail;
 import io.micronaut.live.views.SubscriberRow;
 
 import javax.validation.constraints.Email;
@@ -34,5 +35,5 @@ public interface SubscriberDataRepository extends CrudRepository<SubscriberEntit
     List<SubscriberRow> find(Pageable pageable);
 
     @NonNull
-    Optional<Subscriber> find(String id);
+    Optional<SubscriberDetail> find(String id);
 }
