@@ -3,7 +3,7 @@ plugins {
     id("jacoco")
     id("com.github.johnrengelman.shadow") version "7.1.0"
     id "io.micronaut.application" version "3.1.1"
-    //id "io.micronaut.aot" version "3.1.1"
+    id "io.micronaut.aot" version "3.1.1"
 }
 
 version = "0.1"
@@ -19,7 +19,7 @@ micronaut {
     processing {
         incremental(true)
         annotations("io.micronaut.live.*")
-    }/*
+    }
     aot {
         version = '1.0.0-M5' // https://github.com/micronaut-projects/micronaut-aot/releases
         optimizeServiceLoading = true
@@ -28,7 +28,7 @@ micronaut {
         cacheEnvironment = true
         optimizeClassLoading = true
         deduceEnvironment = true
-    }*/
+    }
 }
 
 dependencies {
