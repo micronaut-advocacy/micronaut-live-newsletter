@@ -19,28 +19,28 @@
         </div>
     </nav>
     <th:block th:if="${alert.primary}">
-        <li th:replace="fragments/bootstrap :: alert(${alert.primary}, 'alert-primary')"></li>
+        <div th:replace="fragments/bootstrap :: alert(${alert.primary}, 'alert-primary')"></div>
     </th:block>
     <th:block th:if="${alert.secondary}">
-        <li th:replace="fragments/bootstrap :: alert(${alert.secondary}, 'alert-secondary')"></li>
+        <div th:replace="fragments/bootstrap :: alert(${alert.secondary}, 'alert-secondary')"></div>
     </th:block>
     <th:block th:if="${alert.success}">
-        <li th:replace="fragments/bootstrap :: alert(${alert.success}, 'alert-success')"></li>
+        <div th:replace="fragments/bootstrap :: alert(${alert.success}, 'alert-success')"></div>
     </th:block>
     <th:block th:if="${alert.danger}">
-        <li th:replace="fragments/bootstrap :: alert(${alert.danger}, 'alert-danger')"></li>
+        <div th:replace="fragments/bootstrap :: alert(${alert.danger}, 'alert-danger')"></div>
     </th:block>
     <th:block th:if="${alert.warning}">
-        <li th:replace="fragments/bootstrap :: alert(${alert.warning}, 'alert-warning')"></li>
+        <div th:replace="fragments/bootstrap :: alert(${alert.warning}, 'alert-warning')"></div>
     </th:block>
     <th:block th:if="${alert.info}">
-        <li th:replace="fragments/bootstrap :: alert(${alert.info}, 'alert-info')"></li>
+        <div th:replace="fragments/bootstrap :: alert(${alert.info}, 'alert-info')"></div>
     </th:block>
     <th:block th:if="${alert.light}">
-        <li th:replace="fragments/bootstrap :: alert(${alert.light}, 'alert-light')"></li>
+        <div th:replace="fragments/bootstrap :: alert(${alert.light}, 'alert-light')"></div>
     </th:block>
     <th:block th:if="${alert.dark}">
-        <li th:replace="fragments/bootstrap :: alert(${alert.dark}, 'alert-dark')"></li>
+        <div th:replace="fragments/bootstrap :: alert(${alert.dark}, 'alert-dark')"></div>
     </th:block>
 </div>
 <footer th:replace="fragments/footer :: footer"></footer>
