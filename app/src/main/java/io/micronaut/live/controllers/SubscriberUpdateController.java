@@ -8,6 +8,7 @@ import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.uri.UriBuilder;
+import io.micronaut.live.services.SubscriberUpdateService;
 import io.micronaut.live.views.SubscriberDetail;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
@@ -18,10 +19,17 @@ import javax.validation.constraints.NotNull;
 @Controller("/subscriber")
 class SubscriberUpdateController {
 
+    private final SubscriberUpdateService subscriberUpdateService;
+
+    SubscriberUpdateController(SubscriberUpdateService subscriberUpdateService) {
+        this.subscriberUpdateService = subscriberUpdateService;
+    }
+
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Post("/update")
-    HttpResponse<?> update(@NonNull @Body @NotNull @Valid SubscriberDetail subscriberDetail) {
+    HttpResponse<?> update(@Body @NonNull @NotNull @Valid SubscriberDetail subscriberDetail) {
+        subscriberUpdateService.update(subscriberDetail);
         return HttpResponse.seeOther(UriBuilder.of("/subscriber")
                 .path(subscriberDetail.getId())
                 .build());

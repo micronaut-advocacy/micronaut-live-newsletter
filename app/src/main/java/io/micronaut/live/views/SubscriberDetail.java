@@ -3,6 +3,7 @@ package io.micronaut.live.views;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+import jakarta.inject.Inject;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -25,6 +26,8 @@ public class SubscriberDetail {
                       @NonNull String email) {
         this(id, email, null);
     }
+
+    @Inject
     public SubscriberDetail(@NonNull String id,
                       @NonNull String email,
                       @Nullable String name) {
