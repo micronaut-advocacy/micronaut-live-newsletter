@@ -3,7 +3,7 @@ package io.micronaut.live.api.v1;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
-import io.micronaut.email.validation.AnyContent;
+import io.micronaut.live.constraints.AnyContent;
 
 import javax.validation.constraints.NotBlank;
 
