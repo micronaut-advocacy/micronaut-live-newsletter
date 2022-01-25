@@ -125,7 +125,7 @@ class SubscriptionConfirmationSpec extends Specification implements PostgresTest
 
         @Override
         @NonNull
-        public Void send(@NonNull @NotNull @Valid Email email,
+        Void send(@NonNull @NotNull @Valid Email email,
                          @NonNull @NotNull Consumer<Email> emailRequest) throws EmailException {
             emails << email
             return null
