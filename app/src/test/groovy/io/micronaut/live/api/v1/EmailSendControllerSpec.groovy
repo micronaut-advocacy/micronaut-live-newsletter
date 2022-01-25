@@ -36,6 +36,7 @@ import java.util.function.Consumer
 
 @Property(name = "micronaut.security.filter.enabled", value = StringUtils.FALSE)
 @Property(name = "spec.name", value = "EmailControllerSpec")
+@Property(name = "micronaut.email.from.name", value = "Tim Cook")
 @Property(name = "micronaut.email.from.email", value = "tcook@apple.com")
 @MicronautTest
 class EmailSendControllerSpec extends Specification {

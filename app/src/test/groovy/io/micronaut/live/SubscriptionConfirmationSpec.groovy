@@ -29,6 +29,7 @@ import javax.validation.Valid
 import javax.validation.constraints.NotNull
 import java.util.function.Consumer
 
+@Property(name = "micronaut.email.from.name", value = "Tim Cook")
 @Property(name = "micronaut.email.from.email", value = "tcook@apple.com")
 @Property(name = "spec.name", value = "SubscriptionConfirmationSpec")
 @MicronautTest
