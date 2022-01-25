@@ -5,26 +5,31 @@ import io.micronaut.context.annotation.Property
 import io.micronaut.context.annotation.Replaces
 import io.micronaut.context.annotation.Requires
 import io.micronaut.core.annotation.NonNull
+import io.micronaut.email.BodyType
+import io.micronaut.email.Email
+import io.micronaut.email.EmailException
+import io.micronaut.email.EmailSender
+import io.micronaut.email.TransactionalEmailSender
+import io.micronaut.email.configuration.FromConfiguration
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
-import io.micronaut.live.conf.EmailConfiguration
 import io.micronaut.live.data.PostgresTestPropertyProvider
 import io.micronaut.live.data.SubscriberService
 import io.micronaut.live.data.SubscriberDataRepository
-import io.micronaut.live.model.Email
-import io.micronaut.live.services.EmailSender
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
+import jakarta.inject.Named
 import jakarta.inject.Singleton
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
+import java.util.function.Consumer
 
-@Property(name = "email.from", value = "tcook@apple.com")
+@Property(name = "micronaut.email.from.email", value = "tcook@apple.com")
 @Property(name = "spec.name", value = "SubscriptionConfirmationSpec")
 @MicronautTest
 class SubscriptionConfirmationSpec extends Specification implements PostgresTestPropertyProvider {
@@ -46,7 +51,7 @@ class SubscriptionConfirmationSpec extends Specification implements PostgresTest
         BlockingHttpClient client = httpClient.toBlocking()
 
         expect:
-        beanContext.containsBean(EmailConfiguration)
+        beanContext.containsBean(FromConfiguration)
 
         when:
         client.exchange(HttpRequest.POST('/api/v1/subscriber', [email: 'tcook@apple.com']))
@@ -78,11 +83,13 @@ class SubscriptionConfirmationSpec extends Specification implements PostgresTest
         Optional<Email> emailOptional = lastEmail()
         if (emailOptional.isPresent()) {
             Email email = emailOptional.get()
-            String[] arr = email.getText().split("\n");
-            return (arr as List<String>)
-                    .stream()
-                    .filter(l -> l.startsWith('http'))
-                    .findFirst()
+            if (email.getBody() != null && email.getBody().get(BodyType.TEXT).isPresent()) {
+                String[] arr = email.getBody().get(BodyType.TEXT).get().split("\n");
+                return (arr as List<String>)
+                        .stream()
+                        .filter(l -> l.startsWith('http'))
+                        .findFirst()
+            }
         }
         Optional.empty()
     }
@@ -106,12 +113,21 @@ class SubscriptionConfirmationSpec extends Specification implements PostgresTest
     @Requires(property = "spec.name", value = "SubscriptionConfirmationSpec")
     @Replaces(EmailSender.class)
     @Singleton
-    static class EmailSenderCollector implements EmailSender {
+    @Named("mock")
+    static class EmailSenderCollector implements TransactionalEmailSender<Email, Void> {
         List<Email> emails = []
 
         @Override
-        void sendEmail(@NonNull @NotNull @Valid Email email) {
-            emails.add(email)
+        String getName() {
+            return "mock"
+        }
+
+        @Override
+        @NonNull
+        public Void send(@NonNull @NotNull @Valid Email email,
+                         @NonNull @NotNull Consumer<Email> emailRequest) throws EmailException {
+            emails << email
+            return null
         }
     }
 }

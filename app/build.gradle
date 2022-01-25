@@ -11,6 +11,7 @@ group = "io.micronaut.live"
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 micronaut {
@@ -52,6 +53,8 @@ dependencies {
     annotationProcessor("io.micronaut.security:micronaut-security-annotations")
     implementation("io.micronaut.security:micronaut-security-oauth2")
     implementation("io.micronaut.security:micronaut-security-jwt")
+
+    implementation("io.micronaut.email:micronaut-email-sendgrid:1.0.0-SNAPSHOT")
 
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("org.postgresql:postgresql")

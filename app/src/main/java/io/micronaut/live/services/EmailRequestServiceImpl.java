@@ -1,14 +1,15 @@
 package io.micronaut.live.services;
 
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.email.BodyType;
+import io.micronaut.email.Email;
+import io.micronaut.email.EmailSender;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.server.util.HttpHostResolver;
 import io.micronaut.http.uri.UriBuilder;
 import io.micronaut.live.Subscriber;
 import io.micronaut.live.api.v1.EmailRequest;
-import io.micronaut.live.conf.EmailConfiguration;
 import io.micronaut.live.data.SubscriberService;
-import io.micronaut.live.model.Email;
 import jakarta.inject.Singleton;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -19,18 +20,15 @@ public class EmailRequestServiceImpl implements EmailRequestService {
 
     public static final String PLACEHOLDER_UNSUBSCRIBE = "@unsubscribe@";
     private final SubscriberService subscriberService;
-    private final EmailConfiguration emailConfiguration;
-    private final EmailSender emailSender;
+    private final EmailSender<?, ?> emailSender;
     private final HttpHostResolver httpHostResolver;
     private final ConfirmationCodeGenerator confirmationCodeGenerator;
 
     public EmailRequestServiceImpl(SubscriberService subscriberService,
-                                   EmailConfiguration emailConfiguration,
-                                   EmailSender emailSender,
+                                   EmailSender<?, ?> emailSender,
                                    HttpHostResolver httpHostResolver,
                                    ConfirmationCodeGenerator confirmationCodeGenerator) {
         this.subscriberService = subscriberService;
-        this.emailConfiguration = emailConfiguration;
         this.emailSender = emailSender;
         this.httpHostResolver = httpHostResolver;
         this.confirmationCodeGenerator = confirmationCodeGenerator;
@@ -40,8 +38,8 @@ public class EmailRequestServiceImpl implements EmailRequestService {
     public void process(@NonNull @NotNull HttpRequest<?> httpRequest,
                         @NonNull @NotNull @Valid EmailRequest emailRequest) {
         for (Subscriber subscriber : subscriberService.findAll()) {
-            Email email = compose(httpRequest, subscriber, emailRequest);
-            emailSender.sendEmail(email);
+            Email.Builder email = compose(httpRequest, subscriber, emailRequest);
+            emailSender.send(email);
         }
     }
 
@@ -59,7 +57,7 @@ public class EmailRequestServiceImpl implements EmailRequestService {
     }
 
     @NonNull
-    private Email compose(@NonNull HttpRequest<?> httpRequest,
+    private Email.Builder compose(@NonNull HttpRequest<?> httpRequest,
                           @NonNull Subscriber subscriber,
                           @NonNull EmailRequest emailRequest) {
         String text = emailRequest.getText();
@@ -77,13 +75,17 @@ public class EmailRequestServiceImpl implements EmailRequestService {
                 }
             }
         }
-
-        return Email.builder()
+        Email.Builder builder = Email.builder()
                 .to(subscriber.getEmail())
-                .from(emailConfiguration.getFrom())
-                .subject(emailRequest.getSubject())
-                .text(text)
-                .html(html)
-                .build();
+                .subject(emailRequest.getSubject());
+        if (html != null && text != null) {
+            return builder.body(html, text);
+        } else if (html != null) {
+            return builder.body(html, BodyType.HTML);
+        } else if (text != null) {
+            return builder.body(text, BodyType.TEXT);
+        }
+        return builder;
+
     }
 }
