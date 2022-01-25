@@ -21,7 +21,7 @@ micronaut {
         annotations("io.micronaut.live.*")
     }
     aot {
-        version = '1.0.0-M5' // https://github.com/micronaut-projects/micronaut-aot/releases
+        version = '1.0.0-M6' // https://github.com/micronaut-projects/micronaut-aot/releases
         optimizeServiceLoading = true
         convertYamlToJava = true
         precomputeOperations = true

@@ -1,0 +1,27 @@
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/postgres
+    driverClassName: org.postgresql.Driver
+    schema-generate: NONE
+    dialect: POSTGRES
+    username: dbuser
+    password: theSecretPassword
+---
+micronaut:
+  security:
+    oauth2:
+      clients:
+        cognito:
+          client-id: 'xxx'
+          client-secret: 'yyy'
+          openid:
+            issuer: 'https://cognito-idp.us-east-1.amazonaws.com/us-east-1_4OqDoWVrZ/'
+---
+micronaut:
+  email:
+    from:
+      email: 'sergio.delamo@softamo.com'
+      name: 'Sergio del Amo'
+---
+sendgrid:
+  api-key: 'zzz'
