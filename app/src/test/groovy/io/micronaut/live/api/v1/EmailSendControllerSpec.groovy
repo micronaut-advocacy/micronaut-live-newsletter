@@ -90,7 +90,7 @@ class EmailSendControllerSpec extends Specification {
     }
 
     @Requires(property = "spec.name", value = "EmailControllerSpec")
-    @Replaces(EmailSender.class)
+    @Replaces(TransactionalEmailSender.class)
     @Singleton
     @Named("mock")
     static class EmailSenderReplacement implements TransactionalEmailSender<Email, Void> {

@@ -112,7 +112,7 @@ class SubscriptionConfirmationSpec extends Specification implements PostgresTest
     }
 
     @Requires(property = "spec.name", value = "SubscriptionConfirmationSpec")
-    @Replaces(EmailSender.class)
+    @Replaces(TransactionalEmailSender.class)
     @Singleton
     @Named("mock")
     static class EmailSenderCollector implements TransactionalEmailSender<Email, Void> {
