@@ -41,7 +41,6 @@ dependencies {
     implementation("io.micronaut.views:micronaut-views-thymeleaf")
     implementation("io.micronaut.data:micronaut-data-jdbc")
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
-    implementation 'com.sendgrid:sendgrid-java:4.8.0'
     implementation("io.micronaut.problem:micronaut-problem-json")
     implementation("io.micronaut:micronaut-runtime")
     implementation("javax.annotation:javax.annotation-api")
