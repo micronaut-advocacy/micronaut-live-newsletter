@@ -1,5 +1,6 @@
 package io.micronaut.live.controllers;
 
+import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
@@ -7,6 +8,7 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.exceptions.HttpStatusException;
+import io.micronaut.i18n.Messages;
 import io.micronaut.live.Subscriber;
 import io.micronaut.live.model.Alert;
 import io.micronaut.live.model.AlertPage;
@@ -22,6 +24,7 @@ import io.micronaut.views.View;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
+import java.util.Collections;
 import java.util.Optional;
 
 @Controller("/subscriber")
@@ -42,11 +45,14 @@ class SubscriberEditController {
     @Produces(MediaType.TEXT_HTML)
     @Get("/{id}/edit")
     @View("subscriberedit")
-    HtmlPage edit(@PathVariable String id) {
-        String title = "Edit Subscriber"; //TODO i18n
+    HtmlPage edit(@PathVariable String id,
+                  @NonNull Messages messages) {
+        String title = messages.get("subscriberEdit.title", "Edit Subscriber");
+
         Optional<SubscriberDetail> subscriberOptional = subscriberShowService.findById(id);
         if (!subscriberOptional.isPresent()) {
-            throw new HttpStatusException(HttpStatus.NOT_FOUND, "subscriber not found by id" + id);
+            String exceptionMessage = messages.get("subscriber.notFoundById", Collections.singletonList(id), "subscriber not found by id" + id);
+            throw new HttpStatusException(HttpStatus.NOT_FOUND, exceptionMessage);
         }
         SubscriberDetail subscriber = subscriberOptional.get();
         return new SubscriberDetailPage(title, subscriber);

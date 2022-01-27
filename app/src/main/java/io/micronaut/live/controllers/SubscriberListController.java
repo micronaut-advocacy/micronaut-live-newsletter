@@ -1,11 +1,13 @@
 package io.micronaut.live.controllers;
 
+import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.annotation.QueryValue;
+import io.micronaut.i18n.Messages;
 import io.micronaut.live.model.SubscriptionStatus;
 import io.micronaut.live.services.SubscriberListService;
 import io.micronaut.live.views.SubscriberListPage;
@@ -39,7 +41,8 @@ public class SubscriberListController {
     @Produces(MediaType.TEXT_HTML)
     @Get("/list")
     @View("subscriberlist")
-    SubscriberListPage index(@Nullable @QueryValue Integer page) {
-        return subscriberListService.findAll(page != null ? page : 1);
+    SubscriberListPage index(@Nullable @QueryValue Integer page,
+                             @NonNull Messages messages) {
+        return subscriberListService.findAll(page != null ? page : 1, messages);
     }
 }

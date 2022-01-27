@@ -7,6 +7,7 @@ import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Produces;
+import io.micronaut.i18n.Messages;
 import io.micronaut.live.Subscriber;
 import io.micronaut.live.model.Alert;
 import io.micronaut.live.services.SubscriberSaveService;
@@ -34,14 +35,14 @@ class SubscriberSaveController {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Post("/save")
     @PermitAll
-    ModelAndView<Map<String, Object>> save(@Body @NonNull @NotNull @Valid SubscriptionForm form) {
+    ModelAndView<Map<String, Object>> save(@Body @NonNull @NotNull @Valid SubscriptionForm form,
+                                           @NonNull Messages messages) {
         subscriberSaveService.save(new Subscriber(form.getEmail(), null));
-        //TODO move this to i18n properties file
         Map<String, Object> model = new HashMap<>();
-        model.put("title", "Pending | Subscription");
+        model.put("title", messages.get("subscriberSave.title", "Pending | Subscription"));
         model.put("alert", Alert
                 .builder()
-                .info("Please, check your email and confirm your subscription")
+                .info(messages.get("subscriberSave.checkYourEmailToConfirm", "Please, check your email and confirm your subscription"))
                 .build());
         return new ModelAndView<>("alert", model);
     }

@@ -4,6 +4,7 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
+import io.micronaut.i18n.Messages;
 import io.micronaut.live.model.Alert;
 import io.micronaut.live.model.AlertPage;
 import io.micronaut.views.ModelAndView;
@@ -22,12 +23,13 @@ class NotFoundController {
     @Produces(MediaType.TEXT_HTML)
     @Get
     @PermitAll
-    ModelAndView<AlertPage> notFound() {
-        return new ModelAndView<>("alert", createAlertPage()); //TODO do this via i18n
+    ModelAndView<AlertPage> notFound(Messages messages) {
+        return new ModelAndView<>("alert", createAlertPage(messages));
     }
 
-    private static AlertPage createAlertPage() {
-        return new AlertPage("Not Found", //TODO do this via i18n
-                Alert.builder().danger("Not Found").build());
+    private static AlertPage createAlertPage(Messages messages) {
+        String message = messages.get("notFound.title", "Not Found");
+        return new AlertPage(message,
+                Alert.builder().danger(message).build());
     }
 }

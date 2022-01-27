@@ -21,7 +21,6 @@ import io.swagger.v3.oas.annotations.info.License;
         )
 )
 public class Application {
-
     @ContextConfigurer
     public static class DefaultEnvironmentConfigurer implements ApplicationContextConfigurer {
         @Override

@@ -3,6 +3,7 @@ package io.micronaut.live.data;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.data.model.Pageable;
 import io.micronaut.http.uri.UriBuilder;
+import io.micronaut.i18n.Messages;
 import io.micronaut.live.conf.SubscriberConfiguration;
 import io.micronaut.live.services.SubscriberListService;
 import io.micronaut.live.views.Page;
@@ -35,11 +36,12 @@ public class SubscriberListServiceImpl implements SubscriberListService {
 
     @Override
     @NonNull
-    public SubscriberListPage findAll(@NonNull @NotNull @Min(1) Integer page) {
+    public SubscriberListPage findAll(@NonNull @NotNull @Min(1) Integer page,
+                                      @NonNull Messages messages) {
         int max = subscriberConfiguration.getSubscriberListPageSize();
         Pageable pageable = Pageable.from((page - 1), max);
         Pagination pagination = Pagination.of(subscriberDataRepository.count(), max, pagePath, page);
-        return new SubscriberListPage("subscribers", //TODO do i18n
+        return new SubscriberListPage(messages.get("subscriberList.title", "Subscribers"),
                 subscriberDataRepository.find(pageable), pagination);
     }
 

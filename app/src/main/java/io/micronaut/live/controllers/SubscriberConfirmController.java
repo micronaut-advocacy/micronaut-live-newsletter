@@ -9,6 +9,7 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.annotation.QueryValue;
+import io.micronaut.i18n.Messages;
 import io.micronaut.live.model.Alert;
 import io.micronaut.live.model.AlertPage;
 import io.micronaut.live.services.ConfirmationCodeVerifier;
@@ -69,19 +70,26 @@ class SubscriberConfirmController {
     @View("alert")
     @Get("/confirm")
     @PermitAll
-    AlertPage confirm(@Nullable @QueryValue String token) {
+    AlertPage confirm(@Nullable @QueryValue String token,
+                      @NonNull Messages messages) {
         if (StringUtils.isEmpty(token)) {
             return new AlertPage(CONFIRMATION_FAILED,
-                    Alert.builder().danger("token is required").build()); //TODO do this via i18n
+                    Alert.builder()
+                            .danger(messages.get("subscriberConfirm.token.notBlank", "token is required"))
+                            .build());
         }
         Optional<String> emailOptional = confirmationCodeVerifier.verify(token);
         if (!emailOptional.isPresent()) {
             return new AlertPage(CONFIRMATION_FAILED,
-                    Alert.builder().danger("could not verify the token").build()); //TODO do this via i18n
+                    Alert.builder()
+                            .danger(messages.get("subscriberConfirm.token.invalid", "Could not verify the token"))
+                            .build());
         }
         confirmationService.confirm(emailOptional.get());
         return new AlertPage(CONFIRMATION_SUCCESS,
-                Alert.builder().success("thanks, we have confirmed your subscription").build());
+                Alert.builder()
+                        .success(messages.get("subscriberConfirm.success.invalid", "Thanks, we have confirmed your subscription"))
+                        .build());
     }
 
     private HttpResponse<?> notFound() {
