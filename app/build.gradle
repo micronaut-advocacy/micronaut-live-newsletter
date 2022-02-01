@@ -35,6 +35,7 @@ dependencies {
     annotationProcessor("io.micronaut:micronaut-http-validation")
     annotationProcessor("io.micronaut.openapi:micronaut-openapi")
     annotationProcessor("io.micronaut.data:micronaut-data-processor")
+    annotationProcessor("io.micronaut.serde:micronaut-serde-processor:$serdeVersion")
     implementation("io.swagger.core.v3:swagger-annotations")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut:micronaut-management")
@@ -60,6 +61,13 @@ dependencies {
     testImplementation("org.testcontainers:postgresql")
     testImplementation("org.testcontainers:spock")
     testImplementation("org.testcontainers:testcontainers")
+}
+
+configurations.all {
+    resolutionStrategy.dependencySubstitution {
+        substitute(module("io.micronaut:micronaut-jackson-databind"))
+                .using(module("io.micronaut.serde:micronaut-serde-jackson:$serdeVersion"))
+    }
 }
 
 

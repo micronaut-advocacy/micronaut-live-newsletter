@@ -1,14 +1,15 @@
 package com.objectcomputing.newsletter.live.api.v1;
 
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import com.objectcomputing.newsletter.live.constraints.AnyContent;
+import io.micronaut.serde.annotation.Serdeable;
+import jakarta.inject.Inject;
 
 import javax.validation.constraints.NotBlank;
 
 @AnyContent
-@Introspected
+@Serdeable.Deserializable
 public class EmailRequest {
     @NonNull
     @NotBlank
@@ -24,6 +25,7 @@ public class EmailRequest {
         this(subject, null, null);
     }
 
+    @Inject
     public EmailRequest(@NonNull String subject,
                         @Nullable String html,
                         @Nullable String text) {

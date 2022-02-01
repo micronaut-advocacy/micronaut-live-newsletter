@@ -1,12 +1,13 @@
 package com.objectcomputing.newsletter.live;
 
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+import io.micronaut.serde.annotation.Serdeable;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-@Introspected
+@Serdeable.Deserializable
 public class Subscriber {
 
     @NonNull

@@ -5,12 +5,16 @@ import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
 import javax.validation.Validator
+import io.micronaut.core.type.Argument
+import io.micronaut.serde.SerdeIntrospections
 
 @MicronautTest(startApplication = false)
 class EmailRequestSpec extends Specification {
     @Inject
     Validator validator
 
+    @Inject
+    SerdeIntrospections serdeIntrospections
 
     void "EmailRequest is annotated with @Introspected"() {
         when:
@@ -28,4 +32,13 @@ class EmailRequestSpec extends Specification {
         expect:
         validator.validate(body).isEmpty()
     }
+
+    void "EmailRequest is annotated with @Serdeable.Deserializable"() {
+        when:
+        serdeIntrospections.getDeserializableIntrospection(Argument.of(EmailRequest))
+
+        then:
+        noExceptionThrown()
+    }
+
 }

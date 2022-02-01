@@ -51,7 +51,7 @@ class EmailSendControllerSpec extends Specification {
         given:
         String subject = "[Groovy Calamari] 179 - Groovy Calamari Returns"
         BlockingHttpClient client = httpClient.toBlocking()
-        EmailRequest body = new EmailRequest(subject, "blbabalba", "blbabalba")
+        Map<String, String> body = [subject: subject, html: "blbabalba", text: "blbabalba"]
 
         when:
         HttpResponse<?> response = client.exchange(HttpRequest.POST("/api/v1/email", body))
@@ -113,10 +113,9 @@ class EmailSendControllerSpec extends Specification {
     void "POST /api/v1/email with invalid payload returns 400"() {
         given:
         BlockingHttpClient client = httpClient.toBlocking()
-        EmailRequest body = new EmailRequest("")
 
         when:
-        client.exchange(HttpRequest.POST("/api/v1/email", body))
+        client.exchange(HttpRequest.POST("/api/v1/email", [subject: "foo"]))
 
         then:
         HttpClientResponseException e = thrown()
