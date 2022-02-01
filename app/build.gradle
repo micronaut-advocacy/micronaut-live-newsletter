@@ -7,7 +7,7 @@ plugins {
 }
 
 version = "0.1"
-group = "io.micronaut.live"
+group = "com.objectcomputing.newsletter"
 
 repositories {
     mavenCentral()
@@ -18,7 +18,7 @@ micronaut {
     testRuntime("spock2")
     processing {
         incremental(true)
-        annotations("io.micronaut.live.*")
+        annotations("com.objectcomputing.newsletter.*")
     }
     aot {
         version = '1.0.0-M7' // https://github.com/micronaut-projects/micronaut-aot/releases
@@ -64,7 +64,7 @@ dependencies {
 
 
 application {
-    mainClass.set("io.micronaut.live.Application")
+    mainClass.set("com.objectcomputing.newsletter.live.Application")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
@@ -92,7 +92,7 @@ jacocoTestCoverageVerification {
         }
         rule {
             element = 'CLASS'
-            excludes = ["io.micronaut.live.Application"]
+            excludes = ["com.objectcomputing.newsletter.live.Application"]
             limit {
                 minimum = 0.0
             }
