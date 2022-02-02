@@ -1,14 +1,14 @@
 package com.objectcomputing.newsletter.live.views;
 
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+import io.micronaut.serde.annotation.Serdeable;
 import jakarta.inject.Inject;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-@Introspected
+@Serdeable.Deserializable
 public class SubscriberDetail {
     @NonNull
     @NotBlank
