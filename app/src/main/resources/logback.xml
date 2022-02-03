@@ -16,5 +16,5 @@
     <!-- <logger name="io.micronaut.security" level="TRACE"/> -->
     <!-- <logger name="io.micronaut.http.client" level="TRACE"/>-->
     <logger name="io.micronaut.data.query" level="TRACE"/>
-    <logger name="io.micronaut.live" level="TRACE"/>
+    <logger name="com.objectcomputing.newsletter" level="TRACE"/>
 </configuration>

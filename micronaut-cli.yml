@@ -1,5 +1,5 @@
 applicationType: default
-defaultPackage: io.micronaut.live
+defaultPackage: com.objectcomputing.newsletter
 testFramework: spock
 sourceLanguage: java
 buildTool: gradle

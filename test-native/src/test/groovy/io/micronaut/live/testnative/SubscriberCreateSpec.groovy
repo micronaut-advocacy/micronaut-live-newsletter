@@ -1,4 +1,4 @@
-package io.micronaut.live.testnative
+package com.objectcomputing.newsletter.live.testnative
 
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
