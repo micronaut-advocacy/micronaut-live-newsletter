@@ -34,3 +34,8 @@ micronaut:
   security:
     views-model-decorator:
       security-key: authentication
+---
+micronaut:
+  serde:
+    deserialization:
+      array-size-threshold: 100 #see https://github.com/micronaut-projects/micronaut-serialization/pull/130
