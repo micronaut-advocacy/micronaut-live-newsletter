@@ -39,3 +39,8 @@ micronaut:
   serde:
     deserialization:
       array-size-threshold: 100 #see https://github.com/micronaut-projects/micronaut-serialization/pull/130
+---
+micronaut:
+  server:
+    locale-resolution:
+      cookie-name: lang

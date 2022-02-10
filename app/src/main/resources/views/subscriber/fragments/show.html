@@ -1,12 +1,12 @@
 <div th:fragment="show(subscriber)">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item('List', '/subscriber/list')"></li>
+            <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item(#{subscriber.list}, '/subscriber/list')"></li>
             <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item(#{subscriber.detail.title}, null)"></li>
         </ol>
     </nav>
     <a th:href="@{|/subscriber/${subscriber.id}/edit|}">
-        <button th:replace="fragments/bootstrap/button :: button('Edit', 'btn-primary')"></button>
+        <button th:replace="fragments/bootstrap/button :: button(#{subscriber.edit}, 'btn-primary')"></button>
     </a>
     <ul>
         <li>Email: <span th:text="${subscriber.email}"></span></li>
