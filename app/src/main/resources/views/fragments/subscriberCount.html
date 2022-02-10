@@ -1,0 +1,8 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="count" type="java.lang.Long"*/-->
+<div class="container" th:fragment="subscriberCount(count)">
+    <div class="position-relative">
+        <div class="position-absolute bottom-0 start-50">[[${count}]] <span th:text="#{subscriber.list}"></span></div>
+    </div>
+</div>
+</html>

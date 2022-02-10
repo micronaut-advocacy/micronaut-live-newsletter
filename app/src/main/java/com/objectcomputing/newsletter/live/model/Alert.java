@@ -35,6 +35,10 @@ public class Alert {
 
     }
 
+    public static Alert danger(String message) {
+        return builder().danger(message).build();
+    }
+
     @Nullable
     public String getPrimary() {
         return primary;

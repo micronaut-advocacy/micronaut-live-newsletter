@@ -4,11 +4,11 @@
 <nav th:fragment="pagination(pagination, ariaLabel)"
      th:attr="aria-label=${ariaLabel}">
     <ul class="pagination">
-        <li class="page-item" th:if="${pagination.hasPrevious()}"><a class="page-link" th:href="${pagination.getPreviousHref().get()}">Previous</a></li>
+        <li class="page-item" th:if="${pagination.hasPrevious()}"><a class="page-link" th:href="${pagination.getPreviousHref().get()}" th:text="#{pagination.previous}"></a></li>
         <th:block th:each="page : ${pagination.pages}">
-            <li th:replace="fragments/bootstrap :: page-item(${page})"></li>
+            <li th:replace="fragments/bootstrap/page-item :: page-item(${page})"></li>
         </th:block>
-        <li class="page-item" th:if="${pagination.hasNext()}"><a class="page-link" th:href="${pagination.getNextHref().get()}">Next</a></li>
+        <li class="page-item" th:if="${pagination.hasNext()}"><a class="page-link" th:href="${pagination.getNextHref().get()}" th:text="#{pagination.next}"></a></li>
     </ul>
 </nav>
 </html>

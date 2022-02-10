@@ -15,10 +15,19 @@
  */
 package io.micronaut.views.turbo;
 
-import io.micronaut.http.MediaType;
+import io.micronaut.core.annotation.NonNull;
+import io.micronaut.http.HttpRequest;
 
-public final class TurboHttpHeaders {
-    public static final String TURBO_STREAM = "text/vnd.turbo-stream.html";
-    public static final MediaType TURBO_STREAM_TYPE = new MediaType(TURBO_STREAM);
-    public static final String TURBO_FRAME = "Turbo-Frame";
+/**
+ * @author Sergio del Amo
+ * @since XXXX
+ */
+public final class TurboStreamUtils {
+
+    public static boolean supportsTurboStream(@NonNull HttpRequest<?> request) {
+        if (request.getHeaders().contains(TurboHttpHeaders.TURBO_FRAME)) {
+            return true;
+        }
+        return false;
+    }
 }

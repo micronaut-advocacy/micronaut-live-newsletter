@@ -1,15 +1,13 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="fragments/head :: head(${title})"></head>
+<head th:replace="fragments/head :: head(#{subscriber.add})"></head>
 <body>
 <div class="container">
-    <nav th:replace="fragments/nav :: nav(${authentication},  null)"></nav>
+    <nav th:replace="fragments/nav :: nav(${authentication}, 'create')"></nav>
     <turbo-frame id="subscriber-container">
-        <div th:replace="fragments/bootstrap/alert :: alert(${alert})"></div>
+        <div th:replace="subscriber/fragments/create :: create()"></div>
     </turbo-frame>
 </div>
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>
-
-

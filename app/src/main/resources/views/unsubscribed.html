@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="fragments/head :: head('You are no longer subscribed')"></head>
+<head th:replace="fragments/head :: head(#{subscription.cancellation.confirmation})"></head>
 <body>
-<div class="container">
-    <nav th:replace="fragments/nav :: nav(${authentication}, null)"></nav>
-<h1>You are no longer subscribed</h1>
-</div>
-<footer th:replace="fragments/footer :: footer"></footer>
+    <div class="container">
+        <nav th:replace="fragments/nav :: nav(${authentication}, null)"></nav>
+        <h1 th:text="#{subscription.cancellation.confirmation}"></h1>
+        <h1 th:text="#{unsubscribed.confirmation}"></h1>
+    </div>
+    <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

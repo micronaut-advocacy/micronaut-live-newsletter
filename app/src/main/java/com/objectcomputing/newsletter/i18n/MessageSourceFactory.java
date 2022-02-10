@@ -13,12 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.micronaut.views.turbo;
+package com.objectcomputing.newsletter.i18n;
 
-import io.micronaut.http.MediaType;
+import io.micronaut.context.MessageSource;
+import io.micronaut.context.annotation.Factory;
+import io.micronaut.context.i18n.ResourceBundleMessageSource;
+import jakarta.inject.Singleton;
 
-public final class TurboHttpHeaders {
-    public static final String TURBO_STREAM = "text/vnd.turbo-stream.html";
-    public static final MediaType TURBO_STREAM_TYPE = new MediaType(TURBO_STREAM);
-    public static final String TURBO_FRAME = "Turbo-Frame";
+/**
+ * @author Sergio del Amo
+ * @since XXXX
+ */
+@Factory
+class MessageSourceFactory {
+
+    @Singleton
+    MessageSource createMessageSource(MessagesConfiguration messagesConfiguration) {
+        return new ResourceBundleMessageSource(messagesConfiguration.getBaseName());
+    }
 }

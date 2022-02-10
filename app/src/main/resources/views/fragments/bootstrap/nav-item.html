@@ -1,0 +1,8 @@
+<li class="nav-item" th:fragment="nav-item(href, title, active)">
+    <a class="nav-link"
+       th:href="${href}"
+       th:text="${title}"
+       th:classappend="${active}?active"
+       th:attrappend="aria-current=${active}?page"
+    ></a>
+</li>

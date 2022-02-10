@@ -1,0 +1,20 @@
+<div th:fragment="table(rows,pagination)">
+    <h1 th:text="#{subscriber.list}"></h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" th:text="#{subscriber.email}"></th>
+                <th scope="col" th:text="#{subscriber.name}"></th>
+                <th scope="col" th:text="#{subscriber.status}"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="row : ${rows}">
+                <td><a th:href="@{|/subscriber/${row.id}|}"><span th:text="${row.email}"></span></a></td>
+                <td th:text="${row.name}"></td>
+                <td th:insert="fragments/bootstrap/alert-div :: alert-div(${row.status}, ${row.statusAlertClass()})"></td>
+            </tr>
+        </tbody>
+    </table>
+    <nav th:replace="fragments/pagination :: pagination(${pagination}, 'Subscriber pagination')"></nav>
+</div>

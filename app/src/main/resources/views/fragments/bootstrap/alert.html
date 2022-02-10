@@ -1,0 +1,26 @@
+<div th:fragment="alert(alert)">
+    <th:block th:if="${alert.primary}">
+        <div th:replace="fragments/bootstrap/alert-div :: alert-div(${alert.primary}, 'alert-primary')"></div>
+    </th:block>
+    <th:block th:if="${alert.secondary}">
+        <div th:replace="fragments/bootstrap/alert-div :: alert-div(${alert.secondary}, 'alert-secondary')"></div>
+    </th:block>
+    <th:block th:if="${alert.success}">
+        <div th:replace="fragments/bootstrap/alert-div :: alert-div(${alert.success}, 'alert-success')"></div>
+    </th:block>
+    <th:block th:if="${alert.danger}">
+        <div th:replace="fragments/bootstrap/alert-div :: alert-div(${alert.danger}, 'alert-danger')"></div>
+    </th:block>
+    <th:block th:if="${alert.warning}">
+        <div th:replace="fragments/bootstrap/alert-div :: alert-div(${alert.warning}, 'alert-warning')"></div>
+    </th:block>
+    <th:block th:if="${alert.info}">
+        <div th:replace="fragments/bootstrap/alert-div :: alert-div(${alert.info}, 'alert-info')"></div>
+    </th:block>
+    <th:block th:if="${alert.light}">
+        <div th:replace="fragments/bootstrap/alert-div :: alert-div(${alert.light}, 'alert-light')"></div>
+    </th:block>
+    <th:block th:if="${alert.dark}">
+        <div th:replace="fragments/bootstrap/alert-div :: alert-div(${alert.dark}, 'alert-dark')"></div>
+    </th:block>
+</div>

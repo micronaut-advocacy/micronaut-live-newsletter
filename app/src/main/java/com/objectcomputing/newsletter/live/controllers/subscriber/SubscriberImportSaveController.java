@@ -1,4 +1,4 @@
-package com.objectcomputing.newsletter.live.controllers;
+package com.objectcomputing.newsletter.live.controllers.subscriber;
 
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Consumes;
@@ -34,7 +34,7 @@ public class SubscriberImportSaveController {
         this.subscriberSaveService = subscriberSaveService;
     }
 
-    @Operation(operationId = "subscriber-import-save",
+    @Operation(operationId = "subscriber-import.html-save",
             summary = "receives a form submission with a CSV file and renders HTML page acknowledging the user that the request is being processed",
             description = "receives a form submission with a CSV file and renders HTML page acknowledging the user that the request is being processed"
     )

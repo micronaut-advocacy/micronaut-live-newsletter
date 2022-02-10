@@ -1,0 +1,5 @@
+<li th:fragment="page-item(page)"
+     class="page-item"
+     th:classappend="${page.isActive()}?active">
+    <a class="page-link" th:href="${page.href}" th:text="${page.number}"></a>
+</li>

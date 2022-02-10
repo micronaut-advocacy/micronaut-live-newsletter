@@ -1,20 +1,20 @@
-package com.objectcomputing.newsletter.live.controllers;
+package com.objectcomputing.newsletter.live.controllers.subscriber;
 
+import io.micronaut.context.LocalizedMessageSource;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.annotation.QueryValue;
-import com.objectcomputing.newsletter.i18n.Messages;
 import com.objectcomputing.newsletter.live.model.Alert;
 import com.objectcomputing.newsletter.live.model.AlertPage;
 import com.objectcomputing.newsletter.live.services.ConfirmationCodeVerifier;
 import com.objectcomputing.newsletter.live.services.ConfirmationService;
-import com.objectcomputing.newsletter.live.services.UnsubscribeService;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.views.View;
@@ -29,9 +29,6 @@ import jakarta.annotation.security.PermitAll;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @Controller("/subscriber")
@@ -43,11 +40,14 @@ class SubscriberConfirmController {
     public static final String CONFIRMATION_SUCCESS = "Confirmation Success";
     private final ConfirmationCodeVerifier confirmationCodeVerifier;
     private final ConfirmationService confirmationService;
+    private final LocalizedMessageSource messageSource;
 
     SubscriberConfirmController(ConfirmationCodeVerifier confirmationCodeVerifier,
-                                ConfirmationService confirmationService) {
+                                ConfirmationService confirmationService,
+                                LocalizedMessageSource messageSource) {
         this.confirmationCodeVerifier = confirmationCodeVerifier;
         this.confirmationService = confirmationService;
+        this.messageSource = messageSource;
     }
 
     @Operation(operationId = "subscriber-confirm",
@@ -65,30 +65,30 @@ class SubscriberConfirmController {
             example = "xxx.zzz.yyy",
             schema = @Schema(implementation = String.class),
             description = "Signed token containing the user unsubscribing in the claims"))
+    @Consumes(MediaType.TEXT_HTML)
     @Produces(MediaType.TEXT_HTML)
     @ExecuteOn(TaskExecutors.IO)
     @View("alert")
     @Get("/confirm")
     @PermitAll
-    AlertPage confirm(@Nullable @QueryValue String token,
-                      @NonNull Messages messages) {
+    AlertPage confirm(@Nullable @QueryValue String token) {
         if (StringUtils.isEmpty(token)) {
             return new AlertPage(CONFIRMATION_FAILED,
                     Alert.builder()
-                            .danger(messages.get("subscriberConfirm.token.notBlank", "token is required"))
+                            .danger(messageSource.getMessageOrDefault("subscriberConfirm.token.notBlank", "token is required"))
                             .build());
         }
         Optional<String> emailOptional = confirmationCodeVerifier.verify(token);
         if (!emailOptional.isPresent()) {
             return new AlertPage(CONFIRMATION_FAILED,
                     Alert.builder()
-                            .danger(messages.get("subscriberConfirm.token.invalid", "Could not verify the token"))
+                            .danger(messageSource.getMessageOrDefault("subscriberConfirm.token.invalid", "Could not verify the token"))
                             .build());
         }
         confirmationService.confirm(emailOptional.get());
         return new AlertPage(CONFIRMATION_SUCCESS,
                 Alert.builder()
-                        .success(messages.get("subscriberConfirm.success.invalid", "Thanks, we have confirmed your subscription"))
+                        .success(messageSource.getMessageOrDefault("subscriberConfirm.success.invalid", "Thanks, we have confirmed your subscription"))
                         .build());
     }
 

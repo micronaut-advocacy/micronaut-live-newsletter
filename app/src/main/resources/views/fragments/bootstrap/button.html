@@ -1,0 +1,6 @@
+<button th:fragment="button(title,style)"
+        type="button"
+        class="btn"
+        th:classappend="${style}">
+    [[${title}]]
+</button>

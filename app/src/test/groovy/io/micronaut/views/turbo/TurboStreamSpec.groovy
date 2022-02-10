@@ -51,30 +51,6 @@ class TurboStreamSpec extends Specification {
         template == turboStream.template.get().get().get()
     }
 
-    void "targetDomId or targetCssQuerySelector is required"() {
-        given:
-        String domId = "dom_id"
-        String cssSelector = ".elementsWithClass"
-        when:
-        TurboStream.builder().remove()
-
-        then:
-        IllegalArgumentException e = thrown()
-
-        when:
-        TurboStream.builder().targetCssQuerySelector(cssSelector).remove()
-
-        then:
-        noExceptionThrown()
-
-        when:
-        TurboStream.builder().targetDomId(domId).remove()
-
-        then:
-        noExceptionThrown()
-    }
-
-
     void "action methods populate action and invoke build"() {
         given:
         String domId = "dom_id"

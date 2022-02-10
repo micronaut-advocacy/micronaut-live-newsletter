@@ -1,0 +1,13 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/head :: head(#{subscriber.list})"></head>
+<body>
+<div class="container">
+    <nav th:replace="fragments/nav :: nav(${authentication}, 'list')"></nav>
+    <turbo-frame id="subscriber-container">
+        <table th:replace="subscriber/fragments/table :: table(${rows}, ${pagination})"></table>
+    </turbo-frame>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

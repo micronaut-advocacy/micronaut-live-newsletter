@@ -1,0 +1,6 @@
+<div th:fragment="alert-div(text, class)"
+     class="alert"
+     th:classappend="${class}"
+     role="alert">
+    <span th:text="${text}"></span>
+</div>

@@ -65,24 +65,29 @@ public final class TurboStream implements Writable {
 
     @Override
     public void writeTo(Writer out) throws IOException {
-        out.write("<turbo-stream action=\"" + getAction() + "\" ");
+        out.write(toString());
+    }
 
+    @Override
+    public String toString() {
+        String html = "<turbo-stream action=\"" + getAction() + "\" ";
         if (getTargetDomId().isPresent()) {
-            out.write("target=\""+ getTargetDomId().get() +"\"");
+            html += "target=\""+ getTargetDomId().get() +"\"";
         } else if (getTargetCssQuerySelector().isPresent()) {
-            out.write("targets=\""+ getTargetCssQuerySelector().get() +"\"");
+            html += "targets=\""+ getTargetCssQuerySelector().get() +"\"";
         }
-        out.write('>');
+        html += ">";
         if (getTemplate().isPresent()) {
             Template template = getTemplate().get();
             Optional<String> templateString = template.get();
             if (templateString.isPresent()) {
-                out.write("<template>");
-                out.write(templateString.get());
-                out.write("</template>");
+               html += "<template>";
+               html += templateString.get();
+               html += "</template>";
             }
         }
-        out.write("</turbo-stream>");
+       html += "</turbo-stream>";
+        return html;
     }
 
     public static class Builder {
@@ -106,6 +111,12 @@ public final class TurboStream implements Writable {
         @NonNull
         public Builder targetCssQuerySelector(@NonNull String targetCssQuerySelector) {
             this.targetCssQuerySelector = targetCssQuerySelector;
+            return this;
+        }
+
+        @NonNull
+        public Builder template(@NonNull Writable writable){
+            this.template = new WritableTemplate(writable);
             return this;
         }
 
@@ -165,9 +176,6 @@ public final class TurboStream implements Writable {
 
         @NonNull
         public TurboStream build() {
-            if (StringUtils.isEmpty(targetDomId) && StringUtils.isEmpty(targetCssQuerySelector)) {
-                throw new IllegalArgumentException("you need to specify either a target dom id or a target css query selector for multiple targets");
-            }
             return new TurboStream(action,
                     targetDomId,
                     targetCssQuerySelector,

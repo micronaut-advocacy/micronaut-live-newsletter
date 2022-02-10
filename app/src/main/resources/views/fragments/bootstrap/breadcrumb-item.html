@@ -1,0 +1,10 @@
+<li th:fragment="breadcrumb-item(title, href)"
+    class="breadcrumb-item"
+    th:classappend="${!href}?active"
+    th:attrappend="aria-current=${!href}?page">
+    <a th:if="${href}"
+       th:href="${href}"
+       th:text="${title}"></a>
+    <span th:unless="${href}"
+       th:text="${title}"></span>
+</li>

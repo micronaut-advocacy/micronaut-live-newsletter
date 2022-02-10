@@ -1,9 +1,10 @@
-package com.objectcomputing.newsletter.live.controllers;
+package com.objectcomputing.newsletter.live.controllers.subscriber;
 
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.util.StringUtils;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Produces;
@@ -56,6 +57,7 @@ class SubscriberCancelController {
             schema = @Schema(implementation = String.class),
             description = "Signed token containing the user unsubscribing in the claims"))
     @ExecuteOn(TaskExecutors.IO)
+    @Consumes(MediaType.TEXT_HTML)
     @Produces(MediaType.TEXT_HTML)
     @View("unsubscribed")
     @Get("/cancel")

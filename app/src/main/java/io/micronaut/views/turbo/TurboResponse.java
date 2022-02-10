@@ -15,10 +15,20 @@
  */
 package io.micronaut.views.turbo;
 
-import io.micronaut.http.MediaType;
+import io.micronaut.http.HttpResponse;
+import io.micronaut.http.MutableHttpResponse;
 
-public final class TurboHttpHeaders {
-    public static final String TURBO_STREAM = "text/vnd.turbo-stream.html";
-    public static final MediaType TURBO_STREAM_TYPE = new MediaType(TURBO_STREAM);
-    public static final String TURBO_FRAME = "Turbo-Frame";
+public interface TurboResponse<T> {
+
+    /**
+     * Return an {@link io.micronaut.http.HttpStatus#OK} response with a body.
+     *
+     * @param body The response body
+     * @param <T>  The body type
+     * @return The ok response
+     */
+    static <T> MutableHttpResponse<T> ok(T body) {
+        return HttpResponse.ok(body)
+                .contentType(TurboHttpHeaders.TURBO_STREAM);
+    }
 }

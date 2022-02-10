@@ -1,0 +1,10 @@
+<div th:fragment="import()">
+    <h1 th:text="#{subscriber.import}"></h1>
+    <form action="/subscriber/import" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="file" class="form-label" th:text="#{subscriber.import.file.csv}"></label>
+            <input class="form-control" type="file" id="file" name="file">
+        </div>
+        <button type="submit" class="btn btn-primary" th:text="#{subscriber.import}"></button>
+    </form>
+</div>
