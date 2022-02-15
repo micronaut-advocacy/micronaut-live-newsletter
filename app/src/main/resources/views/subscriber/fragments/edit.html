@@ -8,8 +8,8 @@
     </nav>
     <form method="post" action="/subscriber/update">
         <input type="hidden" name="id" th:value="${subscriber.id}"/>
-        <div th:replace="fragments/bootstrap/form-input :: form-input('text','subscriber-name','name', #{subscriber.name}, ${subscriber.name})"></div>
-        <div th:replace="fragments/bootstrap/form-input :: form-input('email','subscriber-email','email', #{subscriber.email}, ${subscriber.email})"></div>
+        <div th:replace="fragments/bootstrap/form-input :: form-input('text','subscriber-name','name', #{subscriber.name}, ${subscriber.name}, 'nameValidationFeedback', ${subscriber.nameInvalidFeedback}, ${subscriber.nameValidFeedback})"></div>
+        <div th:replace="fragments/bootstrap/form-input :: form-input('email','subscriber-email','email', #{subscriber.email}, ${subscriber.email}, 'emailValidationFeedback', ${subscriber.emailInvalidFeedback}, ${subscriber.emailValidFeedback})"></div>
         <button th:replace="fragments/bootstrap/submit :: submit(#{subscriber.update}, 'btn-primary')"></button>
     </form>
 </div>

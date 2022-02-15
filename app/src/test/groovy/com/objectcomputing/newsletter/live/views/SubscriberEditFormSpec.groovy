@@ -1,5 +1,6 @@
-package com.objectcomputing.newsletter.live.controllers
+package com.objectcomputing.newsletter.live.views
 
+import com.objectcomputing.newsletter.live.controllers.subscriber.SubscriberEditForm
 import io.micronaut.context.BeanContext
 import io.micronaut.core.beans.BeanIntrospection
 import io.micronaut.core.type.Argument
@@ -10,25 +11,25 @@ import spock.lang.PendingFeature
 import spock.lang.Specification
 
 @MicronautTest(startApplication = false)
-class SubscriptionFormSpec extends Specification {
+class SubscriberEditFormSpec extends Specification {
     @Inject
     BeanContext beanContext
 
-    void "SubscriptionForm is annotated with @Introspected"() {
+    void "SubscriberEditForm is annotated with @Introspected"() {
         when:
-        BeanIntrospection.getIntrospection(SubscriptionForm)
+        BeanIntrospection.getIntrospection(SubscriberEditForm)
 
         then:
         noExceptionThrown()
     }
 
     @PendingFeature
-    void "SubscriptionForm is annotated with @Serdeable.Deserializable"() {
+    void "SubscriberEditForm is annotated with @Serdeable.Deserializable"() {
         given:
         SerdeIntrospections serdeIntrospections = beanContext.getBean(SerdeIntrospections)
 
         when:
-        serdeIntrospections.getDeserializableIntrospection(Argument.of(SubscriptionForm))
+        serdeIntrospections.getDeserializableIntrospection(Argument.of(SubscriberEditForm))
 
         then:
         noExceptionThrown()

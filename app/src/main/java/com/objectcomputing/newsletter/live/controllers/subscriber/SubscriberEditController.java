@@ -3,6 +3,7 @@ package com.objectcomputing.newsletter.live.controllers.subscriber;
 import com.objectcomputing.newsletter.live.controllers.HttpRequestUtils;
 import com.objectcomputing.newsletter.live.model.Alert;
 import com.objectcomputing.newsletter.live.model.AlertPage;
+import com.objectcomputing.newsletter.live.views.SubscriberEditPage;
 import io.micronaut.context.LocalizedMessageSource;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpRequest;
@@ -82,13 +83,17 @@ class SubscriberEditController {
             throw new HttpStatusException(HttpStatus.NOT_FOUND, message);
         }
         SubscriberDetail subscriber = subscriberOptional.get();
+        SubscriberEditForm subscriberEditForm = new SubscriberEditForm();
+        subscriberEditForm.setId(subscriber.getId());
+        subscriberEditForm.setEmail(subscriber.getEmail());
+        subscriberEditForm.setName(subscriber.getName());
         if (turboFrame != null) {
             return TurboResponse.ok(TurboStream
                             .builder()
                             .targetDomId(turboFrame)
-                            .template(viewsRenderer.render("subscriber/fragments/edit", Collections.singletonMap("subscriber", subscriber), request))
+                            .template(viewsRenderer.render("subscriber/fragments/edit", Collections.singletonMap("subscriber", subscriberEditForm), request))
                             .update());
         }
-        return HttpResponse.ok(new ModelAndView<>("subscriber/edit", new SubscriberDetailPage(title, subscriber)));
+        return HttpResponse.ok(new ModelAndView<>("subscriber/edit", new SubscriberEditPage(title, subscriberEditForm)));
     }
 }
