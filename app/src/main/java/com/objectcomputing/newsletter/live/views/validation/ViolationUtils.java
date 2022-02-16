@@ -26,6 +26,7 @@ public final class ViolationUtils {
         }
         return new FieldErrors(fieldErrors);
     }
+
     @NonNull
     public static Errors createErrors(@NonNull ConstraintViolationException ex) {
         return createErrors(ex.getConstraintViolations());

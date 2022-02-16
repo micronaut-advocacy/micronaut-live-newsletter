@@ -1,16 +1,17 @@
-<div th:fragment="form-input(type,inputId,inputName,label,value,feedbackId,invalidFeedback,validFeedback)"
+<div th:fragment="form-input(type,inputId,inputName,label,value,feedbackId,errors)"
      class="mb-3">
     <label th:for="${inputId}" class="form-label">[[${label}]]</label>
     <input th:type="${type}"
            th:name="${inputName}"
            class="form-control"
-           th:classappend="${invalidFeedback!=null}?is-invalid"
+           th:classappend="${!errors.isEmpty()}?is-invalid"
            th:id="${inputId}"
            th:value="${value}"/>
-    <th:block th:if="${invalidFeedback}">
-    <div th:id="${feedbackId}" class="invalid-feedback" th:text="${invalidFeedback}"></div>
-    </th:block>
-    <th:block th:if="${validFeedback}">
-    <div th:id="${feedbackId}" class="invalid-feedback" th:text="${validFeedback}"></div>
+    <th:block th:if="${!errors.isEmpty()}">
+    <div th:id="${feedbackId}" class="invalid-feedback">
+        <ul>
+            <li th:each="error:${errors}" th:text="${error}"></li>
+        </ul>
+    </div>
     </th:block>
 </div>

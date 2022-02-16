@@ -68,7 +68,6 @@ class SubscriberUpdateControllerValidationFailedWithTurboSpec extends Specificat
            id="subscriber-name"
            value="${name}"/>
     
-    
 </div>
         <div class="mb-3">
     <label for="subscriber-email" class="form-label">Email address</label>
@@ -78,8 +77,11 @@ class SubscriberUpdateControllerValidationFailedWithTurboSpec extends Specificat
            id="subscriber-email"
            value="${email}"/>
     
-    <div id="emailValidationFeedback" class="invalid-feedback">must be a well-formed email address</div>
-    
+    <div id="emailValidationFeedback" class="invalid-feedback">
+        <ul>
+            <li>must be a well-formed email address</li>
+        </ul>
+    </div>
     
 </div>
         <button type="submit"
@@ -90,6 +92,6 @@ class SubscriberUpdateControllerValidationFailedWithTurboSpec extends Specificat
 </div></template></turbo-stream>""".toString()
 
         then:
-        html == expected
+        expected == html
     }
 }

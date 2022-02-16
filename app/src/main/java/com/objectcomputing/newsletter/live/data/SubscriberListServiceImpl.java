@@ -16,16 +16,12 @@ import javax.validation.constraints.NotNull;
 @Singleton
 public class SubscriberListServiceImpl implements SubscriberListService {
 
-
-    private final LocalizedMessageSource messageSource;
     private final SubscriberDataRepository subscriberDataRepository;
     private final SubscriberConfiguration subscriberConfiguration;
     private final String pagePath;
 
-    public SubscriberListServiceImpl(LocalizedMessageSource messageSource,
-                                     SubscriberDataRepository subscriberDataRepository,
+    public SubscriberListServiceImpl(SubscriberDataRepository subscriberDataRepository,
                                      SubscriberConfiguration subscriberConfiguration) {
-        this.messageSource = messageSource;
         this.subscriberDataRepository = subscriberDataRepository;
         this.subscriberConfiguration = subscriberConfiguration;
         pagePath = UriBuilder.of("/subscriber")
@@ -40,8 +36,6 @@ public class SubscriberListServiceImpl implements SubscriberListService {
         int max = subscriberConfiguration.getSubscriberListPageSize();
         Pageable pageable = Pageable.from((page - 1), max);
         Pagination pagination = Pagination.of(subscriberDataRepository.count(), max, pagePath, page);
-        return new SubscriberListPage(messageSource.getMessageOrDefault("subscriberList.title", "Subscribers"),
-                subscriberDataRepository.find(pageable), pagination);
+        return new SubscriberListPage(subscriberDataRepository.find(pageable), pagination);
     }
-
 }

@@ -6,7 +6,6 @@ import io.micronaut.core.type.Argument
 import io.micronaut.serde.SerdeIntrospections
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
-import spock.lang.PendingFeature
 import spock.lang.Specification
 
 @MicronautTest(startApplication = false)
@@ -22,7 +21,6 @@ class SubscriptionFormSpec extends Specification {
         noExceptionThrown()
     }
 
-    @PendingFeature
     void "SubscriptionForm is annotated with @Serdeable.Deserializable"() {
         given:
         SerdeIntrospections serdeIntrospections = beanContext.getBean(SerdeIntrospections)

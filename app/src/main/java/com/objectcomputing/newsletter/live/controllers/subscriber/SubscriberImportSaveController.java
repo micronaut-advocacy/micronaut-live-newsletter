@@ -51,8 +51,7 @@ public class SubscriberImportSaveController {
     AlertPage save(CompletedFileUpload file) {
         importFile(file);
         String message = "Thanks, we are importing your subscribers";
-        return new AlertPage(message,
-                Alert.builder().info(message).build());
+        return new AlertPage(Alert.builder().info(message).build());
     }
 
     @Async

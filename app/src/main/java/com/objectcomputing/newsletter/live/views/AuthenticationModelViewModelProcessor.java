@@ -8,15 +8,15 @@ import io.micronaut.views.model.ViewModelProcessor;
 import jakarta.inject.Singleton;
 
 @Singleton
-public class SecurityHtmlPageViewModelProcessor implements ViewModelProcessor<HtmlPage> {
+public class AuthenticationModelViewModelProcessor implements ViewModelProcessor<Model> {
     private final SecurityService securityService;
 
-    public SecurityHtmlPageViewModelProcessor(SecurityService securityService) {
+    public AuthenticationModelViewModelProcessor(SecurityService securityService) {
         this.securityService = securityService;
     }
 
     @Override
-    public void process(@NonNull HttpRequest<?> request, @NonNull ModelAndView<HtmlPage> modelAndView) {
+    public void process(@NonNull HttpRequest<?> request, @NonNull ModelAndView<Model> modelAndView) {
         securityService.getAuthentication().ifPresent(auth ->
                 modelAndView.getModel().ifPresent(m -> m.setAuthentication(auth)));
     }

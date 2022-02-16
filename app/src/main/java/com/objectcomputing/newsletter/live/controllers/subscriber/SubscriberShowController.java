@@ -1,6 +1,5 @@
 package com.objectcomputing.newsletter.live.controllers.subscriber;
 
-import com.objectcomputing.newsletter.live.Subscriber;
 import io.micronaut.context.LocalizedMessageSource;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpRequest;
@@ -15,7 +14,6 @@ import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.exceptions.HttpStatusException;
 import com.objectcomputing.newsletter.live.services.SubscriberShowService;
-import com.objectcomputing.newsletter.live.views.HtmlPage;
 import com.objectcomputing.newsletter.live.views.SubscriberDetail;
 import com.objectcomputing.newsletter.live.views.SubscriberDetailPage;
 import io.micronaut.scheduling.TaskExecutors;
@@ -23,9 +21,7 @@ import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.views.ModelAndView;
-import io.micronaut.views.View;
 import io.micronaut.views.ViewsRenderer;
-import io.micronaut.views.turbo.TurboHttpHeaders;
 import io.micronaut.views.turbo.TurboResponse;
 import io.micronaut.views.turbo.TurboStream;
 import io.swagger.v3.oas.annotations.Operation;
@@ -78,7 +74,7 @@ class SubscriberShowController {
                             .template(viewsRenderer.render("subscriber/fragments/show", Collections.singletonMap("subscriber", subscriber), request))
                             .update());
         }
-        SubscriberDetailPage page = new SubscriberDetailPage(messageSource.getMessageOrDefault("subscriber.detail.title", "Subscriber Detail"), subscriber);
+        SubscriberDetailPage page = new SubscriberDetailPage(subscriber);
         return HttpResponse.ok(new ModelAndView<>("subscriber/show", page));
     }
 }

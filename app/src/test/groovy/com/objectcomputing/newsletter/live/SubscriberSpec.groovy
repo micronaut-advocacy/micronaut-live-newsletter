@@ -7,7 +7,6 @@ import io.micronaut.core.type.Argument
 import io.micronaut.serde.SerdeIntrospections
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
-import spock.lang.PendingFeature
 import spock.lang.Specification
 import spock.lang.Unroll
 import javax.validation.Validator
@@ -21,7 +20,6 @@ class SubscriberSpec extends Specification {
     @Inject
     BeanContext beanContext
 
-    @PendingFeature
     void "Subscriber is annotated with @Serdeable.Deserializable"() {
         given:
         SerdeIntrospections serdeIntrospections = beanContext.getBean(SerdeIntrospections)

@@ -2,14 +2,14 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item('List', '/subscriber/list')"></li>
-            <li class="breadcrumb-item"><a th:href="@{|/subscriber/${subscriber.id}|}" th:text="#{subscriber.detail.title}"></a></li>
+            <li class="breadcrumb-item"><a th:href="@{|/subscriber/${form.id}|}" th:text="#{subscriber.detail.title}"></a></li>
             <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item(#{subscriber.edit}, null)"></li>
         </ol>
     </nav>
     <form method="post" action="/subscriber/update">
-        <input type="hidden" name="id" th:value="${subscriber.id}"/>
-        <div th:replace="fragments/bootstrap/form-input :: form-input('text','subscriber-name','name', #{subscriber.name}, ${subscriber.name}, 'nameValidationFeedback', ${subscriber.nameInvalidFeedback}, ${subscriber.nameValidFeedback})"></div>
-        <div th:replace="fragments/bootstrap/form-input :: form-input('email','subscriber-email','email', #{subscriber.email}, ${subscriber.email}, 'emailValidationFeedback', ${subscriber.emailInvalidFeedback}, ${subscriber.emailValidFeedback})"></div>
+        <input type="hidden" name="id" th:value="${form.id}"/>
+        <div th:replace="fragments/bootstrap/form-input :: form-input('text','subscriber-name','name', #{subscriber.name}, ${form.name}, 'nameValidationFeedback', ${errors.getFieldErrors('name')})"></div>
+        <div th:replace="fragments/bootstrap/form-input :: form-input('email','subscriber-email','email', #{subscriber.email}, ${form.email}, 'emailValidationFeedback', ${errors.getFieldErrors('email')})"></div>
         <button th:replace="fragments/bootstrap/submit :: submit(#{subscriber.update}, 'btn-primary')"></button>
     </form>
 </div>

@@ -3,7 +3,9 @@ package com.objectcomputing.newsletter.live.controllers.subscriber;
 import com.objectcomputing.newsletter.live.controllers.HttpRequestUtils;
 import com.objectcomputing.newsletter.live.model.Alert;
 import com.objectcomputing.newsletter.live.model.AlertPage;
-import com.objectcomputing.newsletter.live.views.SubscriberEditPage;
+import com.objectcomputing.newsletter.live.views.FormModel;
+import com.objectcomputing.newsletter.live.views.Model;
+import com.objectcomputing.newsletter.live.views.SubscriberEditModel;
 import io.micronaut.context.LocalizedMessageSource;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpRequest;
@@ -41,12 +43,12 @@ import static io.micronaut.views.turbo.TurboHttpHeaders.TURBO_FRAME;
 @Controller("/subscriber")
 class SubscriberEditController {
     private final LocalizedMessageSource messageSource;
-    private final ViewsRenderer<Map<String, Object>> viewsRenderer;
+    private final ViewsRenderer<Model> viewsRenderer;
     private final SubscriberShowService subscriberShowService;
 
     SubscriberEditController(LocalizedMessageSource messageSource,
                              SubscriberShowService subscriberShowService,
-                             ViewsRenderer<Map<String, Object>> viewsRenderer) {
+                             ViewsRenderer<Model> viewsRenderer) {
         this.messageSource = messageSource;
         this.viewsRenderer = viewsRenderer;
         this.subscriberShowService = subscriberShowService;
@@ -74,26 +76,23 @@ class SubscriberEditController {
                 return TurboResponse.ok(TurboStream
                         .builder()
                         .targetDomId(turboFrame)
-                        .template(viewsRenderer.render("fragments/bootstrap/alert", Collections.singletonMap("alert", Alert.danger(message)), request))
+                        .template(viewsRenderer.render("fragments/bootstrap/alert", new AlertPage(Alert.danger(message)), request))
                         .update());
             }
             if (HttpRequestUtils.acceptsHtml(request)) {
-                return HttpResponse.ok(new ModelAndView<>("alert", new AlertPage(message, Alert.danger(message))));
+                return HttpResponse.ok(new ModelAndView<>("alert", new AlertPage(Alert.danger(message))));
             }
             throw new HttpStatusException(HttpStatus.NOT_FOUND, message);
         }
         SubscriberDetail subscriber = subscriberOptional.get();
-        SubscriberEditForm subscriberEditForm = new SubscriberEditForm();
-        subscriberEditForm.setId(subscriber.getId());
-        subscriberEditForm.setEmail(subscriber.getEmail());
-        subscriberEditForm.setName(subscriber.getName());
+        SubscriberEditForm subscriberEditForm = new SubscriberEditForm(subscriber.getId(), subscriber.getEmail(), subscriber.getName());
         if (turboFrame != null) {
             return TurboResponse.ok(TurboStream
                             .builder()
                             .targetDomId(turboFrame)
-                            .template(viewsRenderer.render("subscriber/fragments/edit", Collections.singletonMap("subscriber", subscriberEditForm), request))
+                            .template(viewsRenderer.render("subscriber/fragments/edit", new SubscriberEditModel(subscriberEditForm), request))
                             .update());
         }
-        return HttpResponse.ok(new ModelAndView<>("subscriber/edit", new SubscriberEditPage(title, subscriberEditForm)));
+        return HttpResponse.ok(new ModelAndView<>("subscriber/edit",  new SubscriberEditModel(subscriberEditForm)));
     }
 }

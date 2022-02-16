@@ -73,22 +73,22 @@ class SubscriberConfirmController {
     @PermitAll
     AlertPage confirm(@Nullable @QueryValue String token) {
         if (StringUtils.isEmpty(token)) {
-            return new AlertPage(CONFIRMATION_FAILED,
+            return new AlertPage(
                     Alert.builder()
                             .danger(messageSource.getMessageOrDefault("subscriberConfirm.token.notBlank", "token is required"))
                             .build());
         }
         Optional<String> emailOptional = confirmationCodeVerifier.verify(token);
         if (!emailOptional.isPresent()) {
-            return new AlertPage(CONFIRMATION_FAILED,
+            return new AlertPage(
                     Alert.builder()
                             .danger(messageSource.getMessageOrDefault("subscriberConfirm.token.invalid", "Could not verify the token"))
                             .build());
         }
         confirmationService.confirm(emailOptional.get());
-        return new AlertPage(CONFIRMATION_SUCCESS,
+        return new AlertPage(
                 Alert.builder()
-                        .success(messageSource.getMessageOrDefault("subscriberConfirm.success.invalid", "Thanks, we have confirmed your subscription"))
+                        .success(messageSource.getMessageOrDefault("subscriber.confirmation.acknowledge", "Thanks, we have confirmed your subscription"))
                         .build());
     }
 

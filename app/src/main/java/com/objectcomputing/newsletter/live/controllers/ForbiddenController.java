@@ -58,7 +58,7 @@ class ForbiddenController {
                     .template(viewsRenderer.render("fragments/bootstrap/alert", Collections.singletonMap("alert", alert), request))
                     .update());
         }
-        return HttpResponse.ok(new ModelAndView<>("alert", new AlertPage(message, alert)));
+        return HttpResponse.ok(new ModelAndView<>("alert", new AlertPage(alert)));
     }
 
 }

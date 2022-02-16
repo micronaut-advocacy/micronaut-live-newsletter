@@ -1,8 +1,9 @@
 package com.objectcomputing.newsletter.live.controllers.subscriber;
 
 import com.objectcomputing.newsletter.live.services.SubscriberUpdateService;
+import com.objectcomputing.newsletter.live.views.FormModel;
 import com.objectcomputing.newsletter.live.views.SubscriberDetail;
-import com.objectcomputing.newsletter.live.views.SubscriberEditPage;
+import com.objectcomputing.newsletter.live.views.SubscriberEditModel;
 import io.micronaut.context.LocalizedMessageSource;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.HttpResponse;
@@ -22,12 +23,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Controller("/subscriber")
-class SubscriberUpdateController extends FormController<SubscriberEditForm, SubscriberEditPage> {
+class SubscriberUpdateController extends FormController<SubscriberEditForm> {
     private final SubscriberUpdateService subscriberUpdateService;
 
     SubscriberUpdateController(LocalizedMessageSource localizedMessageSource,
-                               SubscriberUpdateService subscriberUpdateService,
-                               ViewsRenderer<SubscriberEditPage> viewsRenderer) {
+                               ViewsRenderer<FormModel<SubscriberEditForm>> viewsRenderer,
+                               SubscriberUpdateService subscriberUpdateService) {
         super(localizedMessageSource, viewsRenderer);
         this.subscriberUpdateService = subscriberUpdateService;
     }
@@ -43,9 +44,16 @@ class SubscriberUpdateController extends FormController<SubscriberEditForm, Subs
                 .build());
     }
 
+    @Override
+    @NonNull
+    protected ModelAndView<? extends FormModel<SubscriberEditForm>> turboValidationFailedModelAndView(SubscriberEditForm form) {
+        return new ModelAndView<>("subscriber/fragments/edit", new SubscriberEditModel(form));
+    }
 
     @Override
-    protected ModelAndView<SubscriberEditPage> validationFailedModelAndView(SubscriberEditForm form) {
-        return new ModelAndView<>("subscriber/fragments/edit", new SubscriberEditPage("", form));
+    @NonNull
+    protected ModelAndView<? extends FormModel<SubscriberEditForm>> validationFailedModelAndView(SubscriberEditForm form) {
+        return new ModelAndView<>("subscriber/edit", new SubscriberEditModel(form));
     }
+
 }

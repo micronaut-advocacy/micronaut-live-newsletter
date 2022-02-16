@@ -2,16 +2,13 @@ package com.objectcomputing.newsletter.live.views;
 
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
-import com.objectcomputing.newsletter.live.Subscriber;
 
 @Introspected
-public class SubscriberDetailPage extends HtmlPage {
+public class SubscriberDetailPage extends Model {
     @NonNull
     private final SubscriberDetail subscriber;
 
-    public SubscriberDetailPage(@NonNull String title,
-                                @NonNull SubscriberDetail subscriber) {
-        super(title);
+    public SubscriberDetailPage(@NonNull SubscriberDetail subscriber) {
         this.subscriber = subscriber;
     }
 
