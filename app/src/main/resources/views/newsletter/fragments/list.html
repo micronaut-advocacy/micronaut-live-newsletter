@@ -1,0 +1,6 @@
+<div th:fragment="list()">
+    <a href="/newsletter/create">
+        <button th:replace="fragments/bootstrap/button :: button(#{newsletter.add}, 'btn-primary')"></button>
+    </a>
+    <table th:replace="newsletter/fragments/table :: table(${rows}, ${pagination})"></table>
+</div>

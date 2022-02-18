@@ -1,0 +1,15 @@
+<div th:fragment="show(newsletter)">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item(#{newsletter.list}, '/newsletter/list')"></li>
+            <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item(#{newsletter.detail.title}, null)"></li>
+        </ol>
+    </nav>
+    <a th:href="@{|/newsletter/${newsletter.id}/edit|}">
+        <button th:replace="fragments/bootstrap/button :: button(#{newsletter.edit}, 'btn-primary')"></button>
+    </a>
+    <ul>
+        <li>Email: <span th:text="${newsletter.email}"></span></li>
+        <li th:if="${newsletter.name}">Name: <span th:text="${newsletter.name}"></span></li>
+    </ul>
+</div>

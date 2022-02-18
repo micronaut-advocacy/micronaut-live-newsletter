@@ -5,7 +5,7 @@
 <div class="container">
     <nav th:replace="fragments/nav :: nav(${authentication}, 'newsletter')"></nav>
     <turbo-frame id="subscriber-container">
-        <table th:replace="newsletter/fragments/table :: table(${rows}, ${pagination})"></table>
+        <div th:replace="newsletter/fragments/list :: list()"></div>
     </turbo-frame>
 </div>
 <footer th:replace="fragments/footer :: footer"></footer>

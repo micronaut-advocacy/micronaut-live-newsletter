@@ -1,0 +1,14 @@
+<div th:fragment="edit(newsletter)">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item('List', '/newsletter/list')"></li>
+            <li class="breadcrumb-item"><a th:href="@{|/newsletter/show/${newsletter.id}|}" th:text="#{newsletter.detail.title}"></a></li>
+            <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item(#{newsletter.edit}, null)"></li>
+        </ol>
+    </nav>
+    <form method="post" action="/newsletter/update">
+        <input type="hidden" name="id" th:value="${form.id}"/>
+        <div th:replace="fragments/bootstrap/form-input :: form-input('text','newsletter-name','name', #{newsletter.name}, ${form.name}, 'nameValidationFeedback', ${errors.getFieldErrors('name')})"></div>
+        <button th:replace="fragments/bootstrap/submit :: submit(#{newsletter.update}, 'btn-primary')"></button>
+    </form>
+</div>
