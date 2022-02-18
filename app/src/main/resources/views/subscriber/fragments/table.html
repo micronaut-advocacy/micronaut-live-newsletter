@@ -10,7 +10,7 @@
         </thead>
         <tbody>
             <tr th:each="row : ${rows}">
-                <td><a th:href="@{|/subscriber/${row.id}|}"><span th:text="${row.email}"></span></a></td>
+                <td><a th:href="${row.link().get()}"><span th:text="${row.email}"></span></a></td>
                 <td th:text="${row.name}"></td>
                 <td th:insert="fragments/bootstrap/alert-div :: alert-div(${row.status}, ${row.statusAlertClass()})"></td>
             </tr>

@@ -1,15 +1,19 @@
 package com.objectcomputing.newsletter.live.views;
 
+import com.objectcomputing.newsletter.live.controllers.newsletter.NewsletterShowController;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
 import com.objectcomputing.newsletter.live.model.SubscriptionStatus;
+import io.micronaut.http.uri.UriBuilder;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 
 @Introspected
-public class SubscriberRow {
+public class SubscriberRow implements Row {
 
     @NonNull
     @NotBlank
@@ -66,5 +70,11 @@ public class SubscriberRow {
     @Nullable
     public String getName() {
         return name;
+    }
+
+    @Override
+    @NonNull
+    public Optional<String> link() {
+        return Optional.of(UriBuilder.of("/subscriber").path("/show").path(getId()).build().toString());
     }
 }

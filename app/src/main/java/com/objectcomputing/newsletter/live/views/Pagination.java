@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 @Introspected
 public class Pagination {
@@ -17,12 +18,12 @@ public class Pagination {
 
     public static Pagination of(long count,
                                 int max,
-                                String path,
+                                Function<Integer, String> pageUriBuilder,
                                 int currentPage) {
         double maxPages = Math.ceil(((double) count) / (double) max);
         List<Page> pages = new ArrayList<>();
         for (int i = 1;  i <= maxPages; i++) {
-            pages.add(new Page(i, path, currentPage == i));
+            pages.add(new Page(i, pageUriBuilder, currentPage == i));
         }
         return new Pagination(pages);
     }

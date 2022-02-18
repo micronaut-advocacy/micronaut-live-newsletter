@@ -7,17 +7,17 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Introspected
-public class SubscriberListPage extends Model {
+public class PaginatedList extends Model {
     @NonNull
     @NotNull
     private final Pagination pagination;
 
     @NonNull
     @NotNull
-    private final List<SubscriberRow> rows;
+    private final List<? extends Row> rows;
 
-    public SubscriberListPage(@NonNull List<SubscriberRow> rows,
-                              @NonNull Pagination pagination) {
+    public PaginatedList(@NonNull List<? extends Row> rows,
+                         @NonNull Pagination pagination) {
         this.rows = rows;
         this.pagination = pagination;
     }
@@ -28,7 +28,7 @@ public class SubscriberListPage extends Model {
     }
 
     @NonNull
-    public List<SubscriberRow> getRows() {
+    public List<? extends Row> getRows() {
         return rows;
     }
 }

@@ -43,5 +43,8 @@ class SecuredSpec extends Specification {
         HttpMethod.GET   | '/subscriber/import'
         HttpMethod.POST  | '/subscriber/import'
         HttpMethod.GET   | '/subscriber/list'
+        HttpMethod.GET   | '/newsletter/list'
+        HttpMethod.GET   | '/newsletter/create'
+        HttpMethod.GET   | '/newsletter/edit'
     }
 }

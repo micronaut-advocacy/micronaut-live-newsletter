@@ -2,12 +2,25 @@ package com.objectcomputing.newsletter.live.views
 
 import spock.lang.Specification
 
+import java.util.function.Function
+
 class PaginationSpec extends Specification {
 
     void "Pagination encapsulates a pagination component"() {
+        given:
+        Function<Integer, String> f = new Function<Integer, String>() {
+            @Override
+            String apply(Integer integer) {
+                return '/subscriber/list'
+            }
+        }
+
         when:
-        List<Page> pages = [new Page(2, '/subscriber/list', true),
-                            new Page(1, '/subscriber/list'), new Page(3, '/subscriber/list')]
+        List<Page> pages = [
+                new Page(2, f, true),
+                new Page(1, f),
+                new Page(3, f)
+        ]
         Pagination pagination = new Pagination(pages)
 
         then:
@@ -15,7 +28,7 @@ class PaginationSpec extends Specification {
         pagination.hasPrevious()
 
         when:
-        pages = [new Page(2, '/subscriber/list'), new Page(1, '/subscriber/list', true), new Page(3, '/subscriber/list')]
+        pages = [new Page(2, f), new Page(1, f, true), new Page(3, f)]
         pagination = new Pagination(pages)
 
         then:
@@ -23,7 +36,7 @@ class PaginationSpec extends Specification {
         !pagination.hasPrevious()
 
         when:
-        pages = [new Page(2, '/subscriber/list'), new Page(1, '/subscriber/list'), new Page(3, '/subscriber/list', true)]
+        pages = [new Page(2, f), new Page(1, f), new Page(3, f, true)]
         pagination = new Pagination(pages)
 
         then:
@@ -39,15 +52,23 @@ class PaginationSpec extends Specification {
         !pagination.hasPrevious()
 
         when:
-        new Pagination([new Page(2, '/subscriber/list'), new Page(1, '/subscriber/list'), new Page(3, '/subscriber/list')])
+        new Pagination([new Page(2, f), new Page(1, f), new Page(3, f)])
 
         then:
         thrown(IllegalArgumentException)
     }
 
     void "Pagination.of to build Pagination object"() {
+        given:
+        Function<Integer, String> f = new Function<Integer, String>() {
+            @Override
+            String apply(Integer integer) {
+                return '/subscriber/list'
+            }
+        }
+
         when:
-        Pagination pagination = Pagination.of(50, 12, '/subscriber/list', 1)
+        Pagination pagination = Pagination.of(50, 12, f, 1)
 
         then:
         pagination.getPages().size() == 5
@@ -67,7 +88,7 @@ class PaginationSpec extends Specification {
         !pagination.getPages().get(4).active
 
         when:
-        pagination = Pagination.of(50, 5, '/subscriber/list', 3)
+        pagination = Pagination.of(50, 5, f, 3)
 
         then:
         pagination.getPages().size() == 10

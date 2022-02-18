@@ -12,6 +12,7 @@
                 <li th:replace="fragments/bootstrap/nav-item :: nav-item('/subscriber/create', #{nav.subscriber.add}, ${currentMenu == 'create' ? true : false})"></li>
                 <li th:replace="fragments/bootstrap/nav-item :: nav-item('/subscriber/list', #{nav.subscriber.list}, ${currentMenu == 'list' ? true : false})"></li>
                 <li th:replace="fragments/bootstrap/nav-item :: nav-item('/subscriber/import', #{nav.subscriber.import}, ${currentMenu == 'import' ? true : false})"></li>
+                <li th:replace="fragments/bootstrap/nav-item :: nav-item('/newsletter/list', #{nav.newsletter.list}, ${currentMenu == 'newsletter' ? true : false})"></li>
             </ul>
             <ul class="navbar-nav" data-turbo="false">
                 <li th:replace="fragments/bootstrap/nav-item :: nav-item('/lang/es', #{languages.es}, false)"></li>

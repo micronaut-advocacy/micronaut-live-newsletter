@@ -1,5 +1,6 @@
 package com.objectcomputing.newsletter.live.controllers.subscriber;
 
+import com.objectcomputing.newsletter.live.views.SubscriberListModel;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.http.HttpRequest;
@@ -12,16 +13,15 @@ import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.annotation.QueryValue;
 import com.objectcomputing.newsletter.live.services.SubscriberListService;
-import com.objectcomputing.newsletter.live.views.SubscriberListPage;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.views.ModelAndView;
 import io.micronaut.views.ViewsRenderer;
-import io.micronaut.views.turbo.TurboHttpHeaders;
 import io.micronaut.views.turbo.TurboResponse;
 import io.micronaut.views.turbo.TurboStream;
+import io.micronaut.views.turbo.TurboStreamUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.slf4j.Logger;
@@ -54,13 +54,10 @@ public class SubscriberListController {
     @Consumes(MediaType.TEXT_HTML)
     @Get("/list")
     HttpResponse<?> index(@Nullable @QueryValue Integer page,
-                                          HttpRequest<?> request,
-                                          @Nullable @Header(TURBO_FRAME) String turboFrame) {
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Turbo Frame {}", turboFrame);
-        }
-        SubscriberListPage subscriberListPage = subscriberListService.findAll(page != null ? page : 1);
-        if (turboFrame != null) {
+                          HttpRequest<?> request,
+                          @Nullable @Header(TURBO_FRAME) String turboFrame) {
+        SubscriberListModel subscriberListPage = subscriberListService.findAll(page != null ? page : 1);
+        if (TurboStreamUtils.supportsTurboStream(request)) {
             Map<String, Object> data = CollectionUtils.mapOf("rows", subscriberListPage.getRows(), "pagination", subscriberListPage.getPagination());
             return TurboResponse.ok(TurboStream
                     .builder()

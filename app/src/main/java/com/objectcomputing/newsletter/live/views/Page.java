@@ -6,6 +6,7 @@ import io.micronaut.http.uri.UriBuilder;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.function.Function;
 
 @Introspected
 public class Page implements Comparable<Page> {
@@ -17,8 +18,8 @@ public class Page implements Comparable<Page> {
 
     @NonNull
     @NotBlank
-    private final String path;
-
+    private final Function<Integer, String> uriBuilder;
+    
     private final boolean active;
 
     /**
@@ -26,15 +27,15 @@ public class Page implements Comparable<Page> {
      * @param number starting from 1
      */
     public Page(@NonNull Integer number,
-                @NonNull String path) {
-        this(number, path, false);
+                @NonNull Function<Integer, String> uriBuilder) {
+        this(number, uriBuilder, false);
     }
 
     public Page(@NonNull Integer number,
-                @NonNull String path,
+                @NonNull Function<Integer, String> uriBuilder,
                 boolean active) {
         this.number = number;
-        this.path = path;
+        this.uriBuilder = uriBuilder;
         this.active = active;
     }
 
@@ -45,10 +46,7 @@ public class Page implements Comparable<Page> {
 
     @NonNull
     private String pageHref(@NonNull Integer page) {
-        return UriBuilder.of(path)
-                .queryParam("page", page)
-                .build()
-                .toString();
+        return uriBuilder.apply(page);
     }
 
     @NonNull

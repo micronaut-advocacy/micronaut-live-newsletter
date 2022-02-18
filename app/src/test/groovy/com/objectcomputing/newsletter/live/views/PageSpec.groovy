@@ -2,13 +2,21 @@ package com.objectcomputing.newsletter.live.views
 
 import spock.lang.Specification
 
+import java.util.function.Function
+
 class PageSpec extends Specification {
 
     void "Page implements Comparable"() {
         given:
-        List<Page> l = [new Page(2, '/subscriber/list'),
-                        new Page(1, '/subscriber/list'),
-                        new Page(3, '/subscriber/list')]
+        Function<Integer, String> f = new Function<Integer, String>() {
+            @Override
+            String apply(Integer integer) {
+                return '/subscriber/list'
+            }
+        }
+        List<Page> l = [new Page(2, f),
+                        new Page(1, f),
+                        new Page(3, f)]
 
         when:
         Collections.sort(l)
