@@ -1,4 +1,4 @@
-package com.objectcomputing.newsletter.live.controllers.newsletter;
+package com.objectcomputing.newsletter.live.newsletter.services;
 
 import com.objectcomputing.newsletter.live.views.PaginatedList;
 import com.objectcomputing.newsletter.live.views.Pagination;

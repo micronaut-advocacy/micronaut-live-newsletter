@@ -1,5 +1,8 @@
-package com.objectcomputing.newsletter.live.controllers.newsletter;
+package com.objectcomputing.newsletter.live.newsletter.controller;
 
+import com.objectcomputing.newsletter.live.newsletter.services.NewsletterSaveModel;
+import com.objectcomputing.newsletter.live.newsletter.services.NewsletterSaveForm;
+import com.objectcomputing.newsletter.live.newsletter.services.NewsletterSaveService;
 import com.objectcomputing.newsletter.live.controllers.subscriber.FormController;
 import com.objectcomputing.newsletter.live.views.FormModel;
 import io.micronaut.context.LocalizedMessageSource;
@@ -11,7 +14,6 @@ import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Produces;
-import io.micronaut.http.uri.UriBuilder;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.views.ModelAndView;
@@ -22,8 +24,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 @Controller
-public class NewsletterSaveController extends FormController<NewsletterSaveForm> {
-    public static final String PATH_NEWSLETTER_SAVE = NewsletterListController.PATH_NEWSLETTER + "/save";
+class NewsletterSaveController extends FormController<NewsletterSaveForm> {
     private final NewsletterSaveService newsletterSaveService;
 
     NewsletterSaveController(LocalizedMessageSource localizedMessageSource,
@@ -34,16 +35,13 @@ public class NewsletterSaveController extends FormController<NewsletterSaveForm>
     }
 
     @Secured(SecurityRule.IS_AUTHENTICATED)
-    @Post(PATH_NEWSLETTER_SAVE)
+    @Post(NewsletterUrlMappings.PATH_NEWSLETTER_SAVE)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_HTML)
-    HttpResponse<?> update(@Body @NonNull @NotNull @Valid NewsletterSaveForm form) {
+    HttpResponse<?> save(@Body @NonNull @NotNull @Valid NewsletterSaveForm form) {
         Optional<String> idOptional = newsletterSaveService.save(form);
         if (idOptional.isPresent()) {
-            return HttpResponse.seeOther(UriBuilder.of(NewsletterListController.PATH_NEWSLETTER)
-                    .path("/show")
-                    .path(idOptional.get())
-                    .build());
+            return HttpResponse.seeOther(NewsletterUrlMappings.show(idOptional.get()));
         }
         return HttpResponse.serverError();
     }
@@ -51,12 +49,12 @@ public class NewsletterSaveController extends FormController<NewsletterSaveForm>
     @Override
     @NonNull
     protected ModelAndView<? extends FormModel<NewsletterSaveForm>> turboValidationFailedModelAndView(NewsletterSaveForm form) {
-        return new ModelAndView<>("newsletter/fragments/edit", new NewsletterCreateModel(form));
+        return new ModelAndView<>("newsletter/fragments/edit", new NewsletterSaveModel(form));
     }
 
     @Override
     @NonNull
     protected ModelAndView<? extends FormModel<NewsletterSaveForm>> validationFailedModelAndView(NewsletterSaveForm form) {
-        return new ModelAndView<>("newsletter/edit", new NewsletterCreateModel(form));
+        return new ModelAndView<>("newsletter/edit", new NewsletterSaveModel(form));
     }
 }

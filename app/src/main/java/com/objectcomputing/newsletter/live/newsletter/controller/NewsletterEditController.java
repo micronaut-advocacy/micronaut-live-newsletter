@@ -1,4 +1,4 @@
-package com.objectcomputing.newsletter.live.controllers.newsletter;
+package com.objectcomputing.newsletter.live.newsletter.controller;
 
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.HttpResponse;
@@ -15,7 +15,7 @@ class NewsletterEditController {
 
     @Produces(MediaType.TEXT_HTML)
     @Secured(SecurityRule.IS_AUTHENTICATED)
-    @Get("/{id}/edit")
+    @Get(NewsletterUrlMappings.PATH_NEWSLETTER + "/{id}/" + NewsletterUrlMappings.PATH_EDIT)
     HttpResponse<?> edit(@PathVariable @NonNull String id) {
         return HttpResponse.ok();
     }

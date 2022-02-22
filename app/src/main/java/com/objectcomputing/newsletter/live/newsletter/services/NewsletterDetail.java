@@ -1,12 +1,12 @@
-package com.objectcomputing.newsletter.live.controllers.newsletter;
+package com.objectcomputing.newsletter.live.newsletter.services;
 
+import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.serde.annotation.Serdeable;
+
 import javax.validation.constraints.NotBlank;
 
-@Serdeable.Deserializable
-public class NewsletterUpdateForm {
-
+@Introspected
+public class NewsletterDetail {
     @NonNull
     @NotBlank
     private final String id;
@@ -15,8 +15,7 @@ public class NewsletterUpdateForm {
     @NotBlank
     private final String name;
 
-    public NewsletterUpdateForm(@NonNull String id,
-                                @NonNull String name) {
+    public NewsletterDetail(@NonNull String id, @NonNull String name) {
         this.id = id;
         this.name = name;
     }

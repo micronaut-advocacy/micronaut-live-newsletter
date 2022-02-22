@@ -26,7 +26,7 @@ class NewsletterEditControllerSpec extends Specification {
 
     void "GET /newsletter/edit renders an HTML listing"() {
         given:
-        HttpRequest<?> request = HttpRequest.GET('/newsletter/edit')
+        HttpRequest<?> request = HttpRequest.GET('/newsletter/xxx/edit')
                 .accept(MediaType.TEXT_HTML)
 
         when:

@@ -1,5 +1,6 @@
 package com.objectcomputing.newsletter.live.controllers.newsletter
 
+import com.objectcomputing.newsletter.live.data.PostgresTestPropertyProvider
 import io.micronaut.context.annotation.Property
 import io.micronaut.core.util.StringUtils
 import io.micronaut.http.HttpRequest
@@ -15,7 +16,7 @@ import spock.lang.Specification
 
 @Property(name = "micronaut.security.filter.enabled", value = StringUtils.FALSE)
 @MicronautTest
-class NewsletterListControllerSpec extends Specification {
+class NewsletterListControllerSpec extends Specification implements PostgresTestPropertyProvider {
     @Inject
     @Client("/")
     HttpClient httpClient

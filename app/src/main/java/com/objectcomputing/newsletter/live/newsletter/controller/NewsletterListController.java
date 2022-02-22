@@ -1,5 +1,7 @@
-package com.objectcomputing.newsletter.live.controllers.newsletter;
+package com.objectcomputing.newsletter.live.newsletter.controller;
 
+import com.objectcomputing.newsletter.live.newsletter.services.NewsletterListService;
+import com.objectcomputing.newsletter.live.newsletter.services.NewsletterPaginatedList;
 import com.objectcomputing.newsletter.live.views.Model;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpRequest;
@@ -23,8 +25,7 @@ import static io.micronaut.views.turbo.TurboHttpHeaders.TURBO_FRAME;
 
 @Controller
 class NewsletterListController {
-    public static final String PATH_NEWSLETTER = "/newsletter";
-    public static final String PATH_NEWSLETTER_LIST = PATH_NEWSLETTER + "/list";
+
     public static final String VIEW_LIST = "newsletter/list";
     public static final String VIEW_LIST_TABLE = "newsletter/fragments/table";
 
@@ -40,7 +41,7 @@ class NewsletterListController {
     @Produces(MediaType.TEXT_HTML)
     @Consumes(MediaType.TEXT_HTML)
     @Secured(SecurityRule.IS_AUTHENTICATED)
-    @Get(PATH_NEWSLETTER_LIST)
+    @Get(NewsletterUrlMappings.PATH_NEWSLETTER_LIST)
     HttpResponse<?> list(@Nullable @QueryValue Integer page,
                          HttpRequest<?> request,
                          @Nullable @Header(TURBO_FRAME) String turboFrame) {

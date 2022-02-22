@@ -12,7 +12,7 @@ trait PostgresTestPropertyProvider implements SharedDatabaseContainerTestPropert
 
     @Override
     int sharedSpecsCount() {
-        return 6
+        return 7
     }
 
     @Override

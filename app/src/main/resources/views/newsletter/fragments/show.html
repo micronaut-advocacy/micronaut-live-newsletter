@@ -8,8 +8,5 @@
     <a th:href="@{|/newsletter/${newsletter.id}/edit|}">
         <button th:replace="fragments/bootstrap/button :: button(#{newsletter.edit}, 'btn-primary')"></button>
     </a>
-    <ul>
-        <li>Email: <span th:text="${newsletter.email}"></span></li>
-        <li th:if="${newsletter.name}">Name: <span th:text="${newsletter.name}"></span></li>
-    </ul>
+    <h1 th:text="${newsletter.name}"></h1>
 </div>

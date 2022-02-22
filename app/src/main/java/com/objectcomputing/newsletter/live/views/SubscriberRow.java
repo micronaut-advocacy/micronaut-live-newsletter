@@ -1,6 +1,5 @@
 package com.objectcomputing.newsletter.live.views;
 
-import com.objectcomputing.newsletter.live.controllers.newsletter.NewsletterShowController;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;

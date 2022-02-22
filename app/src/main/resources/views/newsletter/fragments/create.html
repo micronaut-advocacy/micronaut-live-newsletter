@@ -1,11 +1,8 @@
 <div th:fragment="create()">
     <h1 th:text="#{newsletter.add}"></h1>
     <form action="/newsletter/save" method="post">
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label" th:text="#{subscriber.email}"></label>
-            <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-        </div>
-        <button type="submit" class="btn btn-primary" th:text="#{subscriber.submit}"></button>
+        <div th:replace="fragments/bootstrap/form-input :: form-input('text','newsletter-name','name', #{newsletter.name}, ${form.name}, 'nameValidationFeedback', ${errors.getFieldErrors('name')})"></div>
+        <button type="submit" class="btn btn-primary" th:text="#{newsletter.save}"></button>
     </form>
 </div>
 
