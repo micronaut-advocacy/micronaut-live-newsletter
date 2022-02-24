@@ -47,5 +47,6 @@ class SecuredSpec extends Specification {
         HttpMethod.GET   | '/newsletter/create'
         HttpMethod.GET   | '/newsletter/xxxx/edit'
         HttpMethod.GET   | '/newsletter/xxxx/show'
+        HttpMethod.POST  | '/newsletter/delete'
     }
 }

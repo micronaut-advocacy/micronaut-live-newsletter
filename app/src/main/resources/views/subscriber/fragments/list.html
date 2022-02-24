@@ -1,0 +1,15 @@
+<div th:fragment="list()">
+    <ul class="nav justify-content-end">
+        <li class="nav-item gx-5">
+            <a href="/subscriber/create">
+                <button th:replace="fragments/bootstrap/button :: button(#{nav.subscriber.add}, 'btn-primary')"></button>
+            </a>
+        </li>
+        <li class="nav-item gx-5">
+            <a href="/subscriber/import">
+                <button th:replace="fragments/bootstrap/button :: button(#{nav.subscriber.import}, 'btn-primary')"></button>
+            </a>
+        </li>
+    </ul>
+    <table th:replace="subscriber/fragments/table :: table(${rows}, ${pagination})"></table>
+</div>

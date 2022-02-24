@@ -27,7 +27,7 @@ import static io.micronaut.views.turbo.TurboHttpHeaders.TURBO_FRAME;
 class NewsletterListController {
 
     public static final String VIEW_LIST = "newsletter/list";
-    public static final String VIEW_LIST_TABLE = "newsletter/fragments/table";
+    public static final String VIEW_LIST_TABLE = "newsletter/fragments/list";
 
     private final ViewsRenderer<Model> viewsRenderer;
     private final NewsletterListService newsletterListService;

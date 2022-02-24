@@ -1,4 +1,10 @@
 <div th:fragment="import()">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item('List', '/subscriber/list')"></li>
+            <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item(#{subscriber.import}, null)"></li>
+        </ol>
+    </nav>
     <h1 th:text="#{subscriber.import}"></h1>
     <form action="/subscriber/import" method="post" enctype="multipart/form-data">
         <div class="mb-3">

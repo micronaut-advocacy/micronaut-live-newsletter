@@ -1,10 +1,14 @@
 package com.objectcomputing.newsletter.live.newsletter.data;
 
+import com.objectcomputing.newsletter.live.newsletter.services.NewsletterDeleteService;
 import com.objectcomputing.newsletter.live.newsletter.services.NewsletterDetail;
+import com.objectcomputing.newsletter.live.newsletter.services.NewsletterEditService;
 import com.objectcomputing.newsletter.live.newsletter.services.NewsletterListService;
 import com.objectcomputing.newsletter.live.newsletter.services.NewsletterPaginatedList;
 import com.objectcomputing.newsletter.live.newsletter.services.NewsletterSaveService;
 import com.objectcomputing.newsletter.live.newsletter.services.NewsletterShowService;
+import com.objectcomputing.newsletter.live.newsletter.services.NewsletterUpdateForm;
+import com.objectcomputing.newsletter.live.newsletter.services.NewsletterUpdateService;
 import com.objectcomputing.newsletter.live.services.IdGenerator;
 import com.objectcomputing.newsletter.live.views.Pagination;
 import io.micronaut.core.annotation.NonNull;
@@ -12,6 +16,7 @@ import io.micronaut.data.model.Pageable;
 import io.micronaut.http.uri.UriBuilder;
 import jakarta.inject.Singleton;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,7 +24,12 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Singleton
-public class NewsletterServiceDataImpl implements NewsletterSaveService, NewsletterListService, NewsletterShowService {
+public class NewsletterServiceDataImpl implements NewsletterSaveService,
+        NewsletterListService,
+        NewsletterShowService,
+        NewsletterEditService,
+        NewsletterUpdateService,
+        NewsletterDeleteService {
     private final IdGenerator idGenerator;
     private final NewsletterDataRepository newsletterDataRepository;
     private final Integer itemsPerPage;
@@ -61,5 +71,22 @@ public class NewsletterServiceDataImpl implements NewsletterSaveService, Newslet
     @NonNull
     public Optional<NewsletterDetail> find(@NonNull @NotBlank String id) {
         return newsletterDataRepository.find(id);
+    }
+
+    @Override
+    @NonNull
+    public Optional<NewsletterUpdateForm> edit(@NonNull @NotBlank String id) {
+        return newsletterDataRepository.find(id)
+                .map(it -> new NewsletterUpdateForm(it.getId(), it.getName()));
+    }
+
+    @Override
+    public void update(@NonNull @NotNull @Valid NewsletterUpdateForm form) {
+        newsletterDataRepository.update(form.getId(), form.getName());
+    }
+
+    @Override
+    public void delete(@NonNull @NotBlank String id) {
+        newsletterDataRepository.deleteById(id);
     }
 }

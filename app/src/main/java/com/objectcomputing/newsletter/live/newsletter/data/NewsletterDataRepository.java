@@ -3,6 +3,7 @@ package com.objectcomputing.newsletter.live.newsletter.data;
 import com.objectcomputing.newsletter.live.newsletter.services.NewsletterDetail;
 import com.objectcomputing.newsletter.live.newsletter.services.NewsletterRow;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.data.annotation.Id;
 import io.micronaut.data.jdbc.annotation.JdbcRepository;
 import io.micronaut.data.model.Pageable;
 import io.micronaut.data.model.query.builder.sql.Dialect;
@@ -26,4 +27,8 @@ public interface NewsletterDataRepository extends GenericRepository<NewsletterEn
 
     @NonNull
     List<NewsletterRow> find(@NonNull @NotNull Pageable pageable);
+
+    void update(@Id @NonNull @NotBlank String id, @NonNull @NotBlank String name);
+
+    void deleteById(@NonNull @NotBlank String id);
 }

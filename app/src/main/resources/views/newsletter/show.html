@@ -2,12 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="fragments/head :: head(#{newsletter.detail.title})"></head>
 <body>
-<div class="container">
     <nav th:replace="fragments/nav :: nav(${authentication},  null)"></nav>
-    <turbo-frame id="subscriber-container">
-        <div th:replace="newsletter/fragments/show :: show(${newsletter})"></div>
-    </turbo-frame>
-</div>
-<footer th:replace="fragments/footer :: footer"></footer>
+    <main class="container">
+        <div class="bg-light p-5 rounded">
+            <turbo-frame id="main-container">
+                <div th:replace="newsletter/fragments/show :: show(${newsletter})"></div>
+            </turbo-frame>
+        </div>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

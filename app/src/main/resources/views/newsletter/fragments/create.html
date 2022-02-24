@@ -1,4 +1,10 @@
 <div th:fragment="create()">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item('Newsletters', '/newsletter/list')"></li>
+            <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item(#{newsletter.add}, null)"></li>
+        </ol>
+    </nav>
     <h1 th:text="#{newsletter.add}"></h1>
     <form action="/newsletter/save" method="post">
         <div th:replace="fragments/bootstrap/form-input :: form-input('text','newsletter-name','name', #{newsletter.name}, ${form.name}, 'nameValidationFeedback', ${errors.getFieldErrors('name')})"></div>
