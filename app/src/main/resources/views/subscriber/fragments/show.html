@@ -5,11 +5,23 @@
             <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item(#{subscriber.detail.title}, null)"></li>
         </ol>
     </nav>
-    <a th:href="@{|/subscriber/${subscriber.id}/edit|}">
-        <button th:replace="fragments/bootstrap/button :: button(#{subscriber.edit}, 'btn-primary')"></button>
-    </a>
-    <ul>
-        <li>Email: <span th:text="${subscriber.email}"></span></li>
-        <li th:if="${subscriber.name}">Name: <span th:text="${subscriber.name}"></span></li>
-    </ul>
+    <div class="d-flex flex-row-reverse">
+        <div  class="px-2">
+            <a th:href="@{|/subscriber/${subscriber.id}/edit|}">
+                <button th:replace="fragments/bootstrap/button :: button(#{subscriber.edit}, 'btn-primary')"></button>
+            </a>
+        </div>
+    </div>
+    <table class="table">
+        <tbody>
+        <tr>
+            <th th:text="#{subscriber.email}"></th>
+            <td th:text="${subscriber.email}"></td>
+        </tr>
+        <tr>
+            <th th:text="#{subscriber.name}"></th>
+            <td th:text="${subscriber.name}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>

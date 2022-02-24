@@ -5,12 +5,18 @@
             <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item(#{newsletter.detail.title}, null)"></li>
         </ol>
     </nav>
-    <a th:href="@{|/newsletter/${newsletter.id}/edit|}">
-        <button th:replace="fragments/bootstrap/button :: button(#{newsletter.edit}, 'btn-primary')"></button>
-    </a>
-    <form action="/newsletter/delete" method="post">
-        <input type="hidden" name="id" th:value="${newsletter.id}"/>
-        <button th:replace="fragments/bootstrap/submit :: submit(#{newsletter.delete}, 'btn-danger')"></button>
-    </form>
+    <div class="d-flex flex-row-reverse">
+        <div  class="px-2">
+            <a th:href="@{|/newsletter/${newsletter.id}/edit|}">
+                <button th:replace="fragments/bootstrap/button :: button(#{newsletter.edit}, 'btn-primary')"></button>
+            </a>
+        </div>
+        <div  class="px-2">
+            <form action="/newsletter/delete" method="post">
+                <input type="hidden" name="id" th:value="${newsletter.id}"/>
+                <button th:replace="fragments/bootstrap/submit :: submit(#{newsletter.delete}, 'btn-danger')"></button>
+            </form>
+        </div>
+    </div>
     <h1 th:text="${newsletter.name}"></h1>
 </div>

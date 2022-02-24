@@ -1,7 +1,7 @@
 <div th:fragment="edit(newsletter)">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item('List', '/newsletter/list')"></li>
+            <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item(#{newsletter.list}, '/newsletter/list')"></li>
             <li class="breadcrumb-item"><a th:href="@{|/newsletter/${form.id}/show|}" th:text="#{newsletter.detail.title}"></a></li>
             <li th:replace="fragments/bootstrap/breadcrumb-item :: breadcrumb-item(#{newsletter.edit}, null)"></li>
         </ol>

@@ -49,7 +49,7 @@ class SubscriberShowControllerSpec  extends Specification implements PostgresTes
         then:
         noExceptionThrown()
         html
-        html.contains('<li>Email: <span>tcook@apple.com</span></li>')
+        html.contains('<td>tcook@apple.com</td>')
 
         cleanup:
         subscriberDataRepository.deleteById(id)
