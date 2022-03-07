@@ -1,39 +1,30 @@
 package com.objectcomputing.newsletter.live.controllers;
 
+import com.objectcomputing.newsletter.live.model.Alert;
+import com.objectcomputing.newsletter.live.model.AlertPage;
 import io.micronaut.context.LocalizedMessageSource;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpRequest;
-import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.Produces;
-import com.objectcomputing.newsletter.live.model.Alert;
-import com.objectcomputing.newsletter.live.model.AlertPage;
-import io.micronaut.views.ModelAndView;
-import io.micronaut.views.ViewsRenderer;
-import io.micronaut.views.turbo.TurboResponse;
-import io.micronaut.views.turbo.TurboStream;
+import io.micronaut.views.View;
+import io.micronaut.views.turbo.TurboView;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.annotation.security.PermitAll;
 
-import java.util.Collections;
-import java.util.Map;
-
-import static io.micronaut.views.turbo.TurboHttpHeaders.TURBO_FRAME;
+import static io.micronaut.views.turbo.http.TurboHttpHeaders.TURBO_FRAME;
 
 @Controller("/404")
 class NotFoundController {
 
     private final LocalizedMessageSource messageSource;
-    private final ViewsRenderer<Map<String, Object>> viewsRenderer;
-    NotFoundController(LocalizedMessageSource messageSource,
-                       ViewsRenderer<Map<String, Object>> viewsRenderer) {
+    NotFoundController(LocalizedMessageSource messageSource) {
         this.messageSource = messageSource;
-        this.viewsRenderer = viewsRenderer;
     }
 
     @Operation(operationId = "notfound",
@@ -45,17 +36,12 @@ class NotFoundController {
     @Produces(MediaType.TEXT_HTML)
     @Get
     @PermitAll
-    HttpResponse<?> notFound(HttpRequest<?> request,
+    @TurboView("fragments/bootstrap/alert")
+    @View("alert")
+    AlertPage notFound(HttpRequest<?> request,
                           @Nullable @Header(TURBO_FRAME) String turboFrame) {
         String message = messageSource.getMessageOrDefault("notFound.title", "Not Found");
         Alert alert = Alert.danger(message);
-        if (turboFrame != null) {
-            return TurboResponse.ok(TurboStream
-                    .builder()
-                    .targetDomId(turboFrame)
-                    .template(viewsRenderer.render("fragments/bootstrap/alert", Collections.singletonMap("alert", alert), request))
-                    .update());
-        }
-        return HttpResponse.ok(new ModelAndView<>("alert", new AlertPage(alert)));
+        return new AlertPage(alert);
     }
 }

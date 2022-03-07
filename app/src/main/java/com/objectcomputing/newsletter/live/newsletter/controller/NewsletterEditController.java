@@ -5,8 +5,7 @@ import com.objectcomputing.newsletter.live.model.Alert;
 import com.objectcomputing.newsletter.live.model.AlertPage;
 import com.objectcomputing.newsletter.live.newsletter.services.NewsletterEditService;
 import com.objectcomputing.newsletter.live.newsletter.services.NewsletterUpdateForm;
-import com.objectcomputing.newsletter.live.views.Model;
-import io.micronaut.core.annotation.NonNull;
+import io.micronaut.context.LocalizedMessageSource;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
@@ -23,28 +22,24 @@ import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
+import io.micronaut.views.ModelAndView;
+import io.micronaut.views.turbo.TurboStream;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.micronaut.views.turbo.TurboHttpHeaders;
-import io.micronaut.views.turbo.TurboResponse;
-import io.micronaut.views.turbo.TurboStream;
-import io.micronaut.views.ModelAndView;
+
 import java.util.Optional;
-import io.micronaut.context.LocalizedMessageSource;
-import static io.micronaut.views.turbo.TurboHttpHeaders.TURBO_FRAME;
-import io.micronaut.views.ViewsRenderer;
+
+import static io.micronaut.views.turbo.http.TurboHttpHeaders.TURBO_FRAME;
+
 @Controller
 class NewsletterEditController {
 
     private final LocalizedMessageSource messageSource;
-    private final ViewsRenderer<Model> viewsRenderer;
     private final NewsletterEditService newsletterEditService;
 
     NewsletterEditController(LocalizedMessageSource messageSource,
-                             NewsletterEditService newsletterEditService,
-                             ViewsRenderer<Model> viewsRenderer) {
+                             NewsletterEditService newsletterEditService) {
         this.messageSource = messageSource;
-        this.viewsRenderer = viewsRenderer;
         this.newsletterEditService = newsletterEditService;
     }
 
@@ -65,10 +60,10 @@ class NewsletterEditController {
         if (!formOptional.isPresent()) {
             String message = messageSource.getMessageOrDefault("subscriber.notFoundById", "newsletter not found by id" + id, id);
             if (turboFrame != null) {
-                return TurboResponse.ok(TurboStream
+                return HttpResponse.ok(TurboStream
                         .builder()
                         .targetDomId(turboFrame)
-                        .template(viewsRenderer.render("fragments/bootstrap/alert", new AlertPage(Alert.danger(message)), request))
+                        .template("fragments/bootstrap/alert", new AlertPage(Alert.danger(message)))
                         .update());
             }
             if (HttpRequestUtils.acceptsHtml(request)) {
@@ -78,10 +73,10 @@ class NewsletterEditController {
         }
         NewsletterUpdateForm form = formOptional.get();
         if (turboFrame != null) {
-            return TurboResponse.ok(TurboStream
+            return HttpResponse.ok(TurboStream
                     .builder()
                     .targetDomId(turboFrame)
-                    .template(viewsRenderer.render("newsletter/fragments/edit", new NewsletterEditModel(form), request))
+                    .template("newsletter/fragments/edit", new NewsletterEditModel(form))
                     .update());
         }
         return HttpResponse.ok(new ModelAndView<>("newsletter/edit",  new NewsletterEditModel(form)));

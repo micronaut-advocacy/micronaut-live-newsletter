@@ -3,8 +3,9 @@ package com.objectcomputing.newsletter.live.controllers.subscriber;
 import com.objectcomputing.newsletter.live.controllers.HttpRequestUtils;
 import com.objectcomputing.newsletter.live.model.Alert;
 import com.objectcomputing.newsletter.live.model.AlertPage;
-import com.objectcomputing.newsletter.live.views.FormModel;
+import com.objectcomputing.newsletter.live.services.SubscriberShowService;
 import com.objectcomputing.newsletter.live.views.Model;
+import com.objectcomputing.newsletter.live.views.SubscriberDetail;
 import com.objectcomputing.newsletter.live.views.SubscriberEditModel;
 import io.micronaut.context.LocalizedMessageSource;
 import io.micronaut.core.annotation.Nullable;
@@ -19,38 +20,27 @@ import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.exceptions.HttpStatusException;
-import com.objectcomputing.newsletter.live.services.SubscriberShowService;
-import com.objectcomputing.newsletter.live.views.SubscriberDetail;
-import com.objectcomputing.newsletter.live.views.SubscriberDetailPage;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.views.ModelAndView;
-import io.micronaut.views.ViewsRenderer;
-import io.micronaut.views.turbo.TurboHttpHeaders;
-import io.micronaut.views.turbo.TurboResponse;
 import io.micronaut.views.turbo.TurboStream;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-
-import java.util.Collections;
-import java.util.Map;
 import java.util.Optional;
 
-import static io.micronaut.views.turbo.TurboHttpHeaders.TURBO_FRAME;
+import static io.micronaut.views.turbo.http.TurboHttpHeaders.TURBO_FRAME;
+
 
 @Controller("/subscriber")
 class SubscriberEditController {
     private final LocalizedMessageSource messageSource;
-    private final ViewsRenderer<Model> viewsRenderer;
     private final SubscriberShowService subscriberShowService;
 
     SubscriberEditController(LocalizedMessageSource messageSource,
-                             SubscriberShowService subscriberShowService,
-                             ViewsRenderer<Model> viewsRenderer) {
+                             SubscriberShowService subscriberShowService) {
         this.messageSource = messageSource;
-        this.viewsRenderer = viewsRenderer;
         this.subscriberShowService = subscriberShowService;
     }
 
@@ -73,10 +63,10 @@ class SubscriberEditController {
         if (!subscriberOptional.isPresent()) {
             String message = messageSource.getMessageOrDefault("subscriber.notFoundById", "subscriber not found by id" + id, id);
             if (turboFrame != null) {
-                return TurboResponse.ok(TurboStream
+                return HttpResponse.ok(TurboStream
                         .builder()
                         .targetDomId(turboFrame)
-                        .template(viewsRenderer.render("fragments/bootstrap/alert", new AlertPage(Alert.danger(message)), request))
+                        .template("fragments/bootstrap/alert", new AlertPage(Alert.danger(message)))
                         .update());
             }
             if (HttpRequestUtils.acceptsHtml(request)) {
@@ -87,10 +77,10 @@ class SubscriberEditController {
         SubscriberDetail subscriber = subscriberOptional.get();
         SubscriberEditForm subscriberEditForm = new SubscriberEditForm(subscriber.getId(), subscriber.getEmail(), subscriber.getName());
         if (turboFrame != null) {
-            return TurboResponse.ok(TurboStream
+            return HttpResponse.ok(TurboStream
                             .builder()
                             .targetDomId(turboFrame)
-                            .template(viewsRenderer.render("subscriber/fragments/edit", new SubscriberEditModel(subscriberEditForm), request))
+                            .template("subscriber/fragments/edit", new SubscriberEditModel(subscriberEditForm))
                             .update());
         }
         return HttpResponse.ok(new ModelAndView<>("subscriber/edit",  new SubscriberEditModel(subscriberEditForm)));

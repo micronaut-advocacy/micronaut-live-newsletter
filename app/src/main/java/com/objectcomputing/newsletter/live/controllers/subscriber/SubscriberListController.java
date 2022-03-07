@@ -18,10 +18,7 @@ import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.views.ModelAndView;
-import io.micronaut.views.ViewsRenderer;
-import io.micronaut.views.turbo.TurboResponse;
 import io.micronaut.views.turbo.TurboStream;
-import io.micronaut.views.turbo.TurboStreamUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.slf4j.Logger;
@@ -29,18 +26,15 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
-import static io.micronaut.views.turbo.TurboHttpHeaders.TURBO_FRAME;
+import static io.micronaut.views.turbo.http.TurboHttpHeaders.TURBO_FRAME;
 
 @Controller("/subscriber")
 public class SubscriberListController {
     private static final Logger LOG = LoggerFactory.getLogger(SubscriberListController.class);
     private final SubscriberListService subscriberListService;
-    private final ViewsRenderer<Map<String, Object>> viewsRenderer;
 
-    public SubscriberListController(SubscriberListService subscriberListService,
-                                    ViewsRenderer<Map<String, Object>> viewsRenderer) {
+    public SubscriberListController(SubscriberListService subscriberListService) {
         this.subscriberListService = subscriberListService;
-        this.viewsRenderer = viewsRenderer;
     }
 
     @Operation(operationId = "subscriber-list",
@@ -57,12 +51,12 @@ public class SubscriberListController {
                           HttpRequest<?> request,
                           @Nullable @Header(TURBO_FRAME) String turboFrame) {
         SubscriberListModel subscriberListPage = subscriberListService.findAll(page != null ? page : 1);
-        if (TurboStreamUtils.supportsTurboStream(request)) {
+        if (turboFrame != null) {
             Map<String, Object> data = CollectionUtils.mapOf("rows", subscriberListPage.getRows(), "pagination", subscriberListPage.getPagination());
-            return TurboResponse.ok(TurboStream
+            return HttpResponse.ok(TurboStream
                     .builder()
                     .targetDomId(turboFrame)
-                    .template(viewsRenderer.render("subscriber/fragments/table", data, request))
+                    .template("subscriber/fragments/table", data)
                     .update());
         }
         return HttpResponse.ok(new ModelAndView<>("subscriber/list", subscriberListPage));

@@ -20,30 +20,25 @@ import com.objectcomputing.newsletter.live.services.SubscriberSaveService;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.views.ModelAndView;
-import io.micronaut.views.ViewsRenderer;
-import io.micronaut.views.turbo.TurboHttpHeaders;
-import io.micronaut.views.turbo.TurboResponse;
 import io.micronaut.views.turbo.TurboStream;
 import jakarta.annotation.security.PermitAll;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
-import static io.micronaut.views.turbo.TurboHttpHeaders.TURBO_FRAME;
+
+import static io.micronaut.views.turbo.http.TurboHttpHeaders.TURBO_FRAME;
 
 @Controller("/subscriber")
 class SubscriberSaveController {
 
     private final LocalizedMessageSource messageSource;
     private final SubscriberSaveService subscriberSaveService;
-    private final ViewsRenderer<Map<String, Object>> viewsRenderer;
 
     SubscriberSaveController(LocalizedMessageSource messageSource,
-                             SubscriberSaveService subscriberSaveService,
-                             ViewsRenderer<Map<String, Object>> viewsRenderer) {
+                             SubscriberSaveService subscriberSaveService) {
         this.messageSource = messageSource;
         this.subscriberSaveService = subscriberSaveService;
-        this.viewsRenderer = viewsRenderer;
     }
 
     @ExecuteOn(TaskExecutors.IO)
@@ -57,10 +52,10 @@ class SubscriberSaveController {
         subscriberSaveService.save(new Subscriber(form.getEmail(), null));
         String message = messageSource.getMessageOrDefault("subscriber.confirmation.email", "Please, check your email and confirm your subscription");
         if (turboFrame != null) {
-            return TurboResponse.ok(TurboStream
+            return HttpResponse.ok(TurboStream
                             .builder()
                             .targetDomId(turboFrame)
-                            .template(viewsRenderer.render("fragments/bootstrap/alert", CollectionUtils.mapOf("text", "message", "class", "alert-info"), request))
+                            .template("fragments/bootstrap/alert", CollectionUtils.mapOf("text", "message", "class", "alert-info"))
                             .update());
         }
         Map<String, Object> model = new HashMap<>();

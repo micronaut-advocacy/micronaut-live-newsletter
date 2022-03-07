@@ -11,7 +11,8 @@ import io.micronaut.http.client.BlockingHttpClient
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
-import io.micronaut.views.turbo.TurboHttpHeaders
+import io.micronaut.views.turbo.http.TurboHttpHeaders
+import io.micronaut.views.turbo.http.TurboMediaType
 import jakarta.inject.Inject
 import spock.lang.Specification
 
@@ -29,7 +30,7 @@ class SubscriberUpdateControllerValidationFailedWithTurboSpec extends Specificat
         String email = 'tcook'
         HttpRequest<?> request = HttpRequest.POST('/subscriber/update', [id: id, name: name, email: email])
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED +";charset=UTF-8")
-                .accept(MediaType.TEXT_HTML, MediaType.APPLICATION_XHTML, TurboHttpHeaders.TURBO_STREAM)
+                .accept(MediaType.TEXT_HTML, MediaType.APPLICATION_XHTML, TurboMediaType.TURBO_STREAM)
                 .header(HttpHeaders.USER_AGENT, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.2 Safari/605.1.15")
                 .header(TurboHttpHeaders.TURBO_FRAME, "subscriber-container")
         BlockingHttpClient client = httpClient.toBlocking()

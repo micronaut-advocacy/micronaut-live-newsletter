@@ -19,26 +19,21 @@ import io.micronaut.http.exceptions.HttpStatusException;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.views.ModelAndView;
-import io.micronaut.views.ViewsRenderer;
-import io.micronaut.views.turbo.TurboResponse;
 import io.micronaut.views.turbo.TurboStream;
-import io.micronaut.views.turbo.TurboStreamUtils;
 import java.util.Optional;
 
-import static io.micronaut.views.turbo.TurboHttpHeaders.TURBO_FRAME;
+import static io.micronaut.views.turbo.http.TurboHttpHeaders.TURBO_FRAME;
 
 @Controller
 public class NewsletterShowController {
 
     private final NewsletterShowService newsletterShowService;
     private final LocalizedMessageSource messageSource;
-    private final ViewsRenderer<Model> viewsRenderer;
 
     NewsletterShowController(NewsletterShowService newsletterShowService,
-                             LocalizedMessageSource messageSource, ViewsRenderer<Model> viewsRenderer) {
+                             LocalizedMessageSource messageSource) {
         this.newsletterShowService = newsletterShowService;
         this.messageSource = messageSource;
-        this.viewsRenderer = viewsRenderer;
     }
 
     @Produces(MediaType.TEXT_HTML)
@@ -54,12 +49,10 @@ public class NewsletterShowController {
             throw new HttpStatusException(HttpStatus.NOT_FOUND, exceptionMessage);
         }
         NewsletterShowModel model = new NewsletterShowModel(newsletterOptional.get());
-        if (TurboStreamUtils.supportsTurboStream(request)) {
-             TurboStream.Builder builder = TurboStream.builder();
-             if (turboFrame != null) {
-                 builder.targetDomId(turboFrame);
-             }
-            return TurboResponse.ok(builder.template(viewsRenderer.render("newsletter/fragments/show", model, request))
+        if (turboFrame != null) {
+            return HttpResponse.ok(TurboStream.builder()
+                    .template("newsletter/fragments/show", model)
+                    .targetDomId(turboFrame)
                     .update());
         }
         return HttpResponse.ok(new ModelAndView<>("newsletter/show", model));

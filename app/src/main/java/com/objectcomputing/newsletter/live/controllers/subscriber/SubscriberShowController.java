@@ -1,5 +1,8 @@
 package com.objectcomputing.newsletter.live.controllers.subscriber;
 
+import com.objectcomputing.newsletter.live.services.SubscriberShowService;
+import com.objectcomputing.newsletter.live.views.SubscriberDetail;
+import com.objectcomputing.newsletter.live.views.SubscriberDetailPage;
 import io.micronaut.context.LocalizedMessageSource;
 import io.micronaut.core.annotation.Nullable;
 import io.micronaut.http.HttpRequest;
@@ -13,39 +16,29 @@ import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.exceptions.HttpStatusException;
-import com.objectcomputing.newsletter.live.services.SubscriberShowService;
-import com.objectcomputing.newsletter.live.views.SubscriberDetail;
-import com.objectcomputing.newsletter.live.views.SubscriberDetailPage;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import io.micronaut.views.ModelAndView;
-import io.micronaut.views.ViewsRenderer;
-import io.micronaut.views.turbo.TurboResponse;
 import io.micronaut.views.turbo.TurboStream;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import java.util.Collections;
-import java.util.Map;
 import java.util.Optional;
 
-import static io.micronaut.views.turbo.TurboHttpHeaders.TURBO_FRAME;
+import static io.micronaut.views.turbo.http.TurboHttpHeaders.TURBO_FRAME;
 
 @Controller("/subscriber")
 class SubscriberShowController {
 
     private final LocalizedMessageSource messageSource;
     private final SubscriberShowService subscriberShowService;
-    private final ViewsRenderer<Map<String, Object>> viewsRenderer;
-
     SubscriberShowController(LocalizedMessageSource messageSource,
-                             SubscriberShowService subscriberShowService,
-                             ViewsRenderer<Map<String, Object>> viewsRenderer) {
+                             SubscriberShowService subscriberShowService) {
         this.messageSource = messageSource;
         this.subscriberShowService = subscriberShowService;
-        this.viewsRenderer = viewsRenderer;
     }
 
     @Operation(operationId = "subscriber-show",
@@ -68,10 +61,10 @@ class SubscriberShowController {
         }
         SubscriberDetail subscriber = subscriberOptional.get();
         if (turboFrame != null) {
-            return TurboResponse.ok(TurboStream
+            return HttpResponse.ok(TurboStream
                             .builder()
                             .targetDomId(turboFrame)
-                            .template(viewsRenderer.render("subscriber/fragments/show", Collections.singletonMap("subscriber", subscriber), request))
+                            .template("subscriber/fragments/show", Collections.singletonMap("subscriber", subscriber))
                             .update());
         }
         SubscriberDetailPage page = new SubscriberDetailPage(subscriber);

@@ -3,32 +3,25 @@ package com.objectcomputing.newsletter.live.controllers.subscriber;
 import com.objectcomputing.newsletter.live.controllers.HttpRequestUtils;
 import com.objectcomputing.newsletter.live.views.FormModel;
 import com.objectcomputing.newsletter.live.views.validation.Errors;
-import com.objectcomputing.newsletter.live.views.validation.FieldError;
 import com.objectcomputing.newsletter.live.views.validation.LocalizedErrorsImpl;
 import com.objectcomputing.newsletter.live.views.validation.ViolationUtils;
 import io.micronaut.context.LocalizedMessageSource;
 import io.micronaut.core.annotation.NonNull;
-import io.micronaut.core.annotation.Nullable;
-import io.micronaut.core.beans.BeanIntrospection;
-import io.micronaut.core.beans.BeanWrapper;
-import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Error;
-import io.micronaut.http.annotation.Header;
 import io.micronaut.http.annotation.Produces;
 import io.micronaut.views.ModelAndView;
 import io.micronaut.views.ViewsRenderer;
-import io.micronaut.views.turbo.TurboResponse;
 import io.micronaut.views.turbo.TurboStream;
+import io.micronaut.views.turbo.http.TurboMediaType;
+
 import javax.validation.ConstraintViolationException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import static io.micronaut.views.turbo.TurboHttpHeaders.TURBO_FRAME;
+
+import static io.micronaut.views.turbo.http.TurboHttpHeaders.TURBO_FRAME;
+
 
 public abstract class FormController<T> {
     private final ViewsRenderer<FormModel<T>> viewsRenderer;
@@ -52,7 +45,7 @@ public abstract class FormController<T> {
                                               @NonNull @Body T form,
                                               @NonNull ConstraintViolationException ex) {
         ModelAndView<? extends FormModel<T>> modelAndView = getModel(request, ex, form);
-        return HttpRequestUtils.acceptsTurboStream(request) ?
+        return HttpRequestUtils.accepts(request, TurboMediaType.TURBO_STREAM) ?
                 turboResponse(request, modelAndView) :
                 HttpResponse.ok(modelAndView);
     }
@@ -61,7 +54,7 @@ public abstract class FormController<T> {
     protected ModelAndView<? extends FormModel<T>> getModel(@NonNull HttpRequest<?> request,
                                                             @NonNull ConstraintViolationException ex,
                                                             @NonNull T form) {
-        ModelAndView<? extends FormModel<T>> modelAndView = HttpRequestUtils.acceptsTurboStream(request) ?
+        ModelAndView<? extends FormModel<T>> modelAndView = HttpRequestUtils.accepts(request, TurboMediaType.TURBO_STREAM) ?
             turboValidationFailedModelAndView(form) : validationFailedModelAndView(form);
         Errors errors = ViolationUtils.createErrors(ex);
         modelAndView.getModel().ifPresent(m -> m.setErrors(new LocalizedErrorsImpl(localizedMessageSource, errors)));
@@ -80,7 +73,7 @@ public abstract class FormController<T> {
             if (turboFrame != null) {
                 builder = builder.targetDomId(turboFrame);
             }
-            return TurboResponse.ok(builder.update());
+            return HttpResponse.ok(builder.update());
         }
         return HttpResponse.notFound();
     }
