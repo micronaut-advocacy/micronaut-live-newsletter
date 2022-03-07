@@ -1,5 +1,6 @@
 package com.objectcomputing.newsletter.live.controllers
 
+import com.objectcomputing.newsletter.live.controllers.subscriber.SubscriberUrlMappings
 import io.micronaut.context.annotation.Property
 import io.micronaut.core.util.StringUtils
 import io.micronaut.http.HttpRequest
@@ -42,7 +43,7 @@ class SubscriberShowControllerSpec  extends Specification implements PostgresTes
 
         when:
         String id = idOptional.get()
-        HttpRequest<?> request = HttpRequest.GET(UriBuilder.of('/subscriber').path(id).build())
+        HttpRequest<?> request = HttpRequest.GET(SubscriberUrlMappings.show(id))
                 .accept(MediaType.TEXT_HTML)
         String html = client.retrieve(request)
 

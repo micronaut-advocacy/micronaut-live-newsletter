@@ -40,6 +40,7 @@ class SubscriberUpdateController extends FormController<SubscriberEditForm> {
     HttpResponse<?> update(@Body @NonNull @NotNull @Valid SubscriberEditForm form) {
         subscriberUpdateService.update(new SubscriberDetail(form.getId(), form.getEmail(), form.getName()));
         return HttpResponse.seeOther(UriBuilder.of("/subscriber")
+                .path("show")
                 .path(form.getId())
                 .build());
     }

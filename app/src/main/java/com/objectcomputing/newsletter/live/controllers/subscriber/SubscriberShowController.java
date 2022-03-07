@@ -57,7 +57,7 @@ class SubscriberShowController {
     @Secured(SecurityRule.IS_AUTHENTICATED)
     @Produces(MediaType.TEXT_HTML)
     @Consumes(MediaType.TEXT_HTML)
-    @Get("/{id}")
+    @Get("/show/{id}")
     HttpResponse<?> show(@PathVariable String id,
                   HttpRequest<?> request,
                   @Nullable @Header(TURBO_FRAME) String turboFrame) {
