@@ -53,14 +53,14 @@ dependencies {
     implementation("io.micronaut.security:micronaut-security-oauth2")
     implementation("io.micronaut.security:micronaut-security-jwt")
 
-    implementation("io.micronaut.email:micronaut-email-sendgrid:1.0.0")
+    implementation("io.micronaut.email:micronaut-email-sendgrid")
 
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("org.postgresql:postgresql")
 
-    annotationProcessor("io.micronaut.serde:micronaut-serde-processor:$serdeVersion")
-    implementation("io.micronaut.serde:micronaut-serde-api:$serdeVersion")
-    testImplementation("io.micronaut.serde:micronaut-serde-api:$serdeVersion")
+    annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
+    implementation("io.micronaut.serde:micronaut-serde-api")
+    testImplementation("io.micronaut.serde:micronaut-serde-api")
 
     testImplementation("org.testcontainers:postgresql")
     testImplementation("org.testcontainers:spock")
@@ -71,7 +71,7 @@ if (Boolean.valueOf(rootProject.property('useSerde') as String)) {
 configurations.all {
     resolutionStrategy.dependencySubstitution {
         substitute(module("io.micronaut:micronaut-jackson-databind"))
-                .using(module("io.micronaut.serde:micronaut-serde-jackson:$serdeVersion"))
+                .using(module("io.micronaut.serde:micronaut-serde-jackson:1.0.0"))
     }
 }
 }
