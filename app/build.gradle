@@ -10,6 +10,7 @@ version = "0.1"
 group = "com.objectcomputing.newsletter"
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
@@ -115,4 +116,10 @@ jacocoTestCoverageVerification {
 
 graalvmNative.toolchainDetection = false
 
+configurations.all {
+    resolutionStrategy {
+        force "io.micronaut.views:micronaut-views-thymeleaf:3.2.0-SNAPSHOT"
+        force "io.micronaut.views:micronaut-views-core:3.2.0-SNAPSHOT"
+    }
+}
 
